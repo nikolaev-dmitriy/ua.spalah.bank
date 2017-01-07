@@ -1,4 +1,3 @@
-import models.accounts.AccountType;
 import models.accounts.CheckingAccount;
 
 /**
@@ -7,8 +6,6 @@ import models.accounts.CheckingAccount;
 public class Main {
     public static void main(String[] args) {
         CheckingAccount ck=new CheckingAccount(1000,500);
-        System.out.println(ck.getClass().getSimpleName());
-        System.out.println(ck.getType().toString());
-        System.out.println(AccountType.CHECKING.toString());
+
     }
 }

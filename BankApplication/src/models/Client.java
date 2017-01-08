@@ -41,14 +41,15 @@ public class Client {
         return accounts;
     }
     @Override
-    public String toString(){
-        String s;
-        s="Client's " + this.getName()+" ("+this.getGender()+")"+" information: ";
-        for(Account account : accounts) {
-            s += account.toString();
-        }
-        return s;
+    public String toString() {
+        return "\nClient{" +
+                "name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ",\nactiveAccount:" + activeAccount +
+                "\naccounts=" + accounts +
+                "}";
     }
+
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;

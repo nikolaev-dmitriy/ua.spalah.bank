@@ -5,13 +5,13 @@ package models.accounts;
  */
 public class SavingAccount implements Account {
     private double balance;
-
+    private AccountType accountType =AccountType.SAVING;
     public  SavingAccount(double balance) {
-        if (balance>=0) {
+        if (balance>0) {
             this.balance = balance;
         }
         else {
-            System.out.println("You cant do it, because your balance will be negative");
+            throw new IllegalArgumentException("Balance can't be negative");
         }
     }
     public AccountType getType(){
@@ -21,19 +21,31 @@ public class SavingAccount implements Account {
         if (this.getClass().getSimpleName().equalsIgnoreCase("CheckingAccount")){
             return AccountType.CHECKING;
         }
-        return null;
+        throw new NullPointerException("AccountType Error");
     }
     public void setBalance(double balance) {
+       if(balance>=0){
         this.balance = balance;
+        }else{
+           throw new IllegalArgumentException("Balance can't be negative");
+       }
     }
 
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
+//    @Override
+//    public String toString(){
+//        return  "Account type: Saving Accounts"+", balance: "+this.getBalance()+"; ";
+//    }
+
     @Override
-    public String toString(){
-        return  "Account type: Saving Accounts"+", balance: "+this.getBalance()+"; ";
+    public String toString() {
+        return "\nSavingAccount{" +
+                "balance=" + balance +
+                ", accountType=" + this.getType()+
+                "}";
     }
 }
 

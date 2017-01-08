@@ -5,16 +5,33 @@ package models.accounts;
  */
 public class CheckingAccount extends SavingAccount {
     private double overdraft;
-
+    private AccountType accountType = AccountType.CHECKING;
     public double getOverdraft() {
         return overdraft;
     }
     public CheckingAccount(double balance, double overdraft) {
         super(balance);
-        this.overdraft = overdraft;
+        if (overdraft>0){
+            this.overdraft = overdraft;
+        }else{
+            throw new IllegalArgumentException("Overdraft can't be negative");
+        }
     }
+
+    public void setOverdraft(double overdraft) {
+        if (overdraft>0){
+        this.overdraft = overdraft;
+        }else{
+            throw new IllegalArgumentException("Overdraft can't be negative");
+        }
+    }
+
     @Override
-    public String  toString(){
-        return "Account type: Checking Accounts"+", balance: "+this.getBalance()+", overdraft: "+this.overdraft+"; ";
+    public String toString() {
+        return "\nCheckingAccount{" +
+                "balance="+super.getBalance()+
+                ", overdraft=" + overdraft +
+                ", accountType=" + accountType +
+                "}";
     }
 }

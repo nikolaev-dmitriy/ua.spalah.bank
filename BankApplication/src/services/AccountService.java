@@ -1,5 +1,6 @@
 package services;
 
+import exceptions.NotEnoughFundsException;
 import models.accounts.Account;
 
 /**
@@ -7,6 +8,6 @@ import models.accounts.Account;
  */
 public interface AccountService {
     void deposit(Account account, double amount);
-    void withdraw(Account account,double amount);
-    void transfer(Account fromAccount, Account toAccount, double amount);
+    void withdraw(Account account,double amount)throws NotEnoughFundsException;
+    void transfer(Account fromAccount, Account toAccount, double amount)throws NotEnoughFundsException;
 }

@@ -1,41 +1,53 @@
 package services.impl;
 
+import exceptions.BankException;
+import exceptions.ClientNotFoundException;
 import models.Bank;
 import models.Client;
 import models.accounts.Account;
 import services.ClientService;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Man on 07.01.2017.
  */
 public class ClientServiceImpl implements ClientService {
     @Override
-    public Client findClientByName(Bank bank, String name){
-        ArrayList<Client> clients=bank.getClients();
-        for(Client client :clients ){
+    public Client findClientByName(Bank bank, String name)throws ClientNotFoundException{
+        for(Client client :bank.getClients() ){
             if(client.getName().equalsIgnoreCase(name)){
                 return client;
             }
         }
-        return null;
+        throw new ClientNotFoundException("Client "+name+" not found");
     }
     @Override
-    public Client saveClient(Bank bank, Client client){
-        bank.getClients().add(client);
-        return client;
+    public Client saveClient(Bank bank, Client client)throws BankException{
+        if(!bank.getClients().contains(client)) {
+            bank.getClients().add(client);
+            return client;
+        }else{
+            throw new BankException("Client "+client.getName() +" has already registered") ;
+        }
     }
     @Override
-    public ArrayList<Client> findAllClients(Bank bank) {
+    public ArrayList<Client> findAllClients(Bank bank)throws ClientNotFoundException {
+        if(bank.getClients().size()>0){
         return bank.getClients();
+        }else{
+            throw new ClientNotFoundException("Database is clear");
+        }
     }
     @Override
     public void deleteClient(Bank bank,Client client){
         ArrayList<Client> clients = bank.getClients();
-        for(Client deletedClient:clients){
+        Iterator<Client> iterator =clients.iterator();
+        while(iterator.hasNext()){
+            Client deletedClient=iterator.next();
             if(deletedClient.equals(client)){
-                clients.remove(deletedClient);
+                iterator.remove();
             }
         }
     }
@@ -53,14 +65,5 @@ public class ClientServiceImpl implements ClientService {
             client.setActiveAccount(account);
         }
             client.getAccounts().add(account);
-    }
-    @Override
-    public String getClientInfo(Bank bank,String name){
-    for(Client client : bank.getClients()){
-        if(client.getName().equalsIgnoreCase(name)){
-            return client.toString();
-        }
-    }
-    return null;
     }
 }

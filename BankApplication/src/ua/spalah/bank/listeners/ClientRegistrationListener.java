@@ -1,6 +1,6 @@
-package listeners;
+package ua.spalah.bank.listeners;
 
-import models.Client;
+import ua.spalah.bank.models.Client;
 
 /**
  * Created by Man on 07.01.2017.

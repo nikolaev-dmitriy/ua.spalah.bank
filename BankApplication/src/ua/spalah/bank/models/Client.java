@@ -1,8 +1,10 @@
-package models;
+package ua.spalah.bank.models;
 
-import models.accounts.Account;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.type.Gender;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,9 +12,14 @@ import java.util.Objects;
  */
 public class Client {
     private String name;
-    private String gender;
+    private Gender gender;
     private Account activeAccount;
-    private ArrayList <Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
+
+    public Client(String name, Gender gender) {
+        this.name = name;
+        this.gender = gender;
+    }
 
     public void setActiveAccount(Account activeAccount) {
         this.activeAccount = activeAccount;
@@ -22,33 +29,28 @@ public class Client {
         return activeAccount;
     }
 
-    public Client(String name, String gender) {
-        this.name = name;
-        this.gender = gender;
-        accounts = new ArrayList<>();
-    }
-
     public String getName() {
         return name;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-
-    public ArrayList<Account> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
+
     @Override
-    public String toString(){
-        String s;
-        s="Client's " + this.getName()+" ("+this.getGender()+")"+" information: ";
-        for(Account account : accounts) {
-            s += account.toString();
-        }
-        return s;
+    public String toString() {
+        return "Client{" +
+                "name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ",\nactiveAccount:" + activeAccount +
+                "\naccounts=" + accounts +
+                "}";
     }
+
     @Override
     public boolean equals(Object otherObject) {
         if (this == otherObject) return true;
@@ -57,6 +59,7 @@ public class Client {
         Client other = (Client) otherObject;
         return Objects.equals(name, other.name) && Objects.equals(gender, other.gender);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, gender);

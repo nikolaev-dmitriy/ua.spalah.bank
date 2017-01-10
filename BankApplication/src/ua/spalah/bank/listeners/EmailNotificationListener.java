@@ -1,13 +1,13 @@
-package listeners;
+package ua.spalah.bank.listeners;
 
-import models.Client;
+import ua.spalah.bank.models.Client;
 
 /**
  * Created by Man on 07.01.2017.
  */
 public class EmailNotificationListener implements ClientRegistrationListener {
     @Override
-    public void onClientAdded(Client client){
+    public void onClientAdded(Client client) {
         System.out.println(("Notification email for client " + client.getName() + " has been sent"));
     }
 }

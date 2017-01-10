@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6194fdd2-cfe5-4fdf-a34f-c8bf6676add6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/accounts/Account.java" afterPath="$PROJECT_DIR$/src/models/accounts/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/accounts/CheckingAccount.java" afterPath="$PROJECT_DIR$/src/models/accounts/CheckingAccount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/accounts/SavingAccount.java" afterPath="$PROJECT_DIR$/src/models/accounts/SavingAccount.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/impl/AccountServiceImpl.java" afterPath="$PROJECT_DIR$/src/services/impl/AccountServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/impl/BankReportServiceImpl.java" afterPath="$PROJECT_DIR$/src/services/impl/BankReportServiceImpl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,7 +17,20 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AccountServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/services/impl/AccountServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="248">
+              <caret line="32" column="41" lean-forward="false" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -741,7 +749,7 @@
       <workItem from="1483807379545" duration="16979000" />
       <workItem from="1483877343391" duration="793000" />
       <workItem from="1484058048385" duration="5348000" />
-      <workItem from="1484065558687" duration="1920000" />
+      <workItem from="1484065558687" duration="2600000" />
     </task>
     <task id="LOCAL-00001" summary="commit 1">
       <created>1483807540200</created>
@@ -792,11 +800,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484063419356</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Abstract class Account added&#10;">
+      <created>1484067623006</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1484067623006</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34834000" />
+    <option name="totallyTimeSpent" value="35514000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -865,7 +880,8 @@
     <MESSAGE value="Constructor fixed" />
     <MESSAGE value="withdraw fixed" />
     <MESSAGE value="withdraw fixed 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="withdraw fixed 2" />
+    <MESSAGE value="Abstract class Account added&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Abstract class Account added&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1139,16 +1155,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/impl/AccountServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="32" column="41" lean-forward="false" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/accounts/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1188,6 +1194,16 @@
           <folding>
             <element signature="e#317#318#0" expanded="true" />
             <element signature="e#351#352#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/impl/AccountServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="32" column="41" lean-forward="false" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -5,6 +5,8 @@ package models.accounts;
  */
 public interface Account {
     AccountType getType();
+
     double getBalance();
+
     void setBalance(double balance);
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D://ua.spalah.java/BankApplication/BankApplication.iml" filepath="D://ua.spalah.java/BankApplication/BankApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BankApplication.iml" filepath="$PROJECT_DIR$/BankApplication.iml" />
     </modules>
   </component>
 </project>

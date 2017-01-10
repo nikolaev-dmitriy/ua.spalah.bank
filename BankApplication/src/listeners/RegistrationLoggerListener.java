@@ -10,7 +10,7 @@ import java.time.LocalTime;
  */
 public class RegistrationLoggerListener implements ClientRegistrationListener {
     @Override
-    public void onClientAdded(Client client){
+    public void onClientAdded(Client client) {
         System.out.println(("Client " + client.getName() + " added on " + LocalDate.now() + " " + LocalTime.now()));
     }
 }

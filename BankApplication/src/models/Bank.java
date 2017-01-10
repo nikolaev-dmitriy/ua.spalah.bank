@@ -7,9 +7,11 @@ import java.util.ArrayList;
  */
 public class Bank {
     private ArrayList<Client> clients;
-    public Bank(){
-        clients=new ArrayList<>();
+
+    public Bank() {
+        clients = new ArrayList<>();
     }
+
     public ArrayList<Client> getClients() {
         return clients;
     }

@@ -7,7 +7,7 @@ import models.Client;
  */
 public class EmailNotificationListener implements ClientRegistrationListener {
     @Override
-    public void onClientAdded(Client client){
+    public void onClientAdded(Client client) {
         System.out.println(("Notification email for client " + client.getName() + " has been sent"));
     }
 }

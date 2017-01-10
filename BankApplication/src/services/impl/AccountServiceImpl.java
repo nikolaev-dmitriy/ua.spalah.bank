@@ -26,10 +26,7 @@ public class AccountServiceImpl implements AccountService {
             if (account.getType().equals(CHECKING)) {
                 CheckingAccount checkingAccount = (CheckingAccount) account;
                 try {
-                    double credit = checkingAccount.getBalance() - amount;
-                    double overdraft = checkingAccount.getOverdraft() + credit;
-                    checkingAccount.setOverdraft(overdraft);
-                    checkingAccount.setBalance(0);
+                    checkingAccount.setBalance(checkingAccount.getBalance() - amount);
                 } catch (IllegalArgumentException e) {
                     throw new OverdraftLimitExceededException();
                 }

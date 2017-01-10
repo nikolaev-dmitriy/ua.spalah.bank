@@ -42,7 +42,7 @@ public class Client {
     }
     @Override
     public String toString() {
-        return "\n____________________________________________________________________________________________\nClient{" +
+        return "\n  ____________________________________________________________________________________________\nClient{" +
                 "name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ",\nactiveAccount:" + activeAccount +

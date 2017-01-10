@@ -1,7 +1,7 @@
-package services;
+package ua.spalah.bank.services;
 
-import exceptions.NotEnoughFundsException;
-import models.accounts.Account;
+import ua.spalah.bank.exceptions.NotEnoughFundsException;
+import ua.spalah.bank.models.accounts.Account;
 
 /**
  * Created by Man on 07.01.2017.

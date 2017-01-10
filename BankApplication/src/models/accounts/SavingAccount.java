@@ -8,11 +8,8 @@ public class SavingAccount implements Account {
     private AccountType accountType = AccountType.SAVING;
 
     public SavingAccount(double balance) {
-        if (balance > 0) {
-            this.balance = balance;
-        } else {
-            throw new IllegalArgumentException("Balance can't be negative");
-        }
+        setBalance(balance);
+
     }
 
     public AccountType getType() {

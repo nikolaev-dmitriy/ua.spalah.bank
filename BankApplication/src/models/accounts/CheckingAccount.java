@@ -13,11 +13,7 @@ public class CheckingAccount extends SavingAccount {
 
     public CheckingAccount(double balance, double overdraft) {
         super(balance);
-        if (overdraft > 0) {
-            this.overdraft = overdraft;
-        } else {
-            throw new IllegalArgumentException("Overdraft can't be negative");
-        }
+        setOverdraft(overdraft);
     }
 
     public void setOverdraft(double overdraft) {

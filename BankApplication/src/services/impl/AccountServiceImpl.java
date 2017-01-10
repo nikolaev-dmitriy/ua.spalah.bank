@@ -23,14 +23,14 @@ public class AccountServiceImpl implements AccountService {
 
     public void withdraw(Account account, double amount) throws NotEnoughFundsException {
         if (amount > account.getBalance()) {
-            if (account.getType().equals(CHECKING)) {
+            if (account.getAccountType().equals(CHECKING)) {
                 CheckingAccount checkingAccount = (CheckingAccount) account;
                 try {
                     checkingAccount.setBalance(checkingAccount.getBalance() - amount);
                 } catch (IllegalArgumentException e) {
                     throw new OverdraftLimitExceededException();
                 }
-            } else if (account.getType().equals(SAVING)) {
+            } else if (account.getAccountType().equals(SAVING)) {
                 throw new NotEnoughFundsException();
             }
         } else {

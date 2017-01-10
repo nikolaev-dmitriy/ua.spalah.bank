@@ -5,7 +5,6 @@ package models.accounts;
  */
 public class CheckingAccount extends SavingAccount {
     private double overdraft;
-    private double balance;
     private AccountType accountType = AccountType.CHECKING;
 
     public double getOverdraft() {
@@ -17,13 +16,15 @@ public class CheckingAccount extends SavingAccount {
         setOverdraft(overdraft);
     }
     @Override
-    public void setBalance(double balance){
-        if (balance >= -overdraft) {
-             this.balance = balance;
-        } else {
-            throw new IllegalArgumentException("Your credit is exceeded");
+    public void setBalance (double amount){
+        if (amount >= -overdraft) {
+            this.balance = amount;
+        }
+        else {
+            throw new IllegalArgumentException("Limit is exceeded. You can take a loan only "+overdraft);
         }
     }
+
     public void setOverdraft(double overdraft) {
         if (overdraft > 0) {
             this.overdraft = overdraft;

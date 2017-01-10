@@ -97,10 +97,10 @@ public class BankCommander {
                 commands[command - 1].execute();
 
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("\nWrong command number!");
+                System.out.println("Wrong command number!");
 
             } catch (InputMismatchException e) {
-                System.out.println("\nThis is not a number!");
+                System.out.println("This is not a number!");
             }
         }
     }

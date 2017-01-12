@@ -70,7 +70,8 @@ public class BankCommander {
 
             this.commands = new Command[]{
                     new FindClientCommand(clientService),
-                    new GetAccountsCommand()
+                    new GetAccountsCommand(),
+                    new DepositCommand(accountService)
             };
 
         } catch (Exception e) {

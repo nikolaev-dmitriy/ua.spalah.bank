@@ -69,7 +69,8 @@ public class BankCommander {
             currentBank = bank;
 
             this.commands = new Command[]{
-                    new FindClientCommand(clientService)
+                    new FindClientCommand(clientService),
+                    new GetAccountsCommand()
             };
 
         } catch (Exception e) {

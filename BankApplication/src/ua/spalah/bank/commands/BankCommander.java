@@ -76,7 +76,10 @@ public class BankCommander {
                     new DepositCommand(accountService),
                     new WithdrawCommand(accountService),
                     new TransferCommand(accountService,clientService),
-                    new RemoveClientCommand(clientService)
+                    new RemoveClientCommand(clientService),
+                    new AddClientCommand(clientService),
+                    new GetBankInfoCommand(bankReportService),
+                    new ExitCommand()
             };
 
         } catch (Exception e) {

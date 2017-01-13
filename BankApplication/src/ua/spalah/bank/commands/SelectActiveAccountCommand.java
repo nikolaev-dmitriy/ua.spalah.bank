@@ -11,13 +11,16 @@ import java.util.Scanner;
 public class SelectActiveAccountCommand implements Command {
     @Override
     public void execute() {
-        Scanner in=new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         List<Account> accountList = BankCommander.currentClient.getAccounts();
         System.out.println("Enter the number of account to set it active");
-        int i=in.nextInt();
-        BankCommander.currentClient.setActiveAccount(accountList.get(i-1));
+        int i = in.nextInt();
+        try {
+            BankCommander.currentClient.setActiveAccount(accountList.get(i - 1));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Account with this number is not existed");
+        }
     }
-
     @Override
     public String getCommandInfo() {
         return "Select active account for current client";

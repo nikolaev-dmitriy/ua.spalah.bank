@@ -1,6 +1,7 @@
 package ua.spalah.bank.commands;
 
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
+import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
 
 import java.util.Scanner;
@@ -17,11 +18,12 @@ public class WithdrawCommand implements Command  {
 
     @Override
     public void execute() {
+        Account activeAccount=BankCommander.currentClient.getActiveAccount();
         Scanner in=new Scanner(System.in);
         System.out.println("Enter amount to withdraw:");
         double amount =in.nextDouble();
         try{
-        accountService.withdraw(BankCommander.currentClient.getActiveAccount(), amount);
+        accountService.withdraw(activeAccount, amount);
         } catch (NotEnoughFundsException e) {
             System.out.println(e.getMessage());
         }

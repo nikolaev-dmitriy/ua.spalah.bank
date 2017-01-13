@@ -20,6 +20,7 @@ public class GetAccountsCommand implements Command {
                 s+="  "+i+". "+account.toString()+"\n";
             }
         }
+        System.out.println(s);
     }
 
     @Override

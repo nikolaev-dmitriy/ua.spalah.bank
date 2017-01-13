@@ -15,7 +15,7 @@ public class SelectActiveAccountCommand implements Command {
         List<Account> accountList = BankCommander.currentClient.getAccounts();
         System.out.println("Enter the number of account to set it active");
         int i=in.nextInt();
-        BankCommander.currentClient.setActiveAccount(accountList.get(i));
+        BankCommander.currentClient.setActiveAccount(accountList.get(i-1));
     }
 
     @Override

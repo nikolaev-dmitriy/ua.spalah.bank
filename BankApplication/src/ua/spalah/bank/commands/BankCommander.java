@@ -100,7 +100,11 @@ public class BankCommander {
             for (int i = 0; i < commands.length; i++) {
                 System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
             }
-
+            if (currentClient == null){
+                System.out.println("Current client is not selected");
+            } else {
+                System.out.println("Current client: "+currentClient.getName());
+            }
             Scanner in = new Scanner(System.in);
 
             try {

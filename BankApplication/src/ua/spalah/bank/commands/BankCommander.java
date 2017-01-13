@@ -113,6 +113,8 @@ public class BankCommander {
 
             } catch (InputMismatchException e) {
                 System.out.println("This is not a number!");
+            } catch (NullPointerException e) {
+                System.out.println("Current client is not selected");
             }
         }
     }

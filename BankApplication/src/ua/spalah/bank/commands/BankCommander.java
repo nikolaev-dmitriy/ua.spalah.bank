@@ -73,11 +73,13 @@ public class BankCommander {
             this.commands = new Command[]{
                     new FindClientCommand(clientService),
                     new GetAccountsCommand(),
+                    new SelectActiveAccountCommand(),
                     new DepositCommand(accountService),
                     new WithdrawCommand(accountService),
                     new TransferCommand(accountService,clientService),
-                    new RemoveClientCommand(clientService),
                     new AddClientCommand(clientService),
+                    new AddAccountCommand(clientService),
+                    new RemoveClientCommand(clientService),
                     new GetBankInfoCommand(bankReportService),
                     new ExitCommand()
             };

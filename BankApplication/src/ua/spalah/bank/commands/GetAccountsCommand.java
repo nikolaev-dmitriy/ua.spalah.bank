@@ -28,4 +28,9 @@ public class GetAccountsCommand implements Command {
     public String getCommandInfo() {
         return "Print current client's list of accounts";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return true;
+    }
 }

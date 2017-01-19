@@ -52,4 +52,11 @@ public class AddClientCommand implements Command {
     public String getCommandInfo() {
         return "Registration client";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return false;
+    }
+
+
 }

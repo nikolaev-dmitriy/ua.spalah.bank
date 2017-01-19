@@ -12,6 +12,7 @@ import ua.spalah.bank.services.impl.AccountServiceImpl;
 import ua.spalah.bank.services.impl.BankReportServiceImpl;
 import ua.spalah.bank.services.impl.ClientServiceImpl;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -76,7 +77,7 @@ public class BankCommander {
                     new SelectActiveAccountCommand(),
                     new DepositCommand(accountService),
                     new WithdrawCommand(accountService),
-                    new TransferCommand(accountService,clientService),
+                    new TransferCommand(accountService, clientService),
                     new AddClientCommand(clientService),
                     new AddAccountCommand(clientService),
                     new RemoveClientCommand(clientService),
@@ -94,33 +95,41 @@ public class BankCommander {
 
     public void run() {
         while (true) {
-
+            ArrayList <Integer> canBeSelected= new ArrayList<>(commands.length);
             System.out.print("\n");
-
-            for (int i = 0; i < commands.length; i++) {
-                System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
-            }
-            if (currentClient == null){
+            if (currentClient == null) {
+                for (int i = 0; i < commands.length; i++) {
+                    if (commands[i].currentClientIsNeeded() == false) {
+                        canBeSelected.add(i+1);
+                        System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+                    }
+                }
                 System.out.println("Current client is not selected");
             } else {
-                System.out.println("Current client: "+currentClient.getName());
+                for (int i = 0; i < commands.length; i++) {
+                    canBeSelected.add(i+1);
+                    System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+                }
+                System.out.println("Current client: " + currentClient.getName());
             }
-            Scanner in = new Scanner(System.in);
 
+            Scanner in = new Scanner(System.in);
             try {
                 System.out.print("\nEnter command number: ");
                 int command = in.nextInt();
-                commands[command - 1].execute();
-
+                if(canBeSelected.contains(command)) {
+                    commands[command - 1].execute();
+                } else {
+                    System.out.println("This command is not available");
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Wrong command number!");
 
             } catch (InputMismatchException e) {
                 System.out.println("This is not a number!");
-            } catch (NullPointerException e) {
-                System.out.println("Current client is not selected");
             }
         }
+
     }
 
     // запуск нашего приложения

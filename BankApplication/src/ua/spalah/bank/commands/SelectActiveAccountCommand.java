@@ -25,4 +25,9 @@ public class SelectActiveAccountCommand implements Command {
     public String getCommandInfo() {
         return "Select active account for current client";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return true;
+    }
 }

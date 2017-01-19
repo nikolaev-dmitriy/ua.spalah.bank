@@ -25,4 +25,9 @@ public class GetBankInfoCommand implements Command {
     public String getCommandInfo() {
         return "Print info about bank";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return false;
+    }
 }

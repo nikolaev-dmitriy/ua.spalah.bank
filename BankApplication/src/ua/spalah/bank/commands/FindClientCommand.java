@@ -31,4 +31,9 @@ class FindClientCommand implements Command {
     public String getCommandInfo() {
         return "Find client";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return false;
+    }
 }

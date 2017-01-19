@@ -33,4 +33,9 @@ public class WithdrawCommand implements Command  {
     public String getCommandInfo() {
         return "Withdraw amount from active account";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return true;
+    }
 }

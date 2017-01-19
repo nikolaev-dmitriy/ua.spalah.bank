@@ -40,4 +40,9 @@ public class TransferCommand implements Command {
     public String getCommandInfo() {
         return "Transfer from active account to another client's active account";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return true;
+    }
 }

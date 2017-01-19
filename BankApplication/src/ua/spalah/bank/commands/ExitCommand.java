@@ -13,4 +13,11 @@ public class ExitCommand implements Command {
     public String getCommandInfo() {
         return "Exit";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return false;
+    }
+
+
 }

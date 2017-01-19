@@ -60,4 +60,11 @@ public class AddAccountCommand implements Command {
     public String getCommandInfo() {
         return "Add account for client";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return true;
+    }
+
+
 }

@@ -27,4 +27,9 @@ public class DepositCommand implements Command {
     public String getCommandInfo() {
         return "Deposit amount to active account";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return true;
+    }
 }

@@ -33,4 +33,9 @@ public class RemoveClientCommand implements Command {
     public String getCommandInfo() {
         return "Remove client";
     }
+
+    @Override
+    public boolean currentClientIsNeeded() {
+        return false;
+    }
 }

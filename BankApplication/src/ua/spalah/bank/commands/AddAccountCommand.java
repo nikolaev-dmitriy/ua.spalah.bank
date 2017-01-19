@@ -50,8 +50,7 @@ public class AddAccountCommand implements Command {
                 break;
             }
             default: {
-                IllegalArgumentException e=new IllegalArgumentException("Incorrect input");
-                System.out.println(e.getMessage());
+                System.out.println("Incorrect input");
                 break;
             }
         }

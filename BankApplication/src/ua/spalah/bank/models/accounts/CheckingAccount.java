@@ -24,7 +24,7 @@ public class CheckingAccount extends SavingAccount {
 
     @Override
     public String toString() {
-        return "\nCheckingAccount{" +
+        return "CheckingAccount{" +
                 "balance=" + this.getBalance() +
                 ", overdraft=" + this.getOverdraft() +
                 ", accountType=" + this.getType() +

@@ -6,10 +6,13 @@ import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.accounts.SavingAccount;
 import ua.spalah.bank.models.type.Gender;
 import ua.spalah.bank.services.AccountService;
+import ua.spalah.bank.services.BankReportService;
 import ua.spalah.bank.services.ClientService;
 import ua.spalah.bank.services.impl.AccountServiceImpl;
+import ua.spalah.bank.services.impl.BankReportServiceImpl;
 import ua.spalah.bank.services.impl.ClientServiceImpl;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -35,7 +38,7 @@ public class BankCommander {
 
             ClientService clientService = new ClientServiceImpl();
             AccountService accountService = new AccountServiceImpl();
-
+            BankReportService bankReportService = new BankReportServiceImpl();
             Bank bank = new Bank();
 
             Client dima = new Client("Dima", Gender.MALE);
@@ -69,7 +72,17 @@ public class BankCommander {
             currentBank = bank;
 
             this.commands = new Command[]{
-                    new FindClientCommand(clientService)
+                    new FindClientCommand(clientService),
+                    new GetAccountsCommand(),
+                    new SelectActiveAccountCommand(),
+                    new DepositCommand(accountService),
+                    new WithdrawCommand(accountService),
+                    new TransferCommand(accountService, clientService),
+                    new AddClientCommand(clientService),
+                    new AddAccountCommand(clientService),
+                    new RemoveClientCommand(clientService),
+                    new GetBankInfoCommand(bankReportService),
+                    new ExitCommand()
             };
 
         } catch (Exception e) {
@@ -82,20 +95,33 @@ public class BankCommander {
 
     public void run() {
         while (true) {
-
+            ArrayList <Integer> canBeSelected= new ArrayList<>(commands.length);
             System.out.print("\n");
-
-            for (int i = 0; i < commands.length; i++) {
-                System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+            if (currentClient == null) {
+                for (int i = 0; i < commands.length; i++) {
+                    if (commands[i].currentClientIsNeeded() == false) {
+                        canBeSelected.add(i+1);
+                        System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+                    }
+                }
+                System.out.println("Current client is not selected");
+            } else {
+                for (int i = 0; i < commands.length; i++) {
+                    canBeSelected.add(i+1);
+                    System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+                }
+                System.out.println("Current client: " + currentClient.getName());
             }
 
             Scanner in = new Scanner(System.in);
-
             try {
                 System.out.print("\nEnter command number: ");
                 int command = in.nextInt();
-                commands[command - 1].execute();
-
+                if(canBeSelected.contains(command)) {
+                    commands[command - 1].execute();
+                } else {
+                    System.out.println("This command is not available");
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Wrong command number!");
 
@@ -103,6 +129,7 @@ public class BankCommander {
                 System.out.println("This is not a number!");
             }
         }
+
     }
 
     // запуск нашего приложения

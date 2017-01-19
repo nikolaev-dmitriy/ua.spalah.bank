@@ -36,7 +36,7 @@ public class SavingAccount implements Account {
 
     @Override
     public String toString() {
-        return "\nSavingAccount{" +
+        return "SavingAccount{" +
                 "balance=" + this.getBalance() +
                 ", accountType=" + this.getType() +
                 "}";

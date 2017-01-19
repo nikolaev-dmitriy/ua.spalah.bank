@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
             case CHECKING: {
                 double available = account.getBalance() + ((CheckingAccount) account).getOverdraft();
                 if (available >= amount) {
-                    account.setBalance(available - amount);
+                    account.setBalance(account.getBalance()- amount);
                 } else {
                     throw new OverdraftLimitExceededException(available);
                 }

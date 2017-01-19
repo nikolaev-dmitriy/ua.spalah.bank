@@ -9,18 +9,19 @@ public class GetAccountsCommand implements Command {
 
     @Override
     public void execute() {
-        String s=BankCommander.currentClient.getName()+"'s accounts:\n";
+        String accounts=BankCommander.currentClient.getName()+"'s accounts:\n";
         int i=0;
+        StringBuilder stringBuilder=new StringBuilder();
         for (Account account : BankCommander.currentClient.getAccounts()) {
             if (account.equals(BankCommander.currentClient.getActiveAccount())) {
-                i++;
-                s+="V "+i+". "+account.toString()+"\n";
+                stringBuilder.append("V");
+                stringBuilder.append(" " + (++i)+ "." + account + "\n");
             } else {
-                i++;
-                s+="  "+i+". "+account.toString()+"\n";
+                stringBuilder.append("  " + (++i)+ "." + account + "\n");
             }
         }
-        System.out.println(s);
+
+        System.out.println(accounts + stringBuilder.toString());
     }
 
     @Override

@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class SelectActiveAccountCommand implements Command {
     @Override
     public void execute() {
+        GetAccountsCommand getAccountsCommand = new GetAccountsCommand();
+        getAccountsCommand.execute();
         Scanner in = new Scanner(System.in);
         List<Account> accountList = BankCommander.currentClient.getAccounts();
         System.out.println("Enter the number of account to set it active");

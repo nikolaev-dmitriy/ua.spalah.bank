@@ -44,6 +44,8 @@ public class AddClientCommand implements Command {
         try {
             clientService.saveClient(BankCommander.currentBank, client);
             BankCommander.currentClient = client;
+            AddAccountCommand addAccountCommand = new AddAccountCommand(clientService);
+            addAccountCommand.execute();
         } catch (ClientAlreadyExistsException e) {
             System.out.println(e.getMessage());
         }

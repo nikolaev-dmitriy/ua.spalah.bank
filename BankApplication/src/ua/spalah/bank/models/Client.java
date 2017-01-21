@@ -13,6 +13,7 @@ import java.util.Objects;
 public class Client {
     private String name;
     private Gender gender;
+    String email;
     private Account activeAccount;
     private List<Account> accounts = new ArrayList<>();
 

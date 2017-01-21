@@ -13,13 +13,43 @@ import java.util.Objects;
 public class Client {
     private String name;
     private Gender gender;
-    String email;
+    private String email;
+    private String telephone;
+    private String city;
     private Account activeAccount;
     private List<Account> accounts = new ArrayList<>();
 
-    public Client(String name, Gender gender) {
+    public Client(String name, Gender gender, String email, String telephone, String city) {
         this.name = name;
         this.gender = gender;
+        this.email = email;
+        this.telephone = telephone;
+        this.city = city;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public void setActiveAccount(Account activeAccount) {
@@ -58,11 +88,11 @@ public class Client {
         if (otherObject == null) return false;
         if (getClass() != otherObject.getClass()) return false;
         Client other = (Client) otherObject;
-        return Objects.equals(name, other.name) && Objects.equals(gender, other.gender);
+        return Objects.equals(name, other.name) && Objects.equals(gender, other.gender) && Objects.equals(email, other.email)&& Objects.equals(telephone, other.telephone)&& Objects.equals(city, other.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, gender);
+        return Objects.hash(name, gender, city, email, telephone);
     }
 }

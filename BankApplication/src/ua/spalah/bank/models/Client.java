@@ -76,10 +76,13 @@ public class Client {
     public String toString() {
         return "\nClient{" +
                 "name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ",\nactiveAccount:" + activeAccount +
-                "\naccounts=" + accounts +
-                "}";
+                ", gender=" + gender +
+                ", e-mail='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", city='" + city + '\'' +
+                ", \nactiveAccount=" + activeAccount +
+                ", \naccounts=" + accounts +
+                '}';
     }
 
     @Override

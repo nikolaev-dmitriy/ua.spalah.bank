@@ -1,21 +1,17 @@
 package ua.spalah.bank.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Man on 07.01.2017.
  */
 public class Bank {
-    private List<Client> clients = new ArrayList<>();
-    ;
+    private Map<String,Client> clients = new HashMap<String,Client>();
 
-    public List<Client> getClients() {
+    public Map<String,Client> getClients() {
         return clients;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
 }
 

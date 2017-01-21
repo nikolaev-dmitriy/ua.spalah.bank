@@ -30,14 +30,17 @@ public class AddClientCommand implements Command {
         do {
             if (genderInt == 1) {
                 gender = Gender.MALE;
+                break;
             } else if (genderInt == 2) {
                 gender = Gender.FEMALE;
+                break;
             } else {
                 System.out.println("Incorrect input");
             }
         } while (genderInt != 1 || genderInt != 2);
         String email = "";
         String telephone = "";
+        in.nextLine();
         System.out.println("Enter your city:");
         String city = in.nextLine();
         do {
@@ -73,7 +76,7 @@ public class AddClientCommand implements Command {
     }
 
     private static boolean isValidPhone(String phone) {
-        String phoneRegex = "^((8|\\+38|\\+3)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$";
+        String phoneRegex = "^[+][0-9]{12}$";
         Pattern phonePattern = Pattern.compile(phoneRegex);
         Matcher phoneMatcher = phonePattern.matcher(phone);
         return phoneMatcher.matches();

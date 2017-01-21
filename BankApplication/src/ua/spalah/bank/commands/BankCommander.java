@@ -41,10 +41,10 @@ public class BankCommander {
             BankReportService bankReportService = new BankReportServiceImpl();
             Bank bank = new Bank();
 
-            Client dima = new Client("Dima", Gender.MALE);
-            Client misha = new Client("Misha", Gender.MALE);
-            Client masha = new Client("Masha", Gender.FEMALE);
-            Client kostya = new Client("Kostya", Gender.MALE);
+            Client dima = new Client("Dima", Gender.MALE, "florida124@yandex.ru","+380936678673","Dnipro");
+            Client misha = new Client("Misha", Gender.MALE, "mikokonst@yandex.ru","+38(066) 667 86 73","Dnipro");
+            Client masha = new Client("Masha", Gender.FEMALE, "sf4325gfd@yandex.ru","+380936345673","Dnipro");
+            Client kostya = new Client("Kostya", Gender.MALE, "fgd5454565546562@yandex.ru","0945675673","Kryvyi Rig");
 
             CheckingAccount dck = new CheckingAccount(1000, 800);
             SavingAccount dsa = new SavingAccount(3000);

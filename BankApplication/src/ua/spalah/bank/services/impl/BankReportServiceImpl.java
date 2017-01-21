@@ -7,6 +7,7 @@ import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.type.AccountType;
 import ua.spalah.bank.services.BankReportService;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class BankReportServiceImpl implements BankReportService {
     @Override
     public int getNumberOfAccounts(Bank bank) {
         int k = 0;
-        for (Client client : bank.getClients()) {
+        for (Client client : bank.getClients().values() ) {
             k += client.getAccounts().size();
         }
         return k;
@@ -31,7 +32,7 @@ public class BankReportServiceImpl implements BankReportService {
     @Override
     public double getTotalAccountSum(Bank bank) {
         double totalSum = 0;
-        for (Client client : bank.getClients()) {
+        for (Client client : bank.getClients().values()) {
             for (Account account : client.getAccounts()) {
                 totalSum += account.getBalance();
             }
@@ -42,7 +43,7 @@ public class BankReportServiceImpl implements BankReportService {
     @Override
     public double getBankCreditSum(Bank bank) {
         double totalCredit = 0;
-        for (Client client : bank.getClients()) {
+        for (Client client : bank.getClients().values()) {
             for (Account account : client.getAccounts()) {
                 if (account.getType().equals(AccountType.CHECKING)) {
                     CheckingAccount checkingAccount = (CheckingAccount) account;
@@ -55,7 +56,7 @@ public class BankReportServiceImpl implements BankReportService {
 
     @Override
     public List<Client> getClientsSortedByName(Bank bank) {
-        List<Client> clients = bank.getClients();
+        List<Client> clients = new ArrayList<Client>(bank.getClients().values());
         clients.sort(new Comparator<Client>() {
             @Override
             public int compare(Client client1, Client client2) {

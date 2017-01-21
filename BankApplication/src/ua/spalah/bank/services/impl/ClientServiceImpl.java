@@ -7,7 +7,7 @@ import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.ClientService;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Man on 07.01.2017.
@@ -15,7 +15,7 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     @Override
     public Client findClientByName(Bank bank, String name) throws ClientNotFoundException {
-        for (Client client : bank.getClients()) {
+        for (Client client : bank.getClients().values()) {
             if (client.getName().equalsIgnoreCase(name)) {
                 return client;
             }
@@ -25,8 +25,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client saveClient(Bank bank, Client client) throws ClientAlreadyExistsException {
-        if (!bank.getClients().contains(client)) {
-            bank.getClients().add(client);
+        if (!bank.getClients().values().contains(client)) {
+            bank.getClients().put(client.getName(), client) ;
             return client;
         } else {
             throw new ClientAlreadyExistsException(client.getName());
@@ -34,7 +34,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> findAllClients(Bank bank) {
+    public Map<String,Client> findAllClients(Bank bank) {
         return bank.getClients();
     }
 

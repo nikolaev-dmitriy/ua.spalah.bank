@@ -6,7 +6,7 @@ import ua.spalah.bank.services.ClientService;
 import java.util.Scanner;
 
 
-class FindClientCommand implements Command {
+public class FindClientCommand implements Command {
 
     private final ClientService clientService;
 

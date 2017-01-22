@@ -21,7 +21,11 @@ public class DepositCommand implements Command {
             Scanner in = new Scanner(System.in);
             System.out.println("Enter the amount to deposit");
             double amount = in.nextDouble();
-            accountService.deposit(activeAccount, amount);
+            try {
+                accountService.deposit(activeAccount, amount);
+            } catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
     }
     @Override
     public String getCommandInfo() {

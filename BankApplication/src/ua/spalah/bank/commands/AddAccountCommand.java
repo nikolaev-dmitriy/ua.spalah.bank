@@ -20,33 +20,46 @@ public class AddAccountCommand implements Command {
     @Override
     public void execute() {
         Scanner in = new Scanner(System.in);
-        Account account=null;
+        Account account = null;
+        double balance = 0;
+        double overdraft = 0;
         System.out.println("Enter the type of account:\n1.Saving account\n2.Checking account");
         int i = in.nextInt();
-        switch (i) {
-            case 1: {
-                System.out.println("Enter the start balance for your account");
-                double balance = in.nextDouble();
-                account = new SavingAccount(balance);
-                clientService.addAccount(BankCommander.currentClient, account);
-                selectThisAccountActive(in, account);
-                break;
+        while (balance <= 0 || overdraft < 0)
+            switch (i) {
+                case 1: {
+                    System.out.println("Enter the start balance for your account");
+                    balance = in.nextDouble();
+                    if (balance < 0) {
+                        System.out.println("Balance can't be negative");
+                        break;
+                    } else {
+                        account = new SavingAccount(balance);
+                        clientService.addAccount(BankCommander.currentClient, account);
+                        selectThisAccountActive(in, account);
+                        break;
+                    }
+                }
+                case 2: {
+                    System.out.println("Enter the start balance for your account");
+                    balance = in.nextDouble();
+                    System.out.println("Enter the overdraft for your account");
+                    overdraft = in.nextDouble();
+                    if (balance < 0 || overdraft < 0) {
+                        System.out.println("Balance or overdraft can't be negative");
+                        break;
+                    } else {
+                        account = new CheckingAccount(balance, overdraft);
+                        clientService.addAccount(BankCommander.currentClient, account);
+                        selectThisAccountActive(in, account);
+                        break;
+                    }
+                }
+                default: {
+                    System.out.println("Incorrect input");
+                    break;
+                }
             }
-            case 2: {
-                System.out.println("Enter the start balance for your account");
-                double balance = in.nextDouble();
-                System.out.println("Enter the overdraft for your account");
-                double overdraft = in.nextDouble();
-                account = new CheckingAccount(balance, overdraft);
-                clientService.addAccount(BankCommander.currentClient, account);
-                selectThisAccountActive(in, account);
-                break;
-            }
-            default: {
-                System.out.println("Incorrect input");
-                break;
-            }
-        }
     }
 
     private static void selectThisAccountActive(Scanner in, Account account) {
@@ -69,6 +82,7 @@ public class AddAccountCommand implements Command {
             }
         }
     }
+
     @Override
     public String getCommandInfo() {
         return "Add account for current client";

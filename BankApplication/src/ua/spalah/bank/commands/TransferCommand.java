@@ -31,7 +31,7 @@ public class TransferCommand implements Command {
             System.out.println("Enter amount to transfer");
             double amount=in.nextDouble();
             accountService.transfer(activeAccount, toTransferClient.getActiveAccount(), amount);
-        } catch (ClientNotFoundException | NotEnoughFundsException e) {
+        } catch (ClientNotFoundException | NotEnoughFundsException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -24,7 +24,7 @@ public class WithdrawCommand implements Command  {
         double amount =in.nextDouble();
         try{
         accountService.withdraw(activeAccount, amount);
-        } catch (NotEnoughFundsException e) {
+        } catch (NotEnoughFundsException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }

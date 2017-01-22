@@ -6,6 +6,6 @@ package ua.spalah.bank.exceptions;
 public class OverdraftLimitExceededException extends NotEnoughFundsException {
 
     public OverdraftLimitExceededException(double available) {
-        super("You exceeded your overdraft only $" + available);
+        super("You exceeded your overdraft, available only $" + available);
     }
 }

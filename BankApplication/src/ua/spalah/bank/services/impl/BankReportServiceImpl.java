@@ -7,9 +7,7 @@ import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.type.AccountType;
 import ua.spalah.bank.services.BankReportService;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Man on 07.01.2017.
@@ -64,5 +62,10 @@ public class BankReportServiceImpl implements BankReportService {
             }
         });
         return clients;
+    }
+
+    @Override
+    public Map<String, List<Client>> getClientsByCity(Bank bank) {
+        return null;
     }
 }

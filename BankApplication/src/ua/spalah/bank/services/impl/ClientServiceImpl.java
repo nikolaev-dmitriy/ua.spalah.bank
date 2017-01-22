@@ -25,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client saveClient(Bank bank, Client client) throws ClientAlreadyExistsException {
-        if (!bank.getClients().values().contains(client)) {
+        if (!bank.getClients().containsValue(client) ) {
             bank.getClients().put(client.getName(), client) ;
             return client;
         } else {
@@ -39,8 +39,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void deleteClient(Bank bank, Client client) {
-        bank.getClients().remove(client);
+    public void deleteClient(Bank bank, String name) {
+        bank.getClients().remove(name);
     }
 
     @Override

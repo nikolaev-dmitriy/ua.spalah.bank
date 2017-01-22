@@ -1,7 +1,6 @@
 package ua.spalah.bank.commands;
 
 import ua.spalah.bank.exceptions.ClientNotFoundException;
-import ua.spalah.bank.models.Client;
 import ua.spalah.bank.services.ClientService;
 
 import java.util.Scanner;
@@ -22,9 +21,16 @@ public class RemoveClientCommand implements Command {
         System.out.println("Enter the name of client, who will be removed");
         String name = in.nextLine();
         try {
-            Client client =clientService.findClientByName(BankCommander.currentBank, name);
-            if (BankCommander.currentClient == client) {BankCommander.currentClient = null;}
-            clientService.deleteClient(BankCommander.currentBank, client);
+            if (BankCommander.currentClient != null) {
+                if (BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
+                    BankCommander.currentClient = null;
+                }
+            }
+            if (BankCommander.currentBank.getClients().containsKey(name)) {
+                clientService.deleteClient(BankCommander.currentBank, name);
+            } else {
+                throw new ClientNotFoundException(name);
+            }
         } catch (ClientNotFoundException e) {
             System.out.println(e.getMessage());
         }

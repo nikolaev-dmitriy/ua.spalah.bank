@@ -21,11 +21,11 @@ public class AddAccountCommand implements Command {
     public void execute() {
         Scanner in = new Scanner(System.in);
         Account account = null;
-        double balance = 0;
-        double overdraft = 0;
+        double balance = -1;
+        double overdraft = -1;
         System.out.println("Enter the type of account:\n1.Saving account\n2.Checking account");
         int i = in.nextInt();
-        while (balance <= 0 || overdraft < 0)
+        while (balance < 0 || overdraft < 0)
             switch (i) {
                 case 1: {
                     System.out.println("Enter the start balance for your account");

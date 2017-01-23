@@ -53,15 +53,15 @@ public class BankReportServiceImpl implements BankReportService {
     }
 
     @Override
-    public List<Client> getClientsSortedByName(Bank bank) {
-        List<Client> clients = new ArrayList<Client>(bank.getClients().values());
-        clients.sort(new Comparator<Client>() {
-            @Override
-            public int compare(Client client1, Client client2) {
-                return client1.getName().compareTo(client2.getName());
-            }
-        });
-        return clients;
+    public Map<String,Client> getClientsSortedByName(Bank bank) {
+        //List<Client> clients = new ArrayList<Client>(bank.getClients().values());
+        //clients.sort(new Comparator<Client>() {
+          //  @Override
+            //public int compare(Client client1, Client client2) {
+              //  return client1.getName().compareTo(client2.getName());
+            //}
+        //});
+        return new TreeMap<>(bank.getClients());
     }
 
     @Override

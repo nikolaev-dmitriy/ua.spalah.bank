@@ -2,8 +2,6 @@ package ua.spalah.bank.commands;
 
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
-import ua.spalah.bank.models.Client;
-import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
 import ua.spalah.bank.services.ClientService;
 
@@ -22,15 +20,13 @@ public class TransferCommand implements Command {
 
     @Override
     public void execute() {
-        Account activeAccount=BankCommander.currentClient.getActiveAccount();
         Scanner in=new Scanner(System.in);
         System.out.println("Enter the name of client whom you want transfer amount");
         String name=in.nextLine();
         try {
-            Client toTransferClient = clientService.findClientByName(BankCommander.currentBank, name);
             System.out.println("Enter amount to transfer");
             double amount=in.nextDouble();
-            accountService.transfer(activeAccount, toTransferClient.getActiveAccount(), amount);
+            accountService.transfer(BankCommander.currentClient.getActiveAccount(), clientService.findClientByName(BankCommander.currentBank, name).getActiveAccount(), amount);
         } catch (ClientNotFoundException | NotEnoughFundsException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

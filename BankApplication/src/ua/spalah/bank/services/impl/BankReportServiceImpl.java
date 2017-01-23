@@ -21,7 +21,7 @@ public class BankReportServiceImpl implements BankReportService {
     @Override
     public int getNumberOfAccounts(Bank bank) {
         int k = 0;
-        for (Client client : bank.getClients().values() ) {
+        for (Client client : bank.getClients().values()) {
             k += client.getAccounts().size();
         }
         return k;
@@ -66,6 +66,15 @@ public class BankReportServiceImpl implements BankReportService {
 
     @Override
     public Map<String, List<Client>> getClientsByCity(Bank bank) {
-        return null;
+        Map<String, List<Client>> clientsByCity = new HashMap<>();
+        for (Client client : bank.getClients().values()) {
+            if (clientsByCity.containsKey(client.getCity())) {
+                clientsByCity.get(client.getCity()).add(client);
+            } else {
+                clientsByCity.put(client.getCity(), new ArrayList<>());
+                clientsByCity.get(client.getCity()).add(client);
+            }
+        }
+        return clientsByCity;
     }
 }

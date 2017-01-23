@@ -1,6 +1,5 @@
 package ua.spalah.bank.commands;
 
-import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
 
 import java.util.Scanner;
@@ -17,12 +16,11 @@ public class DepositCommand implements Command {
 
     @Override
     public void execute() {
-        Account activeAccount=BankCommander.currentClient.getActiveAccount();
             Scanner in = new Scanner(System.in);
             System.out.println("Enter the amount to deposit");
             double amount = in.nextDouble();
             try {
-                accountService.deposit(activeAccount, amount);
+                accountService.deposit(BankCommander.currentClient.getActiveAccount(), amount);
             } catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }

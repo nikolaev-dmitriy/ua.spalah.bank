@@ -2,8 +2,6 @@ package ua.spalah.bank.commands;
 
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
-import ua.spalah.bank.models.Client;
-import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
 import ua.spalah.bank.services.ClientService;
 
@@ -15,6 +13,7 @@ import java.util.Scanner;
 public class TransferCommand implements Command {
     private final AccountService accountService;
     private final ClientService clientService;
+
     public TransferCommand(AccountService accountService, ClientService clientService) {
         this.accountService = accountService;
         this.clientService = clientService;
@@ -22,16 +21,18 @@ public class TransferCommand implements Command {
 
     @Override
     public void execute() {
-        Account activeAccount=BankCommander.currentClient.getActiveAccount();
-        Scanner in=new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         System.out.println("Enter the name of client whom you want transfer amount");
-        String name=in.nextLine();
+        String name = in.nextLine();
         try {
-            Client toTransferClient = clientService.findClientByName(BankCommander.currentBank, name);
             System.out.println("Enter amount to transfer");
-            double amount=in.nextDouble();
-            accountService.transfer(activeAccount, toTransferClient.getActiveAccount(), amount);
-        } catch (ClientNotFoundException | NotEnoughFundsException e) {
+            double amount = in.nextDouble();
+            if (!BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
+                accountService.transfer(BankCommander.currentClient.getActiveAccount(), clientService.findClientByName(BankCommander.currentBank, name).getActiveAccount(), amount);
+            } else {
+                System.out.println("Transfer error: You cant make the transfer to your active account from your active account");
+            }
+        } catch (ClientNotFoundException | NotEnoughFundsException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }

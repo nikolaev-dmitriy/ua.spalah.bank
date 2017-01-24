@@ -14,9 +14,12 @@ public class GetBankInfoCommand implements Command {
 
     @Override
     public void execute() {
-        System.out.println("Clients: "+bankReportService.getClientsSortedByName(BankCommander.currentBank));
-        System.out.println("Number of clients: "+bankReportService.getNumberOfClients(BankCommander.currentBank));
-        System.out.println("Number of accounts: "+bankReportService.getNumberOfAccounts(BankCommander.currentBank));
+        System.out.println("Cities:");
+        for (String city : bankReportService.getClientsByCity(BankCommander.currentBank).keySet()) {
+            System.out.println(city+bankReportService.getClientsByCity(BankCommander.currentBank).get(city));
+        }
+        System.out.println("Number of bank's clients: "+bankReportService.getNumberOfClients(BankCommander.currentBank));
+        System.out.println("Number of bank's accounts: "+bankReportService.getNumberOfAccounts(BankCommander.currentBank));
         System.out.println("Total bank's savings: "+bankReportService.getTotalAccountSum(BankCommander.currentBank));
         System.out.println("Total bank's credits: "+bankReportService.getBankCreditSum(BankCommander.currentBank));
     }

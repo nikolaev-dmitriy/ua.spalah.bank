@@ -38,7 +38,7 @@ public class AddAccountCommand implements Command {
                         account = new SavingAccount(balance);
                         clientService.addAccount(BankCommander.currentClient, account);
                         selectThisAccountActive(in, account);
-                        exit=true;
+                        exit = true;
                         break;
                     }
                 }
@@ -54,7 +54,7 @@ public class AddAccountCommand implements Command {
                         account = new CheckingAccount(balance, overdraft);
                         clientService.addAccount(BankCommander.currentClient, account);
                         selectThisAccountActive(in, account);
-                        exit=true;
+                        exit = true;
                         break;
                     }
                 }
@@ -70,18 +70,24 @@ public class AddAccountCommand implements Command {
         if (BankCommander.currentClient.getAccounts().size() == 1) {
             BankCommander.currentClient.setActiveAccount(account);
         } else {
-            System.out.println("Do you want to make this account active?\n1. Yes\n2.No");
-            int answer = in.nextInt();
-            switch (answer) {
-                case 1: {
-                    BankCommander.currentClient.setActiveAccount(account);
-                    break;
-                }
-                default: {
-                    if (answer != 2) {
-                        System.out.println("Incorrect input");
+            boolean exitFromMethod = false;
+            while (exitFromMethod == false) {
+                System.out.println("Do you want to make this account active?\n1. Yes\n2.No");
+                int answer = in.nextInt();
+                switch (answer) {
+                    case 1: {
+                        BankCommander.currentClient.setActiveAccount(account);
+                        exitFromMethod = true;
+                        break;
                     }
-                    break;
+                    default: {
+                        if (answer != 2) {
+                            System.out.println("Incorrect input");
+                        } else {
+                            exitFromMethod = true;
+                            break;
+                        }
+                    }
                 }
             }
         }

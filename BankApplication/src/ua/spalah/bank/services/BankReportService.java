@@ -18,7 +18,7 @@ public interface BankReportService {
 
     double getBankCreditSum(Bank bank); // возвращает сумму отрицательных балансов по всем счетам
 
-    Map<String,Client> getClientsSortedByName(Bank bank); // Возвращает список клиентов отсортированных по имени
+    List<Client> getClientsSortedByName(Bank bank); // Возвращает список клиентов отсортированных по имени
 
     Map<String, List<Client>> getClientsByCity(Bank bank);
 }

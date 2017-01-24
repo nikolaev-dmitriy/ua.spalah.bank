@@ -1,6 +1,9 @@
 package ua.spalah.bank.tests;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Bank;
@@ -19,17 +22,13 @@ import java.util.Map;
  * Created by Man on 22.01.2017.
  */
 public class ClientServiceTest extends Assert {
-    private static ClientService clientService;
-    private static Bank bank;
-
-    @BeforeClass
-    public static void initBeforeAllTests() {
-        clientService = new ClientServiceImpl();
-        bank = new Bank();
-    }
+    private ClientService clientService;
+    private Bank bank;
 
     @Before
     public void init() {
+        clientService = new ClientServiceImpl();
+        bank = new Bank();
         Account svac = new SavingAccount(1000);
         Account ckac = new CheckingAccount(2000, 4000);
         bank.getClients().put("Dima", new Client("Dima", Gender.MALE, "florida124@yandex.ru", "+380936678673", "Dnipro"));
@@ -49,12 +48,6 @@ public class ClientServiceTest extends Assert {
         bank.getClients().clear();
     }
 
-    @AfterClass
-    public static void clearAfterAll() {
-        clientService = null;
-        bank.getClients().clear();
-        bank = null;
-    }
 
     @Test
     public void findClientByName() throws Exception {
@@ -134,6 +127,6 @@ public class ClientServiceTest extends Assert {
 
     @Test(expected = ClientNotFoundException.class)
     public void getClientByNameWithException() throws ClientNotFoundException {
-        clientService.findClientByName(bank,"Max");
+        clientService.findClientByName(bank, "Max");
     }
 }

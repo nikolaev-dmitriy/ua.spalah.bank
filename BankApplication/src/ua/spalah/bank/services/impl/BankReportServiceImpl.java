@@ -53,27 +53,26 @@ public class BankReportServiceImpl implements BankReportService {
     }
 
     @Override
-    public Map<String,Client> getClientsSortedByName(Bank bank) {
-        //List<Client> clients = new ArrayList<Client>(bank.getClients().values());
-        //clients.sort(new Comparator<Client>() {
-          //  @Override
-            //public int compare(Client client1, Client client2) {
-              //  return client1.getName().compareTo(client2.getName());
-            //}
-        //});
-        return new TreeMap<>(bank.getClients());
+    public List<Client> getClientsSortedByName(Bank bank) {
+        List<Client> clients = new ArrayList<Client>(bank.getClients().values());
+        clients.sort(new Comparator<Client>() {
+            @Override
+            public int compare(Client client1, Client client2) {
+                return client1.getName().compareTo(client2.getName());
+            }
+        });
+        return clients;
+        //return new TreeMap<>(bank.getClients());
     }
 
     @Override
     public Map<String, List<Client>> getClientsByCity(Bank bank) {
         Map<String, List<Client>> clientsByCity = new HashMap<>();
         for (Client client : bank.getClients().values()) {
-            if (clientsByCity.containsKey(client.getCity())) {
-                clientsByCity.get(client.getCity()).add(client);
-            } else {
+            if (!clientsByCity.containsKey(client.getCity())) {
                 clientsByCity.put(client.getCity(), new ArrayList<>());
-                clientsByCity.get(client.getCity()).add(client);
             }
+            clientsByCity.get(client.getCity()).add(client);
         }
         return clientsByCity;
     }

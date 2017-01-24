@@ -1,6 +1,5 @@
 package ua.spalah.bank.tests;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +15,9 @@ import ua.spalah.bank.services.impl.AccountServiceImpl;
  * Created by Man on 23.01.2017.
  */
 public class AccountServiceTest extends Assert {
-    private static Account account1;
-    private static Account account2;
-    AccountService accountService;
+    private Account account1;
+    private Account account2;
+    private AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
@@ -27,12 +26,6 @@ public class AccountServiceTest extends Assert {
         account2 = new SavingAccount(4000);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        accountService = null;
-        account1 = null;
-        account2 = null;
-    }
 
     @Test
     public void deposit() throws Exception {
@@ -74,8 +67,8 @@ public class AccountServiceTest extends Assert {
         double expected1 = account1.getBalance() - amount;
         double expected2 = account2.getBalance() + amount;
         accountService.transfer(account1, account2, amount);
-        assertEquals(expected1, account1.getBalance(),0);
-        assertEquals(expected2, account2.getBalance(),0);
+        assertEquals(expected1, account1.getBalance(), 0);
+        assertEquals(expected2, account2.getBalance(), 0);
     }
 
 }

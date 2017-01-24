@@ -30,7 +30,7 @@ public class TransferCommand implements Command {
             if (!BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
                 accountService.transfer(BankCommander.currentClient.getActiveAccount(), clientService.findClientByName(BankCommander.currentBank, name).getActiveAccount(), amount);
             } else {
-                System.out.println("Transfer error");
+                System.out.println("Transfer error: You cant make the transfer to your active account from your active account");
             }
         } catch (ClientNotFoundException | NotEnoughFundsException | IllegalArgumentException e) {
             System.out.println(e.getMessage());

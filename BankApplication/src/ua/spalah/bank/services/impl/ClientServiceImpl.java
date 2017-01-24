@@ -15,9 +15,9 @@ import java.util.Map;
 public class ClientServiceImpl implements ClientService {
     @Override
     public Client findClientByName(Bank bank, String name) throws ClientNotFoundException {
-        for (Client client : bank.getClients().values()) {
-            if (client.getName().equalsIgnoreCase(name)) {
-                return client;
+        for (String iterName : bank.getClients().keySet()) {
+            if (iterName.equalsIgnoreCase(name)) {
+                return bank.getClients().get(iterName);
             }
         }
         throw new ClientNotFoundException(name);
@@ -25,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client saveClient(Bank bank, Client client) throws ClientAlreadyExistsException {
-        if (!bank.getClients().containsValue(client) ) {
+        if (!bank.getClients().containsKey(client.getName()) ) {
             bank.getClients().put(client.getName(), client) ;
             return client;
         } else {

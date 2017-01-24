@@ -23,7 +23,8 @@ public class AddAccountCommand implements Command {
         Account account = null;
         double balance = -1;
         double overdraft = -1;
-        while (balance < 0 || overdraft < 0) {
+        boolean exit = false;
+        while (exit == false) {
             System.out.println("Enter the type of account:\n1.Saving account\n2.Checking account");
             int i = in.nextInt();
             switch (i) {
@@ -37,6 +38,7 @@ public class AddAccountCommand implements Command {
                         account = new SavingAccount(balance);
                         clientService.addAccount(BankCommander.currentClient, account);
                         selectThisAccountActive(in, account);
+                        exit=true;
                         break;
                     }
                 }
@@ -52,6 +54,7 @@ public class AddAccountCommand implements Command {
                         account = new CheckingAccount(balance, overdraft);
                         clientService.addAccount(BankCommander.currentClient, account);
                         selectThisAccountActive(in, account);
+                        exit=true;
                         break;
                     }
                 }

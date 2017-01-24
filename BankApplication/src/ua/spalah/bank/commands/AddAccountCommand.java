@@ -23,9 +23,9 @@ public class AddAccountCommand implements Command {
         Account account = null;
         double balance = -1;
         double overdraft = -1;
-        System.out.println("Enter the type of account:\n1.Saving account\n2.Checking account");
-        int i = in.nextInt();
-        while (balance < 0 || overdraft < 0)
+        while (balance < 0 || overdraft < 0) {
+            System.out.println("Enter the type of account:\n1.Saving account\n2.Checking account");
+            int i = in.nextInt();
             switch (i) {
                 case 1: {
                     System.out.println("Enter the start balance for your account");
@@ -60,6 +60,7 @@ public class AddAccountCommand implements Command {
                     break;
                 }
             }
+        }
     }
 
     private static void selectThisAccountActive(Scanner in, Account account) {

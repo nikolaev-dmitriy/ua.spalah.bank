@@ -14,17 +14,21 @@ public class GetAccountsCommand implements Command {
         this.io = new ConsoleIO();
     }
 
+    public GetAccountsCommand(IO io) {
+        this.io = io;
+    }
+
     @Override
     public void execute() {
-        String accounts=BankCommander.currentClient.getName()+"'s accounts:\n";
-        int i=0;
-        StringBuilder stringBuilder=new StringBuilder();
+        String accounts = BankCommander.currentClient.getName() + "'s accounts:\n";
+        int i = 0;
+        StringBuilder stringBuilder = new StringBuilder();
         for (Account account : BankCommander.currentClient.getAccounts()) {
             if (account.equals(BankCommander.currentClient.getActiveAccount())) {
                 stringBuilder.append("V");
-                stringBuilder.append(" " + (++i)+ "." + account + "\n");
+                stringBuilder.append(" " + (++i) + "." + account + "\n");
             } else {
-                stringBuilder.append("  " + (++i)+ "." + account + "\n");
+                stringBuilder.append("  " + (++i) + "." + account + "\n");
             }
         }
 

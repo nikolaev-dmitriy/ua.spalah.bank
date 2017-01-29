@@ -15,6 +15,11 @@ public class FindClientCommand implements Command {
         this.clientService = clientService;
     }
 
+    public FindClientCommand(IO io, ClientService clientService) {
+        this.io = io;
+        this.clientService = clientService;
+    }
+
     @Override
     public void execute() {
         io.write("Please enter client name");

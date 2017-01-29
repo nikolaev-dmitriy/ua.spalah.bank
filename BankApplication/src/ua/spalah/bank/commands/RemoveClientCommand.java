@@ -11,9 +11,15 @@ import ua.spalah.bank.services.ClientService;
 public class RemoveClientCommand implements Command {
     private final ClientService clientService;
     private final IO io;
+
     public RemoveClientCommand(ClientService clientService) {
-        io= new ConsoleIO();
+        io = new ConsoleIO();
         this.clientService = clientService;
+    }
+
+    public RemoveClientCommand(ClientService clientService, IO io) {
+        this.clientService = clientService;
+        this.io = io;
     }
 
     @Override
@@ -35,6 +41,7 @@ public class RemoveClientCommand implements Command {
             io.write(e.getMessage());
         }
     }
+
     @Override
     public String getCommandInfo() {
         return "Remove client";

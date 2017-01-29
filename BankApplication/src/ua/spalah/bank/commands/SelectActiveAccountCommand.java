@@ -13,6 +13,10 @@ public class SelectActiveAccountCommand implements Command {
         this.io = new ConsoleIO();
     }
 
+    public SelectActiveAccountCommand(IO io) {
+        this.io = io;
+    }
+
     @Override
     public void execute() {
         GetAccountsCommand getAccountsCommand = new GetAccountsCommand();
@@ -25,6 +29,7 @@ public class SelectActiveAccountCommand implements Command {
             io.write("Account with this number is not existed");
         }
     }
+
     @Override
     public String getCommandInfo() {
         return "Select active account for current client";

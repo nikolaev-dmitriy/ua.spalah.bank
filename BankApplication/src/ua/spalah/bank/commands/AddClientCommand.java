@@ -21,6 +21,11 @@ public class AddClientCommand implements Command {
         io = new ConsoleIO();
     }
 
+    public AddClientCommand(ClientService clientService, IO io) {
+        this.clientService = clientService;
+        this.io = io;
+    }
+
     @Override
     public void execute() {
         io.write("Enter the name of client:");

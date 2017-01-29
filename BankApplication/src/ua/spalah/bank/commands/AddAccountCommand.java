@@ -16,7 +16,12 @@ public class AddAccountCommand implements Command {
 
     public AddAccountCommand(ClientService clientService) {
         this.clientService = clientService;
-        io= new ConsoleIO();
+        io = new ConsoleIO();
+    }
+
+    public AddAccountCommand(ClientService clientService, IO io) {
+        this.clientService = clientService;
+        this.io = io;
     }
 
     @Override

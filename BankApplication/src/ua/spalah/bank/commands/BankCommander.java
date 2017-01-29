@@ -36,6 +36,7 @@ public class BankCommander {
     // Список команд которые мы можем выполнять
     private Command[] commands;
     private IO io;
+
     public BankCommander() {
         io = new ConsoleIO();
         init();
@@ -116,7 +117,7 @@ public class BankCommander {
                     new AddAccountCommand(clientService),
                     new RemoveClientCommand(clientService),
                     new GetBankInfoCommand(bankReportService),
-                    new ExitCommand()
+                    new ExitCommand(io)
             };
 
         } catch (Exception e) {
@@ -130,20 +131,18 @@ public class BankCommander {
     public void run() {
         while (true) {
             ArrayList<Integer> canBeSelected = new ArrayList<>(commands.length);
-            List<Command> commandsThatCanBeSelected = new ArrayList<Command>(commands.length);
             io.write("\n");
             if (currentClient == null) {
                 for (int i = 0; i < commands.length; i++) {
-                    if (commands[i].currentClientIsNeeded() == false) {
-                        canBeSelected.add(i + 1);
-                        commandsThatCanBeSelected.add(commands[i]);
-                        io.write(i + 1 + ") " + commandsThatCanBeSelected.get(i).getCommandInfo());
+                    if (!commands[i].currentClientIsNeeded()) {
+                        canBeSelected.add(i+1);
+                        io.write(i+1+") " + commands[i].getCommandInfo());
                     }
                 }
                 io.write("Current client is not selected");
             } else {
                 for (int i = 0; i < commands.length; i++) {
-                    canBeSelected.add(i + 1);
+                    canBeSelected.add(i+1);
                     io.write(i + 1 + ") " + commands[i].getCommandInfo());
                 }
                 io.write("Current client: " + currentClient.getName());

@@ -21,6 +21,12 @@ public class TransferCommand implements Command {
         io = new ConsoleIO();
     }
 
+    public TransferCommand(AccountService accountService, ClientService clientService, IO io) {
+        this.accountService = accountService;
+        this.clientService = clientService;
+        this.io = io;
+    }
+
     @Override
     public void execute() {
         io.write("Enter the name of client whom you want transfer amount");

@@ -1,6 +1,5 @@
-package ua.spalah.bank.tests;
+package ua.spalah.bank.services;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
@@ -8,16 +7,18 @@ import ua.spalah.bank.exceptions.OverdraftLimitExceededException;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.accounts.SavingAccount;
-import ua.spalah.bank.services.AccountService;
 import ua.spalah.bank.services.impl.AccountServiceImpl;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Man on 23.01.2017.
  */
-public class AccountServiceTest extends Assert {
+public class AccountServiceTest {
+
+    private AccountService accountService;
     private Account account1;
     private Account account2;
-    private AccountService accountService;
 
     @Before
     public void setUp() throws Exception {
@@ -42,7 +43,7 @@ public class AccountServiceTest extends Assert {
     }
 
     @Test
-    public void withdraw() throws Exception {
+    public void testWithdraw() throws Exception {
         double amount = 500;
         double expected = account1.getBalance() - amount;
         accountService.withdraw(account1, amount);
@@ -50,7 +51,7 @@ public class AccountServiceTest extends Assert {
     }
 
     @Test(expected = NotEnoughFundsException.class)
-    public void withdrawException() throws NotEnoughFundsException {
+    public void testWithdrawFailsWhenNotEnoughMoney() throws NotEnoughFundsException {
         double amount = 4001;
         accountService.withdraw(account2, amount);
     }

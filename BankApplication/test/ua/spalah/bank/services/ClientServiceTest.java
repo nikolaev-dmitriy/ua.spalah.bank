@@ -1,6 +1,5 @@
-package ua.spalah.bank.tests;
+package ua.spalah.bank.services;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +11,7 @@ import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.accounts.CheckingAccount;
 import ua.spalah.bank.models.accounts.SavingAccount;
 import ua.spalah.bank.models.type.Gender;
-import ua.spalah.bank.services.ClientService;
 import ua.spalah.bank.services.impl.ClientServiceImpl;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Man on 22.01.2017.
@@ -43,60 +38,38 @@ public class ClientServiceTest extends Assert {
         }
     }
 
-    @After
-    public void clear() {
-        bank.getClients().clear();
-    }
-
-
     @Test
     public void findClientByName() throws Exception {
-        Client testMasha = clientService.findClientByName(bank, "Masha");
-        Client masha = new Client("Masha", Gender.FEMALE, "sf4325gfd@yandex.ru", "+380936345673", "Dnipro");
-        assertEquals(masha, testMasha);
+        String name = "Masha";
+        Client testMasha = clientService.findClientByName(bank, name);
+        assertEquals(name, testMasha.getName());
     }
 
     @Test
     public void saveClient() throws Exception {
         Client jim = new Client("Jim", Gender.MALE, "jim.moriarty@sherlock.com", "+380665431827", "London");
-        Bank tempBank = new Bank();
-        Account svac = new SavingAccount(1000);
-        Account ckac = new CheckingAccount(2000, 4000);
-        tempBank.getClients().put("Dima", new Client("Dima", Gender.MALE, "florida124@yandex.ru", "+380936678673", "Dnipro"));
-        tempBank.getClients().put("Masha", new Client("Masha", Gender.FEMALE, "sf4325gfd@yandex.ru", "+380936345673", "Dnipro"));
-        tempBank.getClients().put("Kostya", new Client("Kostya", Gender.MALE, "fgd5454565546562@yandex.ru", "+380945675673", "Kryvyi Rig"));
-        tempBank.getClients().put("Misha", new Client("Misha", Gender.MALE, "mikokonst@yandex.ru", "+380666678673", "Dnipro"));
-        for (Client client : tempBank.getClients().values()) {
-            client.getAccounts().add(svac);
-            client.getAccounts().add(svac);
-            client.getAccounts().add(svac);
-            client.getAccounts().add(ckac);
-        }
-        tempBank.getClients().put("Jim", jim);
+
         clientService.saveClient(bank, jim);
-        assertEquals(tempBank.getClients(), bank.getClients());
+
+        Client foundClient = clientService.findClientByName(bank, "Jim");
+
+        assertEquals(jim, foundClient);
     }
 
     @Test
     public void findAllClients() throws Exception {
-        Map<String, Client> clients = new HashMap<String, Client>();
-        clients.put("Dima", new Client("Dima", Gender.MALE, "florida124@yandex.ru", "+380936678673", "Dnipro"));
-        clients.put("Masha", new Client("Masha", Gender.FEMALE, "sf4325gfd@yandex.ru", "+380936345673", "Dnipro"));
-        clients.put("Kostya", new Client("Kostya", Gender.MALE, "fgd5454565546562@yandex.ru", "+380945675673", "Kryvyi Rig"));
-        clients.put("Misha", new Client("Misha", Gender.MALE, "mikokonst@yandex.ru", "+380666678673", "Dnipro"));
-        assertEquals(clients, clientService.findAllClients(bank));
+        assertEquals(bank.getClients(), clientService.findAllClients(bank));
     }
 
     @Test
     public void deleteClient() throws Exception {
-        Map<String, Client> clients = new HashMap<String, Client>();
-        clients.put("Dima", new Client("Dima", Gender.MALE, "florida124@yandex.ru", "+380936678673", "Dnipro"));
-        clients.put("Masha", new Client("Masha", Gender.FEMALE, "sf4325gfd@yandex.ru", "+380936345673", "Dnipro"));
-        clients.put("Kostya", new Client("Kostya", Gender.MALE, "fgd5454565546562@yandex.ru", "+380945675673", "Kryvyi Rig"));
-        clients.put("Misha", new Client("Misha", Gender.MALE, "mikokonst@yandex.ru", "+380666678673", "Dnipro"));
-        clients.remove("Misha");
+        Client misha = clientService.findClientByName(bank, "Misha");
+
+
         clientService.deleteClient(bank, "Misha");
-        assertEquals(clients, bank.getClients());
+
+
+        assertFalse(bank.getClients().containsValue(misha));
     }
 
     @Test

@@ -1,5 +1,7 @@
 package ua.spalah.bank.commands;
 
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
 import ua.spalah.bank.services.BankReportService;
 
 /**
@@ -7,21 +9,23 @@ import ua.spalah.bank.services.BankReportService;
  */
 public class GetBankInfoCommand implements Command {
     private final BankReportService bankReportService;
+    private final IO io;
 
     public GetBankInfoCommand(BankReportService bankReportService) {
+        io = new ConsoleIO();
         this.bankReportService = bankReportService;
     }
 
     @Override
     public void execute() {
-        System.out.println("Cities:");
+        io.write("Cities:");
         for (String city : bankReportService.getClientsByCity(BankCommander.currentBank).keySet()) {
-            System.out.println(city+bankReportService.getClientsByCity(BankCommander.currentBank).get(city));
+            io.write(city+bankReportService.getClientsByCity(BankCommander.currentBank).get(city));
         }
-        System.out.println("Number of bank's clients: "+bankReportService.getNumberOfClients(BankCommander.currentBank));
-        System.out.println("Number of bank's accounts: "+bankReportService.getNumberOfAccounts(BankCommander.currentBank));
-        System.out.println("Total bank's savings: "+bankReportService.getTotalAccountSum(BankCommander.currentBank));
-        System.out.println("Total bank's credits: "+bankReportService.getBankCreditSum(BankCommander.currentBank));
+        io.write("Number of bank's clients: "+bankReportService.getNumberOfClients(BankCommander.currentBank));
+        io.write("Number of bank's accounts: "+bankReportService.getNumberOfAccounts(BankCommander.currentBank));
+        io.write("Total bank's savings: "+bankReportService.getTotalAccountSum(BankCommander.currentBank));
+        io.write("Total bank's credits: "+bankReportService.getBankCreditSum(BankCommander.currentBank));
     }
 
     @Override

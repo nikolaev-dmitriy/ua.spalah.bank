@@ -1,5 +1,7 @@
 package ua.spalah.bank.commands;
 
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
 import ua.spalah.bank.models.Bank;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
@@ -20,7 +22,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * @author Kostiantyn Huliaiev
@@ -34,8 +35,9 @@ public class BankCommander {
 
     // Список команд которые мы можем выполнять
     private Command[] commands;
-
+    private IO io;
     public BankCommander() {
+        io = new ConsoleIO();
         init();
     }
 
@@ -128,37 +130,37 @@ public class BankCommander {
     public void run() {
         while (true) {
             ArrayList<Integer> canBeSelected = new ArrayList<>(commands.length);
-            System.out.print("\n");
+            List<Command> commandsThatCanBeSelected = new ArrayList<Command>(commands.length);
+            io.write("\n");
             if (currentClient == null) {
                 for (int i = 0; i < commands.length; i++) {
                     if (commands[i].currentClientIsNeeded() == false) {
                         canBeSelected.add(i + 1);
-                        System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+                        commandsThatCanBeSelected.add(commands[i]);
+                        io.write(i + 1 + ") " + commandsThatCanBeSelected.get(i).getCommandInfo());
                     }
                 }
-                System.out.println("Current client is not selected");
+                io.write("Current client is not selected");
             } else {
                 for (int i = 0; i < commands.length; i++) {
                     canBeSelected.add(i + 1);
-                    System.out.println(i + 1 + ") " + commands[i].getCommandInfo());
+                    io.write(i + 1 + ") " + commands[i].getCommandInfo());
                 }
-                System.out.println("Current client: " + currentClient.getName());
+                io.write("Current client: " + currentClient.getName());
             }
-
-            Scanner in = new Scanner(System.in);
             try {
-                System.out.print("\nEnter command number: ");
-                int command = in.nextInt();
+                io.write("Enter command number: ");
+                int command = Integer.parseInt(io.read().trim());
                 if (canBeSelected.contains(command)) {
                     commands[command - 1].execute();
                 } else {
-                    System.out.println("This command is not available");
+                    io.write("This command is not available");
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Wrong command number!");
+                io.write("Wrong command number!");
 
             } catch (InputMismatchException e) {
-                System.out.println("This is not a number!");
+                io.write("This is not a number!");
             }
         }
 

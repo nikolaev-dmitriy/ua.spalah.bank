@@ -1,25 +1,25 @@
 package ua.spalah.bank.commands;
 
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.services.ClientService;
-
-import java.util.Scanner;
 
 /**
  * Created by Man on 12.01.2017.
  */
 public class RemoveClientCommand implements Command {
     private final ClientService clientService;
-
+    private final IO io;
     public RemoveClientCommand(ClientService clientService) {
+        io= new ConsoleIO();
         this.clientService = clientService;
     }
 
     @Override
     public void execute() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter the name of client, who will be removed");
-        String name = in.nextLine();
+        io.write("Enter the name of client, who will be removed");
+        String name = io.read().trim();
         try {
             if (BankCommander.currentClient != null) {
                 if (BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
@@ -32,7 +32,7 @@ public class RemoveClientCommand implements Command {
                 throw new ClientNotFoundException(name);
             }
         } catch (ClientNotFoundException e) {
-            System.out.println(e.getMessage());
+            io.write(e.getMessage());
         }
     }
     @Override

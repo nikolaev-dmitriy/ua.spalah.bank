@@ -1,11 +1,18 @@
 package ua.spalah.bank.commands;
 
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
 import ua.spalah.bank.models.accounts.Account;
 
 /**
  * Created by Man on 12.01.2017.
  */
 public class GetAccountsCommand implements Command {
+    private final IO io;
+
+    public GetAccountsCommand() {
+        this.io = new ConsoleIO();
+    }
 
     @Override
     public void execute() {
@@ -21,7 +28,7 @@ public class GetAccountsCommand implements Command {
             }
         }
 
-        System.out.println(accounts + stringBuilder.toString());
+        io.write(accounts + stringBuilder.toString());
     }
 
     @Override

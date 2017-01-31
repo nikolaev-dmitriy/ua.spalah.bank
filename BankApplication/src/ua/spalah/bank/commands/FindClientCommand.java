@@ -22,13 +22,13 @@ public class FindClientCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Please enter client name");
+        io.write("Please enter client name\n");
         String name = io.read().trim();
 
         try {
             BankCommander.currentClient = clientService.findClientByName(BankCommander.currentBank, name);
         } catch (ClientNotFoundException e) {
-            io.write(e.getMessage());
+            io.write(e.getMessage()+"\n");
         }
     }
 

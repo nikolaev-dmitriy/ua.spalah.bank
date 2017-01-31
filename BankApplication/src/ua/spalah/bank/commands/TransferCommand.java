@@ -29,18 +29,18 @@ public class TransferCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Enter the name of client whom you want transfer amount");
+        io.write("Enter the name of client whom you want transfer amount\n");
         String name = io.read().trim();
         try {
-            io.write("Enter amount to transfer");
+            io.write("Enter amount to transfer\n");
             double amount = Double.parseDouble(io.read().trim());
             if (!BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
                 accountService.transfer(BankCommander.currentClient.getActiveAccount(), clientService.findClientByName(BankCommander.currentBank, name).getActiveAccount(), amount);
             } else {
-                io.write("Transfer error: You cant make the transfer to your active account from your active account");
+                io.write("Transfer error: You cant make the transfer to your active account from your active account\n");
             }
         } catch (ClientNotFoundException | NotEnoughFundsException | IllegalArgumentException e) {
-            io.write(e.getMessage());
+            io.write(e.getMessage()+"\n");
         }
     }
 

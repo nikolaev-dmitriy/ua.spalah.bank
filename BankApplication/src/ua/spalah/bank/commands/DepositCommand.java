@@ -23,12 +23,12 @@ public class DepositCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Enter the amount to deposit");
+        io.write("Enter the amount to deposit\n");
         double amount = Double.parseDouble(io.read().trim());
         try {
             accountService.deposit(BankCommander.currentClient.getActiveAccount(), amount);
         } catch (IllegalArgumentException e) {
-            io.write(e.getMessage());
+            io.write(e.getMessage()+"\n");
         }
     }
 

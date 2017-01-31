@@ -24,7 +24,7 @@ public class RemoveClientCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Enter the name of client, who will be removed");
+        io.write("Enter the name of client, who will be removed\n");
         String name = io.read().trim();
         try {
             if (BankCommander.currentClient != null) {
@@ -38,7 +38,7 @@ public class RemoveClientCommand implements Command {
                 throw new ClientNotFoundException(name);
             }
         } catch (ClientNotFoundException e) {
-            io.write(e.getMessage());
+            io.write(e.getMessage()+"\n");
         }
     }
 

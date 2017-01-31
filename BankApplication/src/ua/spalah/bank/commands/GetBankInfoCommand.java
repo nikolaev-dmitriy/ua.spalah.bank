@@ -23,14 +23,14 @@ public class GetBankInfoCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Cities:");
+        io.write("Cities:\n");
         for (String city : bankReportService.getClientsByCity(BankCommander.currentBank).keySet()) {
-            io.write(city + bankReportService.getClientsByCity(BankCommander.currentBank).get(city));
+            io.write(city + bankReportService.getClientsByCity(BankCommander.currentBank).get(city)+"\n");
         }
-        io.write("Number of bank's clients: " + bankReportService.getNumberOfClients(BankCommander.currentBank));
-        io.write("Number of bank's accounts: " + bankReportService.getNumberOfAccounts(BankCommander.currentBank));
-        io.write("Total bank's savings: " + bankReportService.getTotalAccountSum(BankCommander.currentBank));
-        io.write("Total bank's credits: " + bankReportService.getBankCreditSum(BankCommander.currentBank));
+        io.write("Number of bank's clients: " + bankReportService.getNumberOfClients(BankCommander.currentBank)+"\n");
+        io.write("Number of bank's accounts: " + bankReportService.getNumberOfAccounts(BankCommander.currentBank)+"\n");
+        io.write("Total bank's savings: " + bankReportService.getTotalAccountSum(BankCommander.currentBank)+"\n");
+        io.write("Total bank's credits: " + bankReportService.getBankCreditSum(BankCommander.currentBank)+"\n");
     }
 
     @Override

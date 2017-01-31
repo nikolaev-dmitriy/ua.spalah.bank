@@ -28,12 +28,11 @@ public class AddClientCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Enter the name of client:");
+        io.write("Enter the name of client:\n");
         String name = io.read().trim();
-        io.write("Enter the gender\n1.Male\n2.Female");
+        io.write("Enter the gender\n1.Male\n2.Female\n");
         int genderInt = Integer.parseInt(io.read().trim());
         Gender gender = null;
-        io.write("Please, push Enter to continue registration");
         while (gender == null) {
             if (genderInt == 1) {
                 gender = Gender.MALE;
@@ -42,36 +41,35 @@ public class AddClientCommand implements Command {
                 gender = Gender.FEMALE;
                 break;
             } else {
-                io.write("Incorrect input");
+                io.write("Incorrect input\n");
             }
         }
         String email = "";
         String telephone = "";
-        io.read().trim();
-        io.write("Enter your city:");
+        io.write("Enter your city:\n");
         String city = io.read().trim();
         do {
-            io.write("Enter your phone number:");
+            io.write("Enter your phone number:\n");
             telephone = io.read().trim();
             if (!telephone.matches(phoneRegex)) {
-                io.write("Phone number " + telephone + " invalid");
+                io.write("Phone number " + telephone + " invalid\n");
             }
         } while (!telephone.matches(phoneRegex));
         do {
-            io.write("Enter your e-mail:");
+            io.write("Enter your e-mail:\n");
             email = io.read().trim();
             if (!email.matches(emailRegex)) {
-                io.write("E-mail " + email + " invalid");
+                io.write("E-mail " + email + " invalid\n");
             }
         } while (!email.matches(emailRegex));
         Client client = new Client(name, gender, email, telephone, city);
         try {
             clientService.saveClient(BankCommander.currentBank, client);
             BankCommander.currentClient = client;
-            AddAccountCommand addAccountCommand = new AddAccountCommand(clientService);
+            AddAccountCommand addAccountCommand = new AddAccountCommand(clientService,io);
             addAccountCommand.execute();
         } catch (ClientAlreadyExistsException e) {
-            io.write(e.getMessage());
+            io.write(e.getMessage()+"\n");
         }
     }
 

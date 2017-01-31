@@ -32,14 +32,14 @@ public class AddAccountCommand implements Command {
         double overdraft = -1;
         boolean exit = false;
         while (exit == false) {
-            io.write("Enter the type of account:\n1.Saving account\n2.Checking account");
+            io.write("Enter the type of account:\n1.Saving account\n2.Checking account\n");
             int i = Integer.parseInt(io.read().trim());
             switch (i) {
                 case 1: {
-                    io.write("Enter the start balance for your account");
+                    io.write("Enter the start balance for your account\n");
                     balance = Double.parseDouble(io.read().trim());
                     if (balance < 0) {
-                        io.write("Balance can't be negative");
+                        io.write("Balance can't be negative\n");
                         break;
                     } else {
                         account = new SavingAccount(balance);
@@ -50,12 +50,12 @@ public class AddAccountCommand implements Command {
                     }
                 }
                 case 2: {
-                    io.write("Enter the start balance for your account");
+                    io.write("Enter the start balance for your account\n");
                     balance = Double.parseDouble(io.read().trim());
-                    io.write("Enter the overdraft for your account");
+                    io.write("Enter the overdraft for your account\n");
                     overdraft = Double.parseDouble(io.read().trim());
                     if (balance < 0 || overdraft < 0) {
-                        io.write("Balance or overdraft can't be negative");
+                        io.write("Balance or overdraft can't be negative\n");
                         break;
                     } else {
                         account = new CheckingAccount(balance, overdraft);
@@ -66,7 +66,7 @@ public class AddAccountCommand implements Command {
                     }
                 }
                 default: {
-                    io.write("Incorrect input");
+                    io.write("Incorrect input\n");
                     break;
                 }
             }
@@ -79,7 +79,7 @@ public class AddAccountCommand implements Command {
         } else {
             boolean exitFromMethod = false;
             while (exitFromMethod == false) {
-                io.write("Do you want to make this account active?\n1. Yes\n2.No");
+                io.write("Do you want to make this account active?\n1. Yes\n2.No\n");
                 int answer = Integer.parseInt(io.read().trim());
                 switch (answer) {
                     case 1: {
@@ -89,7 +89,7 @@ public class AddAccountCommand implements Command {
                     }
                     default: {
                         if (answer != 2) {
-                            io.write("Incorrect input");
+                            io.write("Incorrect input\n");
                         } else {
                             exitFromMethod = true;
                             break;

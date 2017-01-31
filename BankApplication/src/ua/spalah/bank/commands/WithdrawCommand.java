@@ -24,12 +24,12 @@ public class WithdrawCommand implements Command {
 
     @Override
     public void execute() {
-        io.write("Enter amount to withdraw:");
+        io.write("Enter amount to withdraw:\n");
         double amount = Double.parseDouble(io.read().trim());
         try {
             accountService.withdraw(BankCommander.currentClient.getActiveAccount(), amount);
         } catch (NotEnoughFundsException | IllegalArgumentException e) {
-            io.write(e.getMessage());
+            io.write(e.getMessage()+"\n");
         }
     }
 

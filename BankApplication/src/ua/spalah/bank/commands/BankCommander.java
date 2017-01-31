@@ -1,6 +1,5 @@
 package ua.spalah.bank.commands;
 
-import ua.spalah.bank.IO.ConsoleIO;
 import ua.spalah.bank.IO.IO;
 import ua.spalah.bank.models.Bank;
 import ua.spalah.bank.models.Client;
@@ -19,14 +18,12 @@ import ua.spalah.bank.services.impl.ClientServiceImpl;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 /**
  * @author Kostiantyn Huliaiev
  */
-public class BankCommander {
+public abstract class BankCommander {
     // хранит в себе банк с кототорым мы работаем
     public static Bank currentBank;
 
@@ -34,11 +31,11 @@ public class BankCommander {
     public static Client currentClient;
 
     // Список команд которые мы можем выполнять
-    private Command[] commands;
-    private IO io;
+    protected Command[] commands;
+    protected IO io;
 
-    public BankCommander() {
-        io = new ConsoleIO();
+    public BankCommander(IO io) {
+        this.io=io;
         init();
     }
 
@@ -107,16 +104,16 @@ public class BankCommander {
             currentBank = bank;
 
             this.commands = new Command[]{
-                    new FindClientCommand(clientService),
-                    new GetAccountsCommand(),
-                    new SelectActiveAccountCommand(),
-                    new DepositCommand(accountService),
-                    new WithdrawCommand(accountService),
-                    new TransferCommand(accountService, clientService),
-                    new AddClientCommand(clientService),
-                    new AddAccountCommand(clientService),
-                    new RemoveClientCommand(clientService),
-                    new GetBankInfoCommand(bankReportService),
+                    new FindClientCommand(io,clientService),
+                    new GetAccountsCommand(io),
+                    new SelectActiveAccountCommand(io),
+                    new DepositCommand(accountService,io),
+                    new WithdrawCommand(accountService,io),
+                    new TransferCommand(accountService, clientService,io),
+                    new AddClientCommand(clientService,io),
+                    new AddAccountCommand(clientService,io),
+                    new RemoveClientCommand(clientService,io),
+                    new GetBankInfoCommand(bankReportService,io),
                     new ExitCommand(io)
             };
 
@@ -127,48 +124,8 @@ public class BankCommander {
             throw ex;
         }
     }
-
-    public void run() {
-        while (true) {
-            ArrayList<Integer> canBeSelected = new ArrayList<>(commands.length);
-            io.write("\n");
-            if (currentClient == null) {
-                for (int i = 0; i < commands.length; i++) {
-                    if (!commands[i].currentClientIsNeeded()) {
-                        canBeSelected.add(i+1);
-                        io.write(i+1+") " + commands[i].getCommandInfo());
-                    }
-                }
-                io.write("Current client is not selected");
-            } else {
-                for (int i = 0; i < commands.length; i++) {
-                    canBeSelected.add(i+1);
-                    io.write(i + 1 + ") " + commands[i].getCommandInfo());
-                }
-                io.write("Current client: " + currentClient.getName());
-            }
-            try {
-                io.write("Enter command number: ");
-                int command = Integer.parseInt(io.read().trim());
-                if (canBeSelected.contains(command)) {
-                    commands[command - 1].execute();
-                } else {
-                    io.write("This command is not available");
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                io.write("Wrong command number!");
-
-            } catch (InputMismatchException e) {
-                io.write("This is not a number!");
-            }
-        }
-
-    }
+    public abstract void run();
 
     // запуск нашего приложения
 
-    public static void main(String[] args) {
-        BankCommander bankCommander = new BankCommander();
-        bankCommander.run();
-    }
 }

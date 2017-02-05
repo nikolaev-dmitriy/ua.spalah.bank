@@ -15,12 +15,11 @@ import java.util.Map;
 public class ClientServiceImpl implements ClientService {
     @Override
     public Client findClientByName(Bank bank, String name) throws ClientNotFoundException {
-        for (String iterName : bank.getClients().keySet()) {
-            if (iterName.equalsIgnoreCase(name)) {
-                return bank.getClients().get(iterName);
-            }
+        Client client = bank.getClients().get(name);
+        if (client == null) {
+            throw new ClientNotFoundException(name);
         }
-        throw new ClientNotFoundException(name);
+        return client;
     }
 
     @Override

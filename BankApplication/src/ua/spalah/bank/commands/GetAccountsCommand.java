@@ -7,15 +7,15 @@ import ua.spalah.bank.models.accounts.Account;
 /**
  * Created by Man on 12.01.2017.
  */
-public class GetAccountsCommand implements Command {
-    private final IO io;
+public class GetAccountsCommand extends AbstractCommand implements Command {
+
 
     public GetAccountsCommand() {
-        this.io = new ConsoleIO();
+        super(new ConsoleIO());
     }
 
     public GetAccountsCommand(IO io) {
-        this.io = io;
+        super(io);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class GetAccountsCommand implements Command {
             }
         }
 
-        io.write(accounts + stringBuilder.toString());
+        write(accounts + stringBuilder.toString());
     }
 
     @Override

@@ -8,28 +8,27 @@ import ua.spalah.bank.services.AccountService;
 /**
  * Created by Man on 12.01.2017.
  */
-public class WithdrawCommand implements Command {
+public class WithdrawCommand extends AbstractCommand implements Command {
     private final AccountService accountService;
-    private final IO io;
 
     public WithdrawCommand(AccountService accountService) {
-        io = new ConsoleIO();
+        super(new ConsoleIO());
         this.accountService = accountService;
     }
 
     public WithdrawCommand(AccountService accountService, IO io) {
+        super(io);
         this.accountService = accountService;
-        this.io = io;
     }
 
     @Override
     public void execute() {
-        io.write("Enter amount to withdraw:\n");
-        double amount = Double.parseDouble(io.read().trim());
+        write("Enter amount to withdraw:\n");
+        double amount = Double.parseDouble(read().trim());
         try {
             accountService.withdraw(BankCommander.currentClient.getActiveAccount(), amount);
         } catch (NotEnoughFundsException | IllegalArgumentException e) {
-            io.write(e.getMessage()+"\n");
+            write(e.getMessage() + "\n");
         }
     }
 

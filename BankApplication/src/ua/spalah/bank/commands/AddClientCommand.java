@@ -1,5 +1,6 @@
 package ua.spalah.bank.commands;
 
+
 import ua.spalah.bank.IO.ConsoleIO;
 import ua.spalah.bank.IO.IO;
 import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
@@ -10,28 +11,27 @@ import ua.spalah.bank.services.ClientService;
 /**
  * Created by Man on 12.01.2017.
  */
-public class AddClientCommand implements Command {
+public class AddClientCommand extends AbstractCommand implements Command {
     private final ClientService clientService;
-    private final IO io;
     private final String emailRegex = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x07\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x07\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$";
     private final String phoneRegex = "^[+][0-9]{12}$";
 
     public AddClientCommand(ClientService clientService) {
+        super(new ConsoleIO());
         this.clientService = clientService;
-        io = new ConsoleIO();
     }
 
     public AddClientCommand(ClientService clientService, IO io) {
+        super(io);
         this.clientService = clientService;
-        this.io = io;
     }
 
     @Override
     public void execute() {
-        io.write("Enter the name of client:\n");
-        String name = io.read().trim();
-        io.write("Enter the gender\n1.Male\n2.Female\n");
-        int genderInt = Integer.parseInt(io.read().trim());
+        write("Enter the name of client:\n");
+        String name = read().trim();
+        write("Enter the gender\n1.Male\n2.Female\n");
+        int genderInt = Integer.parseInt(read().trim());
         Gender gender = null;
         while (gender == null) {
             if (genderInt == 1) {
@@ -41,35 +41,35 @@ public class AddClientCommand implements Command {
                 gender = Gender.FEMALE;
                 break;
             } else {
-                io.write("Incorrect input\n");
+                write("Incorrect input\n");
             }
         }
         String email = "";
         String telephone = "";
-        io.write("Enter your city:\n");
-        String city = io.read().trim();
+        write("Enter your city:\n");
+        String city = read().trim();
         do {
-            io.write("Enter your phone number:\n");
-            telephone = io.read().trim();
+            write("Enter your phone number:\n");
+            telephone = read().trim();
             if (!telephone.matches(phoneRegex)) {
-                io.write("Phone number " + telephone + " invalid\n");
+                write("Phone number " + telephone + " invalid\n");
             }
         } while (!telephone.matches(phoneRegex));
         do {
-            io.write("Enter your e-mail:\n");
-            email = io.read().trim();
+            write("Enter your e-mail:\n");
+            email = read().trim();
             if (!email.matches(emailRegex)) {
-                io.write("E-mail " + email + " invalid\n");
+                write("E-mail " + email + " invalid\n");
             }
         } while (!email.matches(emailRegex));
         Client client = new Client(name, gender, email, telephone, city);
         try {
             clientService.saveClient(BankCommander.currentBank, client);
             BankCommander.currentClient = client;
-            AddAccountCommand addAccountCommand = new AddAccountCommand(clientService,io);
+            AddAccountCommand addAccountCommand = new AddAccountCommand(clientService, getIo());
             addAccountCommand.execute();
         } catch (ClientAlreadyExistsException e) {
-            io.write(e.getMessage()+"\n");
+            write(e.getMessage() + "\n");
         }
     }
 

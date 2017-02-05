@@ -5,16 +5,14 @@ import ua.spalah.bank.IO.IO;
 /**
  * Created by Man on 12.01.2017.
  */
-public class ExitCommand implements Command {
-    private final IO io;
+public class ExitCommand extends AbstractCommand implements Command {
 
     public ExitCommand(IO io) {
-        this.io = io;
+        super(io);
     }
 
     @Override
     public void execute() {
-
         System.exit(0);
     }
 

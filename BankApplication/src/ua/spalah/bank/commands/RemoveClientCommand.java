@@ -8,24 +8,25 @@ import ua.spalah.bank.services.ClientService;
 /**
  * Created by Man on 12.01.2017.
  */
-public class RemoveClientCommand implements Command {
+public class RemoveClientCommand extends AbstractCommand implements Command {
     private final ClientService clientService;
-    private final IO io;
+
 
     public RemoveClientCommand(ClientService clientService) {
-        io = new ConsoleIO();
+        super(new ConsoleIO());
         this.clientService = clientService;
     }
 
     public RemoveClientCommand(ClientService clientService, IO io) {
+        super(io);
         this.clientService = clientService;
-        this.io = io;
+
     }
 
     @Override
     public void execute() {
-        io.write("Enter the name of client, who will be removed\n");
-        String name = io.read().trim();
+        write("Enter the name of client, who will be removed\n");
+        String name = read().trim();
         try {
             if (BankCommander.currentClient != null) {
                 if (BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
@@ -38,7 +39,7 @@ public class RemoveClientCommand implements Command {
                 throw new ClientNotFoundException(name);
             }
         } catch (ClientNotFoundException e) {
-            io.write(e.getMessage()+"\n");
+            write(e.getMessage() + "\n");
         }
     }
 

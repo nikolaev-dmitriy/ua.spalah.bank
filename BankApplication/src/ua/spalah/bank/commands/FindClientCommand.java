@@ -6,29 +6,29 @@ import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.services.ClientService;
 
 
-public class FindClientCommand implements Command {
-    private final IO io;
+public class FindClientCommand extends AbstractCommand implements Command {
+
     private final ClientService clientService;
 
     public FindClientCommand(ClientService clientService) {
-        io = new ConsoleIO();
+        super(new ConsoleIO());
         this.clientService = clientService;
     }
 
     public FindClientCommand(IO io, ClientService clientService) {
-        this.io = io;
+        super(io);
         this.clientService = clientService;
     }
 
     @Override
     public void execute() {
-        io.write("Please enter client name\n");
-        String name = io.read().trim();
+        write("Please enter client name\n");
+        String name = read().trim();
 
         try {
             BankCommander.currentClient = clientService.findClientByName(BankCommander.currentBank, name);
         } catch (ClientNotFoundException e) {
-            io.write(e.getMessage()+"\n");
+            write(e.getMessage() + "\n");
         }
     }
 

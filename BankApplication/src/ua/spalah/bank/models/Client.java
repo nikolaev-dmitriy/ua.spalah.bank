@@ -11,6 +11,7 @@ import java.util.Objects;
  * Created by Man on 07.01.2017.
  */
 public class Client {
+    private long id=0;
     private String name;
     private Gender gender;
     private String email;
@@ -19,12 +20,21 @@ public class Client {
     private Account activeAccount;
     private List<Account> accounts = new ArrayList<>();
 
-    public Client(String name, Gender gender, String email, String telephone, String city) {
+    public Client( String name, Gender gender, String email, String telephone, String city) {
+        this.id = this.id+1;
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.telephone = telephone;
         this.city = city;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setEmail(String email) {

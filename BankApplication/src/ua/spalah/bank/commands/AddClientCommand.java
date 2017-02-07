@@ -62,7 +62,7 @@ public class AddClientCommand extends AbstractCommand implements Command {
                 write("E-mail " + email + " invalid\n");
             }
         } while (!email.matches(emailRegex));
-        Client client = new Client(name, gender, email, telephone, city);
+        Client client = new Client( name, gender, email, telephone, city);
         try {
             clientService.saveClient(BankCommander.currentBank, client);
             BankCommander.currentClient = client;

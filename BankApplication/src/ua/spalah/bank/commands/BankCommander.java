@@ -69,7 +69,7 @@ public abstract class BankCommander {
                 String email = clientInfo[2];
                 String number = clientInfo[3];
                 String city = clientInfo[4];
-                Client client = new Client(name, gender, email, number, city);
+                Client client = new Client( name, gender, email, number, city);
                 bank.getClients().put(client.getName(), client);
             }
             Path accountsPath = clientsPath.resolveSibling("accounts.txt");

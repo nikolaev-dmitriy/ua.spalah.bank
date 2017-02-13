@@ -27,20 +27,18 @@ public class RemoveClientCommand extends AbstractCommand implements Command {
     public void execute() {
         write("Enter the name of client, who will be removed\n");
         String name = read().trim();
+
         try {
             if (BankCommander.currentClient != null) {
-                if (BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
+                if (BankCommander.currentClient.equals(clientService.findClientByName(name))) {
                     BankCommander.currentClient = null;
                 }
             }
-            if (BankCommander.currentBank.getClients().containsKey(name)) {
-                clientService.deleteClient(BankCommander.currentBank, name);
-            } else {
-                throw new ClientNotFoundException(name);
-            }
+            clientService.deleteClient(name);
         } catch (ClientNotFoundException e) {
-            write(e.getMessage() + "\n");
+            System.out.println(e.getMessage());
         }
+
     }
 
     @Override

@@ -18,10 +18,12 @@ public class AddAccountCommand extends AbstractCommand implements Command {
         this.clientService = clientService;
     }
 
+
     public AddAccountCommand(ClientService clientService, IO io) {
         super(io);
         this.clientService = clientService;
     }
+
 
     @Override
     public void execute() {
@@ -41,9 +43,8 @@ public class AddAccountCommand extends AbstractCommand implements Command {
                         write("Balance can't be negative\n");
                         break;
                     } else {
-                        account = new SavingAccount(balance);
+                        account = new SavingAccount(BankCommander.currentClient.getId(), balance);
                         clientService.addAccount(BankCommander.currentClient, account);
-                        selectThisAccountActive(account);
                         exit = true;
                         break;
                     }
@@ -57,9 +58,8 @@ public class AddAccountCommand extends AbstractCommand implements Command {
                         write("Balance or overdraft can't be negative\n");
                         break;
                     } else {
-                        account = new CheckingAccount(balance, overdraft);
+                        account = new CheckingAccount(BankCommander.currentClient.getId(), balance, overdraft);
                         clientService.addAccount(BankCommander.currentClient, account);
-                        selectThisAccountActive(account);
                         exit = true;
                         break;
                     }
@@ -67,33 +67,6 @@ public class AddAccountCommand extends AbstractCommand implements Command {
                 default: {
                     write("Incorrect input\n");
                     break;
-                }
-            }
-        }
-    }
-
-    private void selectThisAccountActive(Account account) {
-        if (BankCommander.currentClient.getAccounts().size() == 1) {
-            BankCommander.currentClient.setActiveAccount(account);
-        } else {
-            boolean exitFromMethod = false;
-            while (exitFromMethod == false) {
-                write("Do you want to make this account active?\n1. Yes\n2.No\n");
-                int answer = Integer.parseInt(read().trim());
-                switch (answer) {
-                    case 1: {
-                        BankCommander.currentClient.setActiveAccount(account);
-                        exitFromMethod = true;
-                        break;
-                    }
-                    default: {
-                        if (answer != 2) {
-                            write("Incorrect input\n");
-                        } else {
-                            exitFromMethod = true;
-                            break;
-                        }
-                    }
                 }
             }
         }

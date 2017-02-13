@@ -14,6 +14,11 @@ public class CheckingAccount extends SavingAccount {
         this.overdraft = overdraft;
     }
 
+    public CheckingAccount(long clientId, double balance, double overdraft) {
+        super(clientId, balance, AccountType.CHECKING);
+        this.overdraft = overdraft;
+    }
+
     public double getOverdraft() {
         return overdraft;
     }
@@ -29,5 +34,15 @@ public class CheckingAccount extends SavingAccount {
                 ", overdraft=" + this.getOverdraft() +
                 ", accountType=" + this.getType() +
                 "}";
+    }
+
+    @Override
+    public boolean equals(Account account) {
+        if (this.getOverdraft() == ((CheckingAccount) account).getOverdraft() && this.getClientId() == account.getClientId() && this.getType().equals(account.getType()) && this.getId() == account.getId() && this.getBalance() == account.getBalance()) {
+            return true;
+        } else {
+            return false;
+
+        }
     }
 }

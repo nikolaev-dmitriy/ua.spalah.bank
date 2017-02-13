@@ -11,4 +11,14 @@ public interface Account {
     double getBalance();
 
     void setBalance(double balance);
+
+    long getClientId();
+
+    void setClientId(long clientId);
+
+    long getId();
+
+    void setId(long id);
+
+    boolean equals(Account account);
 }

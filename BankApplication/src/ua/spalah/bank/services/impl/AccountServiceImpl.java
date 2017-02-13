@@ -1,5 +1,6 @@
 package ua.spalah.bank.services.impl;
 
+import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
 import ua.spalah.bank.exceptions.OverdraftLimitExceededException;
 import ua.spalah.bank.models.accounts.Account;
@@ -10,6 +11,11 @@ import ua.spalah.bank.services.AccountService;
  * Created by Man on 07.01.2017.
  */
 public class AccountServiceImpl implements AccountService {
+private AccountDao accountDao;
+
+    public AccountServiceImpl(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
 
     public void deposit(Account account, double amount) {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");

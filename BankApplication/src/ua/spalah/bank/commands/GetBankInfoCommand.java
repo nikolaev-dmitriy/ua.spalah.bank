@@ -23,13 +23,13 @@ public class GetBankInfoCommand extends AbstractCommand implements Command {
     @Override
     public void execute() {
         write("Cities:\n");
-        for (String city : bankReportService.getClientsByCity(BankCommander.currentBank).keySet()) {
-            write(city + bankReportService.getClientsByCity(BankCommander.currentBank).get(city) + "\n");
-        }
-        write("Number of bank's clients: " + bankReportService.getNumberOfClients(BankCommander.currentBank) + "\n");
-        write("Number of bank's accounts: " + bankReportService.getNumberOfAccounts(BankCommander.currentBank) + "\n");
-        write("Total bank's savings: " + bankReportService.getTotalAccountSum(BankCommander.currentBank) + "\n");
-        write("Total bank's credits: " + bankReportService.getBankCreditSum(BankCommander.currentBank) + "\n");
+//        for (String city : bankReportService.getClientsByCity(BankCommander.currentBank).keySet()) {
+//            write(city + bankReportService.getClientsByCity(BankCommander.currentBank).get(city) + "\n");
+//        }
+//        write("Number of bank's clients: " + bankReportService.getNumberOfClients(BankCommander.currentBank) + "\n");
+//        write("Number of bank's accounts: " + bankReportService.getNumberOfAccounts(BankCommander.currentBank) + "\n");
+//        write("Total bank's savings: " + bankReportService.getTotalAccountSum(BankCommander.currentBank) + "\n");
+//        write("Total bank's credits: " + bankReportService.getBankCreditSum(BankCommander.currentBank) + "\n");
     }
 
     @Override

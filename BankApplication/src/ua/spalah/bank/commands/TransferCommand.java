@@ -33,8 +33,8 @@ public class TransferCommand extends AbstractCommand implements Command {
         try {
             write("Enter amount to transfer\n");
             double amount = Double.parseDouble(read().trim());
-            if (!BankCommander.currentClient.equals(clientService.findClientByName(BankCommander.currentBank, name))) {
-                accountService.transfer(BankCommander.currentClient.getActiveAccount(), clientService.findClientByName(BankCommander.currentBank, name).getActiveAccount(), amount);
+            if (!BankCommander.currentClient.equals(clientService.findClientByName( name))) {
+                accountService.transfer(BankCommander.currentClient.getActiveAccount(), clientService.findClientByName( name).getActiveAccount(), amount);
             } else {
                 write("Transfer error: You cant make the transfer to your active account from your active account\n");
             }

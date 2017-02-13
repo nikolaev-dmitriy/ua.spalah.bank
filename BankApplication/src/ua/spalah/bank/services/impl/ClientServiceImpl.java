@@ -1,51 +1,77 @@
 package ua.spalah.bank.services.impl;
 
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.dao.impl.AccountDaoImpl;
+import ua.spalah.bank.dao.impl.ClientDaoImpl;
 import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
-import ua.spalah.bank.models.Bank;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.ClientService;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by Man on 07.01.2017.
  */
 public class ClientServiceImpl implements ClientService {
+    private ClientDao clientDao;
+
+    public ClientServiceImpl(ClientDao clientDao) {
+        this.clientDao = clientDao;
+    }
+
     @Override
-    public Client findClientByName(Bank bank, String name) throws ClientNotFoundException {
-        Client client = bank.getClients().get(name);
+    public Client findClientByName(String name) throws ClientNotFoundException {
+        Client client = clientDao.findByName(name);
         if (client == null) {
             throw new ClientNotFoundException(name);
-        }
-        return client;
-    }
-
-    @Override
-    public Client saveClient(Bank bank, Client client) throws ClientAlreadyExistsException {
-        if (!bank.getClients().containsKey(client.getName()) ) {
-            bank.getClients().put(client.getName(), client) ;
-            return client;
         } else {
-            throw new ClientAlreadyExistsException(client.getName());
+            return client;
         }
     }
 
     @Override
-    public Map<String,Client> findAllClients(Bank bank) {
-        return bank.getClients();
+    public Client saveClient(Client client) throws ClientAlreadyExistsException {
+        return clientDao.saveOrUpdate(client);
     }
 
     @Override
-    public void deleteClient(Bank bank, String name) {
-        bank.getClients().remove(name);
+    public List<Client> findAllClients() {
+        return clientDao.findAll();
+    }
+
+
+    @Override
+    public void deleteClient(String name) throws ClientNotFoundException {
+        Client client = findClientByName(name);
+        clientDao.delete(client.getId());
+    }
+
+    @Override
+    public List<Account> getClientAccounts(Client client) {
+        AccountDao accountDao = new AccountDaoImpl(clientDao.getConnection());
+        return accountDao.findByClientId(client.getId());
+    }
+
+    @Override
+    public Account findClientActiveAccount(Client client) throws ClientNotFoundException {
+        AccountDao accountDao = new AccountDaoImpl(clientDao.getConnection());
+        return accountDao.findActiveAccountByClientName(client.getName());
+    }
+
+    @Override
+    public Account setActiveAccount(Account account) {
+        AccountDao accountDao = new AccountDaoImpl(clientDao.getConnection());
+        return accountDao.setActiveAccount(account.getId());
     }
 
     @Override
     public double getTotalBalance(Client client) {
         double totalSum = 0;
-        for (Account account : client.getAccounts()) {
+        AccountDao accountDao = new AccountDaoImpl(clientDao.getConnection());
+        for (Account account : accountDao.findByClientId(client.getId())) {
             totalSum += account.getBalance();
         }
         return totalSum;
@@ -53,9 +79,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void addAccount(Client client, Account account) {
-        if (client.getAccounts().size() == 0) {
-            client.setActiveAccount(account);
-        }
-        client.getAccounts().add(account);
+        AccountDao accountDao = new AccountDaoImpl(clientDao.getConnection());
+        account = accountDao.saveOrUpdate(account);
+        client.setActiveAccountId(account.getId());
+        client.setActiveAccount(account);
+        ClientDao clientDao = new ClientDaoImpl(accountDao.getConnection());
+        clientDao.update(client);
     }
 }

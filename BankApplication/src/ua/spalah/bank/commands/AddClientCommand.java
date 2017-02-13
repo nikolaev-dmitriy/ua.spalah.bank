@@ -62,12 +62,10 @@ public class AddClientCommand extends AbstractCommand implements Command {
                 write("E-mail " + email + " invalid\n");
             }
         } while (!email.matches(emailRegex));
-        Client client = new Client( name, gender, email, telephone, city);
+        Client client = new Client(name, gender, email, telephone, city);
+        client.setActiveAccountId(0);
         try {
-            clientService.saveClient(BankCommander.currentBank, client);
-            BankCommander.currentClient = client;
-            AddAccountCommand addAccountCommand = new AddAccountCommand(clientService, getIo());
-            addAccountCommand.execute();
+            BankCommander.currentClient = clientService.saveClient(client);
         } catch (ClientAlreadyExistsException e) {
             write(e.getMessage() + "\n");
         }

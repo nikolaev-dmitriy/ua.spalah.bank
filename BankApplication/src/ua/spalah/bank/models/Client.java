@@ -11,22 +11,45 @@ import java.util.Objects;
  * Created by Man on 07.01.2017.
  */
 public class Client {
-    private long id=0;
+    private long id;
     private String name;
     private Gender gender;
     private String email;
     private String telephone;
     private String city;
+    private long activeAccountId;
     private Account activeAccount;
-    private List<Account> accounts = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<Account>();
 
-    public Client( String name, Gender gender, String email, String telephone, String city) {
-        this.id = this.id+1;
+
+    public Client(long id, String name, Gender gender, String email, String telephone, String city) {
+        this.id = id;
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.telephone = telephone;
         this.city = city;
+    }
+
+    public Client(String name, Gender gender, String email, String telephone, String city) {
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.telephone = telephone;
+        this.city = city;
+    }
+
+    public long getActiveAccountId() {
+        return activeAccountId;
+    }
+
+    public void setActiveAccountId(long activeAccountId) {
+        this.activeAccountId = activeAccountId;
+    }
+
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
     public long getId() {
@@ -78,10 +101,6 @@ public class Client {
         return gender;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
     @Override
     public String toString() {
         return "\nClient{" +
@@ -91,7 +110,6 @@ public class Client {
                 ", telephone='" + telephone + '\'' +
                 ", city='" + city + '\'' +
                 ", \nactiveAccount=" + activeAccount +
-                ", \naccounts=" + accounts +
                 '}';
     }
 
@@ -101,7 +119,7 @@ public class Client {
         if (otherObject == null) return false;
         if (getClass() != otherObject.getClass()) return false;
         Client other = (Client) otherObject;
-        return Objects.equals(name, other.name) && Objects.equals(gender, other.gender) && Objects.equals(email, other.email)&& Objects.equals(telephone, other.telephone)&& Objects.equals(city, other.city);
+        return Objects.equals(name, other.name) && Objects.equals(gender, other.gender) && Objects.equals(email, other.email) && Objects.equals(telephone, other.telephone) && Objects.equals(city, other.city);
     }
 
     @Override

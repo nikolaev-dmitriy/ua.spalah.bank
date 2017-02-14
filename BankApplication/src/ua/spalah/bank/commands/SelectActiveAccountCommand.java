@@ -27,7 +27,8 @@ public class SelectActiveAccountCommand extends AbstractCommand implements Comma
         write("Enter the number of account to set it active\n");
         int i = Integer.parseInt(read().trim());
         try {
-            clientService.setActiveAccount(BankCommander.currentClient.getAccounts().get(i-1));
+            BankCommander.currentClient.setActiveAccount(clientService.setActiveAccount(BankCommander.currentClient.getAccounts().get(i-1)));
+
         } catch (IndexOutOfBoundsException e) {
             write("Account with this number is not existed\n");
         }

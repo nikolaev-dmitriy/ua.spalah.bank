@@ -1,6 +1,5 @@
 package ua.spalah.bank.services;
 
-import ua.spalah.bank.models.Bank;
 import ua.spalah.bank.models.Client;
 
 import java.util.List;
@@ -10,15 +9,15 @@ import java.util.Map;
  * Created by Man on 07.01.2017.
  */
 public interface BankReportService {
-    int getNumberOfClients(Bank bank); // общее количество клиентов
+    int getNumberOfClients(); // общее количество клиентов
 
-    int getNumberOfAccounts(Bank bank); // общее количество счетов
+    int getNumberOfAccounts(); // общее количество счетов
 
-    double getTotalAccountSum(Bank bank); // общая сумма по всем счетам
+    double getTotalAccountSum(); // общая сумма по всем счетам
 
-    double getBankCreditSum(Bank bank); // возвращает сумму отрицательных балансов по всем счетам
+    double getBankCreditSum(); // возвращает сумму отрицательных балансов по всем счетам
 
-    List<Client> getClientsSortedByName(Bank bank); // Возвращает список клиентов отсортированных по имени
+    List<Client> getClientsSortedByName(); // Возвращает список клиентов отсортированных по имени
 
-    Map<String, List<Client>> getClientsByCity(Bank bank);
+    Map<String, List<Client>> getClientsByCity();
 }

@@ -43,7 +43,7 @@ public abstract class BankCommander {
             AccountDao accountDao = new AccountDaoImpl(connection);
             ClientService clientService = new ClientServiceImpl(clientDao);
             AccountService accountService = new AccountServiceImpl(accountDao);
-            BankReportService bankReportService = new BankReportServiceImpl();
+            BankReportService bankReportService = new BankReportServiceImpl(clientDao, accountDao);
 
             this.commands = new Command[]{
                     new FindClientCommand(io, clientService),
@@ -55,7 +55,7 @@ public abstract class BankCommander {
                     new AddClientCommand(clientService, io),
                     new AddAccountCommand(clientService, io),
                     new RemoveClientCommand(clientService, io),
-                    new GetBankInfoCommand(bankReportService, io),
+                    new GetBankInfoCommand(bankReportService,clientService, io),
                     new ExitCommand(connection, io)
             };
 

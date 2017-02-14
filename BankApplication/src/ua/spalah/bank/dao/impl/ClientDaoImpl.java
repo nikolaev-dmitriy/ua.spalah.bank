@@ -160,7 +160,7 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public Client findByName(String name) throws ClientNotFoundException {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PUBLIC.CLIENTS WHERE NAME=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PUBLIC.CLIENTS WHERE NAME=?",PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (!resultSet.wasNull()) {
@@ -182,9 +182,8 @@ public class ClientDaoImpl implements ClientDao {
                 throw new ClientNotFoundException(name);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ClientNotFoundException(name);
         }
-        return null;
     }
 
 }

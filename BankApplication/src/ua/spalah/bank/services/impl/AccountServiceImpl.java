@@ -11,7 +11,7 @@ import ua.spalah.bank.services.AccountService;
  * Created by Man on 07.01.2017.
  */
 public class AccountServiceImpl implements AccountService {
-private AccountDao accountDao;
+    private AccountDao accountDao;
 
     public AccountServiceImpl(AccountDao accountDao) {
         this.accountDao = accountDao;
@@ -19,8 +19,9 @@ private AccountDao accountDao;
 
     public void deposit(Account account, double amount) {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
-
+        account = accountDao.find(account.getId());
         account.setBalance(account.getBalance() + amount);
+        accountDao.update(account);
     }
 
     public void withdraw(Account account, double amount) throws NotEnoughFundsException {
@@ -31,6 +32,7 @@ private AccountDao accountDao;
                 double balance = account.getBalance();
                 if (balance >= amount) {
                     account.setBalance(balance - amount);
+                    accountDao.update(account);
                 } else {
                     throw new NotEnoughFundsException(balance);
                 }
@@ -39,7 +41,8 @@ private AccountDao accountDao;
             case CHECKING: {
                 double available = account.getBalance() + ((CheckingAccount) account).getOverdraft();
                 if (available >= amount) {
-                    account.setBalance(account.getBalance()- amount);
+                    account.setBalance(account.getBalance() - amount);
+                    accountDao.update(account);
                 } else {
                     throw new OverdraftLimitExceededException(available);
                 }

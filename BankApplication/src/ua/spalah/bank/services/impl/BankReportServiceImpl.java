@@ -1,6 +1,7 @@
 package ua.spalah.bank.services.impl;
 
-import ua.spalah.bank.models.Bank;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.accounts.CheckingAccount;
@@ -13,25 +14,28 @@ import java.util.*;
  * Created by Man on 07.01.2017.
  */
 public class BankReportServiceImpl implements BankReportService {
-    @Override
-    public int getNumberOfClients(Bank bank) {
-        return bank.getClients().size();
+    private ClientDao clientDao;
+    private AccountDao accountDao;
+    public BankReportServiceImpl(ClientDao clientDao, AccountDao accountDao) {
+    this.clientDao=clientDao;
+    this.accountDao = accountDao;
     }
 
     @Override
-    public int getNumberOfAccounts(Bank bank) {
-        int k = 0;
-        for (Client client : bank.getClients().values()) {
-            k += client.getAccounts().size();
-        }
-        return k;
+    public int getNumberOfClients() {
+        return clientDao.findAll().size();
     }
 
     @Override
-    public double getTotalAccountSum(Bank bank) {
+    public int getNumberOfAccounts() {
+        return accountDao.findAll().size();
+    }
+
+    @Override
+    public double getTotalAccountSum() {
         double totalSum = 0;
-        for (Client client : bank.getClients().values()) {
-            for (Account account : client.getAccounts()) {
+        for (Client client : clientDao.findAll()) {
+            for (Account account : accountDao.findByClientId(client.getId())) {
                 totalSum += account.getBalance();
             }
         }
@@ -39,10 +43,10 @@ public class BankReportServiceImpl implements BankReportService {
     }
 
     @Override
-    public double getBankCreditSum(Bank bank) {
+    public double getBankCreditSum() {
         double totalCredit = 0;
-        for (Client client : bank.getClients().values()) {
-            for (Account account : client.getAccounts()) {
+        for (Client client : clientDao.findAll()) {
+            for (Account account : accountDao.findByClientId(client.getId())) {
                 if (account.getType().equals(AccountType.CHECKING)) {
                     CheckingAccount checkingAccount = (CheckingAccount) account;
                     totalCredit += checkingAccount.getOverdraft();
@@ -53,8 +57,8 @@ public class BankReportServiceImpl implements BankReportService {
     }
 
     @Override
-    public List<Client> getClientsSortedByName(Bank bank) {
-        List<Client> clients = new ArrayList<Client>(bank.getClients().values());
+    public List<Client> getClientsSortedByName() {
+        List<Client> clients = new ArrayList<Client>(clientDao.findAll());
         clients.sort(new Comparator<Client>() {
             @Override
             public int compare(Client client1, Client client2) {
@@ -66,9 +70,9 @@ public class BankReportServiceImpl implements BankReportService {
     }
 
     @Override
-    public Map<String, List<Client>> getClientsByCity(Bank bank) {
+    public Map<String, List<Client>> getClientsByCity() {
         Map<String, List<Client>> clientsByCity = new HashMap<>();
-        for (Client client : bank.getClients().values()) {
+        for (Client client : clientDao.findAll()) {
             if (!clientsByCity.containsKey(client.getCity())) {
                 clientsByCity.put(client.getCity(), new ArrayList<>());
             }

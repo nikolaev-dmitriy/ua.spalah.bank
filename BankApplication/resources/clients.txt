@@ -1,4 +1,0 @@
-Dima::MALE::florida124@yandex.ru::+380936678673::Dnipro
-Misha::MALE::mikokonst@yandex.ru::+380666678673::Dnipro
-Masha::FEMALE::sf4325gfd@yandex.ru::+380936345673::Dnipro
-Kostya::MALE::fgd5454565546562@yandex.ru::+380945675673::Kryvyi Rig

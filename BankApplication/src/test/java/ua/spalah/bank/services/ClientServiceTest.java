@@ -1,3 +1,4 @@
+/*
 package ua.spalah.bank.services;
 
 import org.junit.Assert;
@@ -13,9 +14,11 @@ import ua.spalah.bank.models.accounts.SavingAccount;
 import ua.spalah.bank.models.type.Gender;
 import ua.spalah.bank.services.impl.ClientServiceImpl;
 
+*/
 /**
  * Created by Man on 22.01.2017.
- */
+ *//*
+
 public class ClientServiceTest extends Assert {
     private ClientService clientService;
     private Bank bank;
@@ -102,4 +105,4 @@ public class ClientServiceTest extends Assert {
     public void getClientByNameWithException() throws ClientNotFoundException {
         clientService.findClientByName(bank, "Max");
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package ua.spalah.bank.services;
 
 import org.junit.Before;
@@ -11,9 +12,11 @@ import ua.spalah.bank.services.impl.AccountServiceImpl;
 
 import static org.junit.Assert.assertEquals;
 
+*/
 /**
  * Created by Man on 23.01.2017.
- */
+ *//*
+
 public class AccountServiceTest {
 
     private AccountService accountService;
@@ -72,4 +75,4 @@ public class AccountServiceTest {
         assertEquals(expected2, account2.getBalance(), 0);
     }
 
-}
+}*/

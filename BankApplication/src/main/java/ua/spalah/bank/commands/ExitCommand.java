@@ -1,6 +1,6 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.IO;
+import ua.spalah.bank.IO.IO;
 
 import java.sql.Connection;
 import java.sql.SQLException;

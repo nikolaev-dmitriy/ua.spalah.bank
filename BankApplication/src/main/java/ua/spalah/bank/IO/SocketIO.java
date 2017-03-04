@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.IO;
+package ua.spalah.bank.IO;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

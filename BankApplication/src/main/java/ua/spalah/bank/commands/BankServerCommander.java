@@ -1,6 +1,6 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.SocketIO;
+import ua.spalah.bank.IO.SocketIO;
 
 import java.io.IOException;
 import java.net.ServerSocket;

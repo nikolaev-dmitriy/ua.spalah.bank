@@ -1,6 +1,6 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.ConsoleIO;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

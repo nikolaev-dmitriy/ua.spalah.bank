@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.exceptions;
+package ua.spalah.bank.exceptions;
 
 /**
  * Created by Man on 20.02.2017.

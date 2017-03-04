@@ -1,12 +1,12 @@
-package main.java.ua.spalah.bank.services.impl;
+package ua.spalah.bank.services.impl;
 
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.models.accounts.CheckingAccount;
-import main.java.ua.spalah.bank.models.type.AccountType;
-import main.java.ua.spalah.bank.services.BankReportService;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.accounts.CheckingAccount;
+import ua.spalah.bank.models.type.AccountType;
+import ua.spalah.bank.services.BankReportService;
 
 import java.util.*;
 

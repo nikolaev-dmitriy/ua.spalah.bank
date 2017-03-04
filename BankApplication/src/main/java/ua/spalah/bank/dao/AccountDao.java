@@ -1,7 +1,7 @@
-package main.java.ua.spalah.bank.dao;
+package ua.spalah.bank.dao;
 
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.exceptions.ClientNotFoundException;
+import ua.spalah.bank.models.accounts.Account;
 
 import java.util.List;
 

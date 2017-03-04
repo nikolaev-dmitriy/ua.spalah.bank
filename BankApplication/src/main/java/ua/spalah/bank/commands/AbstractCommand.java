@@ -1,6 +1,6 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.IO;
+import ua.spalah.bank.IO.IO;
 
 /**
  * Created by Man on 05.02.2017.

@@ -1,7 +1,7 @@
-package main.java.ua.spalah.bank.models;
+package ua.spalah.bank.models;
 
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.models.type.Gender;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.type.Gender;
 
 import java.util.ArrayList;
 import java.util.List;

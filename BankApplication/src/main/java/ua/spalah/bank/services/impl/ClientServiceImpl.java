@@ -1,12 +1,12 @@
-package main.java.ua.spalah.bank.services.impl;
+package ua.spalah.bank.services.impl;
 
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.exceptions.ClientAlreadyExistsException;
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.services.ClientService;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
+import ua.spalah.bank.exceptions.ClientNotFoundException;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.services.ClientService;
 
 import java.util.List;
 

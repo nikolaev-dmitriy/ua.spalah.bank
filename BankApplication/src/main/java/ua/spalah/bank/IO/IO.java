@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.IO;
+package ua.spalah.bank.IO;
 
 /**
  * Created by Man on 29.01.2017.

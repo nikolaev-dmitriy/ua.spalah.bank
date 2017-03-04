@@ -1,9 +1,9 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.ConsoleIO;
-import main.java.ua.spalah.bank.IO.IO;
-import main.java.ua.spalah.bank.services.AccountService;
-import main.java.ua.spalah.bank.services.ClientService;
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
+import ua.spalah.bank.services.AccountService;
+import ua.spalah.bank.services.ClientService;
 
 /**
  * Created by Man on 13.01.2017.

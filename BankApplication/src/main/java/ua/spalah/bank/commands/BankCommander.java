@@ -1,17 +1,17 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.IO;
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.dao.impl.AccountDaoImpl;
-import main.java.ua.spalah.bank.dao.impl.ClientDaoImpl;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.services.AccountService;
-import main.java.ua.spalah.bank.services.BankReportService;
-import main.java.ua.spalah.bank.services.ClientService;
-import main.java.ua.spalah.bank.services.impl.AccountServiceImpl;
-import main.java.ua.spalah.bank.services.impl.BankReportServiceImpl;
-import main.java.ua.spalah.bank.services.impl.ClientServiceImpl;
+import ua.spalah.bank.IO.IO;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.dao.impl.AccountDaoImpl;
+import ua.spalah.bank.dao.impl.ClientDaoImpl;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.services.AccountService;
+import ua.spalah.bank.services.BankReportService;
+import ua.spalah.bank.services.ClientService;
+import ua.spalah.bank.services.impl.AccountServiceImpl;
+import ua.spalah.bank.services.impl.BankReportServiceImpl;
+import ua.spalah.bank.services.impl.ClientServiceImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

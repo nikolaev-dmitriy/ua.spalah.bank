@@ -1,6 +1,6 @@
-package main.java.ua.spalah.bank.services;
+package ua.spalah.bank.services;
 
-import main.java.ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.Client;
 
 import java.util.List;
 import java.util.Map;

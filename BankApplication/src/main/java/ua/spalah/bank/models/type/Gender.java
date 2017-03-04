@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.models.type;
+package ua.spalah.bank.models.type;
 
 /**
  * @author Kostiantyn Huliaiev

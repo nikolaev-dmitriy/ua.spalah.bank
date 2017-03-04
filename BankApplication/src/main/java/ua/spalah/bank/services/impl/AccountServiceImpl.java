@@ -1,14 +1,14 @@
-package main.java.ua.spalah.bank.services.impl;
+package ua.spalah.bank.services.impl;
 
-import main.java.ua.spalah.bank.commands.BankCommander;
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.exceptions.NotEnoughFundsException;
-import main.java.ua.spalah.bank.exceptions.OverdraftLimitExceededException;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.models.accounts.CheckingAccount;
-import main.java.ua.spalah.bank.services.AccountService;
+import ua.spalah.bank.commands.BankCommander;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.exceptions.NotEnoughFundsException;
+import ua.spalah.bank.exceptions.OverdraftLimitExceededException;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.accounts.CheckingAccount;
+import ua.spalah.bank.services.AccountService;
 
 /**
  * Created by Man on 07.01.2017.

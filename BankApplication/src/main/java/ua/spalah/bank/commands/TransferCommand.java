@@ -1,12 +1,12 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.ConsoleIO;
-import main.java.ua.spalah.bank.IO.IO;
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.exceptions.NotEnoughFundsException;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.services.AccountService;
-import main.java.ua.spalah.bank.services.ClientService;
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
+import ua.spalah.bank.exceptions.ClientNotFoundException;
+import ua.spalah.bank.exceptions.NotEnoughFundsException;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.services.AccountService;
+import ua.spalah.bank.services.ClientService;
 
 /**
  * Created by Man on 12.01.2017.

@@ -1,8 +1,8 @@
-package main.java.ua.spalah.bank.services;
+package ua.spalah.bank.services;
 
-import main.java.ua.spalah.bank.exceptions.NotEnoughFundsException;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.exceptions.NotEnoughFundsException;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
 
 /**
  * Created by Man on 07.01.2017.

@@ -1,6 +1,6 @@
-package main.java.ua.spalah.bank.models.accounts;
+package ua.spalah.bank.models.accounts;
 
-import main.java.ua.spalah.bank.models.type.AccountType;
+import ua.spalah.bank.models.type.AccountType;
 
 /**
  * Created by Man on 07.01.2017.

@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
 /**
  * @author Kostiantyn Huliaiev

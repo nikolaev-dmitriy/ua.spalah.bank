@@ -29,7 +29,7 @@ public class WithdrawCommand extends AbstractCommand implements Command {
         write("Enter amount to withdraw:\n");
         double amount = Double.parseDouble(read().trim());
         try {
-            accountService.withdraw(BankCommander.currentClient.getActiveAccount(), amount);
+            accountService.withdraw(BankCommander.currentClient.getId(),BankCommander.currentClient.getActiveAccount(), amount);
         } catch (NotEnoughFundsException | IllegalArgumentException e) {
             write(e.getMessage() + "\n");
         } catch (NullPointerException e) {

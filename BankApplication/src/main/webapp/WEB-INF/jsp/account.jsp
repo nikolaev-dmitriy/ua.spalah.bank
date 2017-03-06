@@ -24,17 +24,16 @@
         </c:if>
         <form class="form-inline">
             <div class="form-group">
-                <label class="sr-only" for="amount">Amount (in dollars)</label>
                 <div class="input-group">
                     <div class="input-group-addon">$</div>
-                    <input type="text" class="form-control" id="amount" placeholder="Amount">
+                    <input id="amount" type="text" class="form-control" placeholder="Amount" name="amount">
                     <div class="input-group-addon">.00</div>
                 </div>
             </div>
-
-            <input type="submit" class="btn btn-success" value="Deposit">
-
-            <input type="submit" class="btn btn-warning" value="Withdraw">
+            <input type="hidden" name="clientId" value="${clientId}">
+            <input type="hidden" name="id" value="${account.id}">
+            <input formaction="/client/account/deposit" type="submit" class="btn btn-success" value="Deposit">
+            <input formaction="/client/account/withdraw" type="submit" class="btn btn-warning" value="Withdraw">
         </form>
         <c:url value="/client?id=${clientId}" var="backToClientUrl"/>
         <a href="${backToClientUrl}" class="btn btn-primary" role="button">Back to client info</a>

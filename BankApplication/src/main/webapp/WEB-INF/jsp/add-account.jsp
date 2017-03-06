@@ -29,7 +29,7 @@
                 <label for="balance">Balance:</label>
                 <input id="balance" type="text" class="form-control" name="balance">
             </div>
-            <div class="form-group" id="overdraftDiv">
+            <div class="form-group">
                 <label for="overdraft">Overdraft:</label>
                 <input id="overdraft" type="text" class="form-control" name="overdraft">
             </div>

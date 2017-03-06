@@ -29,7 +29,7 @@ public class DepositCommand extends AbstractCommand implements Command {
         write("Enter the amount to deposit\n");
         double amount = Double.parseDouble(read().trim());
         try {
-            accountService.deposit(BankCommander.currentClient.getActiveAccount(), amount);
+            accountService.deposit(BankCommander.currentClient.getId(),BankCommander.currentClient.getActiveAccount(), amount);
         } catch (IllegalArgumentException e) {
             write(e.getMessage() + "\n");
         } catch (NullPointerException e) {

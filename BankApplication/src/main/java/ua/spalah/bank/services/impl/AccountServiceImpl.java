@@ -1,6 +1,5 @@
 package ua.spalah.bank.services.impl;
 
-import ua.spalah.bank.commands.BankCommander;
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
@@ -23,14 +22,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deposit(Account account, double amount) {
+    public void deposit(long clientId,Account account, double amount) {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
         account.setBalance(account.getBalance() + amount);
-        accountDao.update(BankCommander.currentClient.getId(),account);
+        accountDao.update(clientId,account);
     }
 
     @Override
-    public void withdraw(Account account, double amount) throws NotEnoughFundsException {
+    public void withdraw(long clientId, Account account, double amount) throws NotEnoughFundsException {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
 
         switch (account.getAccountType()) {
@@ -38,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
                 double balance = account.getBalance();
                 if (balance >= amount) {
                     account.setBalance(balance - amount);
-                    accountDao.update(BankCommander.currentClient.getId(),account);
+                    accountDao.update(clientId,account);
                 } else {
                     throw new NotEnoughFundsException(balance);
                 }
@@ -48,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
                 double available = account.getBalance() + ((CheckingAccount) account).getOverdraft();
                 if (available >= amount) {
                     account.setBalance(account.getBalance() - amount);
-                    accountDao.update(BankCommander.currentClient.getId(),account);
+                    accountDao.update(clientId,account);
                 } else {
                     throw new OverdraftLimitExceededException(available);
                 }

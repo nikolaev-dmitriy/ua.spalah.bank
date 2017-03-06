@@ -51,5 +51,21 @@
         <servlet-name>deleteClientServlet</servlet-name>
         <url-pattern>/client/delete</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>withdrawServlet</servlet-name>
+        <servlet-class>ua.spalah.bank.servlets.WithdrawServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>withdrawServlet</servlet-name>
+        <url-pattern>/client/account/withdraw</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>depositServlet</servlet-name>
+        <servlet-class>ua.spalah.bank.servlets.DepositServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>depositServlet</servlet-name>
+        <url-pattern>/client/account/deposit</url-pattern>
+    </servlet-mapping>
 </web-app>
 

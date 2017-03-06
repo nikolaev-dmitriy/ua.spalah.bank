@@ -2,7 +2,6 @@ package ua.spalah.bank.services.impl;
 
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.dao.ClientDao;
-import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
@@ -34,8 +33,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client saveClient(Client client) throws ClientAlreadyExistsException {
-        return clientDao.saveOrUpdate(client);
+    public Client saveClient(Client client) {
+        return clientDao.save(client);
     }
 
     @Override
@@ -56,8 +55,28 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Account findClientActiveAccount(Client client) throws ClientNotFoundException {
-        return accountDao.findActiveAccountByClientName(client.getName());
+    public Account findClientActiveAccount(Client client){
+        return accountDao.findActiveAccountByClientId(client.getId());
+    }
+
+    @Override
+    public Client findClientById(long id){
+        Client client = clientDao.find(id);
+        client.getAccounts().addAll(accountDao.findByClientId(client.getId()));
+        client.setActiveAccount(accountDao.findActiveAccountByClientName(client.getName()));
+        return client;
+    }
+
+    @Override
+    public Client updateClient(Client client) {
+        client = clientDao.update(client);
+        client.setActiveAccount(accountDao.findActiveAccountByClientName(client.getName()));
+        return client;
+    }
+
+    @Override
+    public void deleteClientById(long id) {
+        clientDao.delete(id);
     }
 
 

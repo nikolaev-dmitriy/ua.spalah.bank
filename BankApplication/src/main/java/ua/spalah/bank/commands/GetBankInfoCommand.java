@@ -2,7 +2,6 @@ package ua.spalah.bank.commands;
 
 import ua.spalah.bank.IO.ConsoleIO;
 import ua.spalah.bank.IO.IO;
-import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
@@ -35,11 +34,7 @@ public class GetBankInfoCommand extends AbstractCommand implements Command {
         write("Bank Info:\n");
         for (Client client : bankReportService.getClientsSortedByName()) {
             write("Client: " + client.getName() + "\t" + client.getGender().name() + "\t" + client.getCity() + "\t" + client.getTelephone() + "\t" + client.getEmail() + "\n");
-            try {
-                write("Active account: " + clientService.findClientActiveAccount(client) + "\n");
-            } catch (ClientNotFoundException e) {
-                e.printStackTrace();
-            }
+            write("Active account: " + clientService.findClientActiveAccount(client) + "\n");
             write("Accounts: ");
             for (Account account : clientService.getClientAccounts(client)) {
                 write(account + "\n");

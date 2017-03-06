@@ -88,7 +88,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void delete(long clientId) throws ClientNotFoundException {
+    public void delete(long clientId){
         try {
             Client client = find(clientId);
             client.setActiveAccount(null);
@@ -108,7 +108,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client find(long id) throws ClientNotFoundException {
+    public Client find(long id){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PUBLIC.CLIENTS WHERE id=?");
             preparedStatement.setLong(1, id);

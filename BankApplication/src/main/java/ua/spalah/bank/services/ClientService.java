@@ -1,6 +1,5 @@
 package ua.spalah.bank.services;
 
-import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
@@ -15,7 +14,7 @@ public interface ClientService {
 
     Client findClientByName(String name) throws ClientNotFoundException;
 
-    Client saveClient(Client client) throws ClientAlreadyExistsException;
+    Client saveClient(Client client);
 
     List<Client> findAllClients();
 
@@ -23,6 +22,11 @@ public interface ClientService {
 
     List<Account> getClientAccounts (Client client);
 
-    Account findClientActiveAccount(Client Client) throws ClientNotFoundException;
+    Account findClientActiveAccount(Client Client);
 
+    Client findClientById(long id);
+
+    Client updateClient(Client client);
+
+    void deleteClientById(long id);
 }

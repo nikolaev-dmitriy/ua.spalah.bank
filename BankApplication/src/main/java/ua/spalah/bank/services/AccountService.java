@@ -11,7 +11,12 @@ public interface AccountService {
     void deposit(Account account, double amount);
     void withdraw(Account account,double amount)throws NotEnoughFundsException;
     void transfer(Account fromAccount, Account toAccount, double amount)throws NotEnoughFundsException;
-    void addAccount(Client client, Account account);
-    Account setActiveAccount(Account account);
 
+    Account updateAccount(long clientId, Account account);
+
+    Account addAccount(Client client, Account account);
+
+    Account setActiveAccount(Client client, Account account);
+
+    Account findAccountById(long id);
 }

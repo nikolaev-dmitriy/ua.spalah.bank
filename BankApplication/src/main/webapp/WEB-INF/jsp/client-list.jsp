@@ -38,12 +38,18 @@
                         </td>
                         <td>${client.gender}</td>
                         <td>${client.city}</td>
+                        <td>
+                            <c:url value="/client/delete?id=${client.id}" var="deleteUrl"/>
+                            <form action="${deleteUrl}" method="post">
+                            <a href="${deleteUrl}" class="btn btn-danger" role="button">Delete</a>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
         </table>
-        <%--<c: url value="/client/add" var="createUrl"/>--%>
-        <a href="${clientUrl}" class="btn btn-lg btn-primary" role="button">New client</a>
+        <c:url value="/client/edit" var="createUrl"/>
+        <a href="${createUrl}" class="btn btn-lg btn-primary" role="button">New client</a>
     </div>
 </div>
 </body>

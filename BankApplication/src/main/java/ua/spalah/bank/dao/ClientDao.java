@@ -19,10 +19,10 @@ public interface ClientDao {
     Client saveOrUpdate(Client client);
 
     // Удаляет клиента по его id
-    void delete(long clientId) throws ClientNotFoundException;
+    void delete(long clientId);
 
     // Находит клиента по его id
-    Client find(long id) throws ClientNotFoundException;
+    Client find(long id);
 
     // Достает из базы всех клиентов
     List<Client> findAll();

@@ -47,7 +47,7 @@ public class BankReportServiceImpl implements BankReportService {
         double totalCredit = 0;
         for (Client client : clientDao.findAll()) {
             for (Account account : accountDao.findByClientId(client.getId())) {
-                if (account.getType().equals(AccountType.CHECKING)) {
+                if (account.getAccountType().equals(AccountType.CHECKING)) {
                     CheckingAccount checkingAccount = (CheckingAccount) account;
                     totalCredit += checkingAccount.getOverdraft();
                 }

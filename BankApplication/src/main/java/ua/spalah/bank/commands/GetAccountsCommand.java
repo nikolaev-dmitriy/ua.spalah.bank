@@ -2,7 +2,6 @@ package ua.spalah.bank.commands;
 
 import ua.spalah.bank.IO.ConsoleIO;
 import ua.spalah.bank.IO.IO;
-import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
 import ua.spalah.bank.services.ClientService;
@@ -32,15 +31,11 @@ public class GetAccountsCommand extends AbstractCommand implements Command {
         int i = 0;
         StringBuilder stringBuilder = new StringBuilder();
         for (Account account : clientService.getClientAccounts(BankCommander.currentClient)) {
-            try {
-                if (account.getId() == clientService.findClientActiveAccount(BankCommander.currentClient).getId()) {
-                    stringBuilder.append("V");
-                    stringBuilder.append(" " + (++i) + "." + account + "\n");
-                } else {
-                    stringBuilder.append("  " + (++i) + "." + account + "\n");
-                }
-            } catch (ClientNotFoundException e) {
-                e.printStackTrace();
+            if (account.getId() == clientService.findClientActiveAccount(BankCommander.currentClient).getId()) {
+                stringBuilder.append("V");
+                stringBuilder.append(" " + (++i) + "." + account + "\n");
+            } else {
+                stringBuilder.append("  " + (++i) + "." + account + "\n");
             }
         }
 

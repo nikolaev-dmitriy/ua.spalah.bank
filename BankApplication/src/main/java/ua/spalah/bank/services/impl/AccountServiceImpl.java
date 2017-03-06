@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
     public void withdraw(Account account, double amount) throws NotEnoughFundsException {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
 
-        switch (account.getType()) {
+        switch (account.getAccountType()) {
             case SAVING: {
                 double balance = account.getBalance();
                 if (balance >= amount) {
@@ -65,15 +65,26 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account setActiveAccount(Account account) {
-        return accountDao.setActiveAccount(BankCommander.currentClient.getId(),account.getId());
+    public Account setActiveAccount(Client client, Account account) {
+        return accountDao.setActiveAccount(client.getId(),account.getId());
     }
 
     @Override
-    public void addAccount(Client client, Account account) {
+    public Account findAccountById(long id) {
+        return accountDao.find(id);
+    }
+
+    @Override
+    public Account updateAccount(long clientId, Account account) {
+        return accountDao.update(clientId,account);
+    }
+
+    @Override
+    public Account addAccount(Client client, Account account) {
         account = accountDao.saveOrUpdate(client.getId(),account);
         client.setActiveAccount(account);
         clientDao.update(client);
+        return account;
     }
 
 }

@@ -3,7 +3,6 @@ package ua.spalah.bank.commands;
 
 import ua.spalah.bank.IO.ConsoleIO;
 import ua.spalah.bank.IO.IO;
-import ua.spalah.bank.exceptions.ClientAlreadyExistsException;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.type.Gender;
 import ua.spalah.bank.services.AccountService;
@@ -67,11 +66,7 @@ public class AddClientCommand extends AbstractCommand implements Command {
             }
         } while (!email.matches(emailRegex));
         Client client = new Client(name, gender, email, telephone, city);
-        try {
             BankCommander.currentClient = clientService.saveClient(client);
-        } catch (ClientAlreadyExistsException e) {
-            write(e.getMessage() + "\n");
-        }
     }
 
     @Override

@@ -22,7 +22,7 @@ public class SavingAccount implements Account {
 
 
     @Override
-    public AccountType getType() {
+    public AccountType getAccountType() {
         return accountType;
     }
 
@@ -53,13 +53,13 @@ public class SavingAccount implements Account {
     public String toString() {
         return "SavingAccount{" +
                 "balance=" + this.getBalance() +
-                ", accountType=" + this.getType() +
+                ", accountType=" + this.getAccountType() +
                 "}";
     }
 
     @Override
     public boolean equals(Account account) {
-        if ( this.getType().equals(account.getType()) && this.getId() == account.getId() && this.getBalance() == account.getBalance()) {
+        if ( this.getAccountType().equals(account.getAccountType()) && this.getId() == account.getId() && this.getBalance() == account.getBalance()) {
             return true;
         } else {
             return false;

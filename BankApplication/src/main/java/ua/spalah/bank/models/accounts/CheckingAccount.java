@@ -27,13 +27,13 @@ public class CheckingAccount extends SavingAccount {
         return "CheckingAccount{" +
                 "balance=" + this.getBalance() +
                 ", overdraft=" + this.getOverdraft() +
-                ", accountType=" + this.getType() +
+                ", accountType=" + this.getAccountType()+
                 "}";
     }
 
     @Override
     public boolean equals(Account account) {
-        if (this.getOverdraft() == ((CheckingAccount) account).getOverdraft()  && this.getType().equals(account.getType()) && this.getId() == account.getId() && this.getBalance() == account.getBalance()) {
+        if (this.getOverdraft() == ((CheckingAccount) account).getOverdraft()  && this.getAccountType().equals(account.getAccountType()) && this.getId() == account.getId() && this.getBalance() == account.getBalance()) {
             return true;
         } else {
             return false;

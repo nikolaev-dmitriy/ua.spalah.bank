@@ -6,7 +6,7 @@ import ua.spalah.bank.models.type.AccountType;
  * Created by Man on 07.01.2017.
  */
 public interface Account {
-    AccountType getType();
+    AccountType getAccountType();
 
     double getBalance();
 

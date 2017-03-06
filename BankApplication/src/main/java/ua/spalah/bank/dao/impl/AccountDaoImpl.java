@@ -3,7 +3,6 @@ package ua.spalah.bank.dao.impl;
 import org.h2.jdbc.JdbcSQLException;
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.dao.ClientDao;
-import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.exceptions.DataBaseException;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.accounts.CheckingAccount;
@@ -29,17 +28,17 @@ public class AccountDaoImpl implements AccountDao {
     public Account save(long clientId, Account account) {
         try {
             PreparedStatement preparedStatement = null;
-            if (account.getType() == AccountType.CHECKING) {
+            if (account.getAccountType() == AccountType.CHECKING) {
                 String sql = "INSERT INTO PUBLIC.ACCOUNTS (client_id,account_type,balance,overdraft) values (?,?,?,?)";
                 preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-                preparedStatement.setString(2, account.getType().name());
+                preparedStatement.setString(2, account.getAccountType().name());
                 preparedStatement.setDouble(3, account.getBalance());
                 preparedStatement.setDouble(4, ((CheckingAccount) account).getOverdraft());
                 preparedStatement.setLong(1, clientId);
             } else {
                 String sql = "INSERT INTO PUBLIC.ACCOUNTS (client_id,account_type,balance) values (?,?,?)";
                 preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-                preparedStatement.setString(2, account.getType().name());
+                preparedStatement.setString(2, account.getAccountType().name());
                 preparedStatement.setDouble(3, account.getBalance());
                 preparedStatement.setLong(1, clientId);
             }
@@ -62,7 +61,7 @@ public class AccountDaoImpl implements AccountDao {
                 PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PUBLIC.ACCOUNTS SET  ACCOUNT_TYPE=?,BALANCE=?,OVERDRAFT=?,CLIENT_ID=? WHERE id=?");
                 preparedStatement.setDouble(3, ((CheckingAccount) account).getOverdraft());
 
-                preparedStatement.setString(1, account.getType().name());
+                preparedStatement.setString(1, account.getAccountType().name());
                 preparedStatement.setDouble(2, account.getBalance());
                 if (clientId != 0) {
                     preparedStatement.setLong(4, clientId);
@@ -77,7 +76,7 @@ public class AccountDaoImpl implements AccountDao {
             } catch (ClassCastException e) {
                 PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PUBLIC.ACCOUNTS SET  ACCOUNT_TYPE=?,BALANCE=?,CLIENT_ID=? WHERE id=?");
 
-                preparedStatement.setString(1, account.getType().name());
+                preparedStatement.setString(1, account.getAccountType().name());
                 preparedStatement.setDouble(2, account.getBalance());
                 if (clientId != 0) {
                     preparedStatement.setLong(3, clientId);
@@ -197,7 +196,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findActiveAccountByClientName(String clientName) throws ClientNotFoundException {
+    public Account findActiveAccountByClientName(String clientName)  {
         String findAccountId = "SELECT ACTIVE_ACCOUNT_ID FROM PUBLIC.CLIENTS WHERE NAME = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(findAccountId);
@@ -242,7 +241,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findActiveAccountByClientId(long clientId) throws ClientNotFoundException {
+    public Account findActiveAccountByClientId(long clientId)  {
         ClientDao clientDao = new ClientDaoImpl(connection);
         return clientDao.find(clientId).getActiveAccount();
     }

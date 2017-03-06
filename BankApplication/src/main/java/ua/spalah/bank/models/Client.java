@@ -20,6 +20,8 @@ public class Client {
     private Account activeAccount;
     private List<Account> accounts = new ArrayList<Account>();
 
+    public Client() {
+    }
 
     public Client(long id, String name, Gender gender, String email, String telephone, String city) {
         this.id = id;

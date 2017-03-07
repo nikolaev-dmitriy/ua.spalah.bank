@@ -22,8 +22,9 @@ public class DeleteClientServlet extends HttpServlet {
         if (idParam != null) {
             long id = Long.parseLong(idParam);
             clientService.deleteClientById(id);
-            req.setAttribute("clients", clientService.findAllClients());
-            req.getRequestDispatcher("/WEB-INF/jsp/client-list.jsp").forward(req, resp);
+//            req.setAttribute("clients", clientService.findAllClients());
+//            req.getRequestDispatcher("/WEB-INF/jsp/client-list.jsp").forward(req, resp);
+            resp.sendRedirect("/client");
         }
     }
 }

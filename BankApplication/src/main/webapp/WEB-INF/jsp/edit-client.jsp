@@ -15,7 +15,7 @@
         <form action="${editUrl}" method="post">
 
             <input type="hidden" name="id" value="${client.id}">
-            <input type="hidden" name="activeAccountId" value="${activeAccountId}">
+            <input type="hidden" name="activeAccountId" value="${client.activeAccount.id}">
 
             <div class="form-group">
                 <label for="name">Name:</label>

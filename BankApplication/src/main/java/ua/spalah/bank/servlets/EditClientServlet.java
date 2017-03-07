@@ -1,6 +1,7 @@
 package ua.spalah.bank.servlets;
 
 import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.type.Gender;
 import ua.spalah.bank.services.AccountService;
 import ua.spalah.bank.services.ClientService;
@@ -45,7 +46,8 @@ public class EditClientServlet extends HttpServlet {
 
             if (idParam != null && !idParam.equals("0")) {
                 client.setId(Long.parseLong(idParam));
-                client.setActiveAccount(clientService.findClientActiveAccount(client));
+                Account activeAccount = accountService.findAccountById(Long.parseLong(req.getParameter("activeAccountId")));
+                client.setActiveAccount(activeAccount);
                 client = clientService.updateClient(client);
                 resp.sendRedirect("/client?id=" + client.getId());
 

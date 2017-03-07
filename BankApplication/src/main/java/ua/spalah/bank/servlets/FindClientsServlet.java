@@ -32,5 +32,17 @@ public class FindClientsServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ServletContext context = req.getSession().getServletContext();
+        ClientService clientService = (ClientService) context.getAttribute("clientService");
 
+        String idParam = req.getParameter("id");
+        if (idParam != null) {
+            long id = Long.parseLong(idParam);
+            clientService.deleteClientById(id);
+            req.setAttribute("clients", clientService.findAllClients());
+            req.getRequestDispatcher("/WEB-INF/jsp/client-list.jsp").forward(req, resp);
+        }
+    }
 }

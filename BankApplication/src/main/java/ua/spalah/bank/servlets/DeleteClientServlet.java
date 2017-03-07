@@ -25,6 +25,5 @@ public class DeleteClientServlet extends HttpServlet {
             req.setAttribute("clients", clientService.findAllClients());
             req.getRequestDispatcher("/WEB-INF/jsp/client-list.jsp").forward(req, resp);
         }
-        resp.sendRedirect("/client");
     }
 }

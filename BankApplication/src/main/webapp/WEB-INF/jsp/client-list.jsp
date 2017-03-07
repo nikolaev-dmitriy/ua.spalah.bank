@@ -40,7 +40,7 @@
                         <td>${client.city}</td>
                         <td>
                             <c:url value="/client/delete?id=${client.id}" var="deleteUrl"/>
-                            <form action="${deleteUrl}" method="post">
+                            <form action="${deleteUrl}" method="get">
                             <a href="${deleteUrl}" class="btn btn-danger" role="button">Delete</a>
                             </form>
                         </td>

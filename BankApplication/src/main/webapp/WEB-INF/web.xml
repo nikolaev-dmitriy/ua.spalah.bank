@@ -67,5 +67,13 @@
         <servlet-name>depositServlet</servlet-name>
         <url-pattern>/client/account/deposit</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>setActiveAccountServlet</servlet-name>
+        <servlet-class>ua.spalah.bank.servlets.SetActiveAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>setActiveAccountServlet</servlet-name>
+        <url-pattern>/client/edit/set_active_account</url-pattern>
+    </servlet-mapping>
 </web-app>
 

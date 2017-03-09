@@ -31,6 +31,7 @@ public class EditClientServlet extends HttpServlet {
             client = new Client();
         }
         req.setAttribute("client", client);
+        req.setAttribute("accounts", clientService.getClientAccounts(client));
         req.getRequestDispatcher("/WEB-INF/jsp/edit-client.jsp").forward(req, resp);
     }
 

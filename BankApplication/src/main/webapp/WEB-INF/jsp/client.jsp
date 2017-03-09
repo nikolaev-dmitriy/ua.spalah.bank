@@ -50,6 +50,13 @@
                     </c:choose>
                 </tr>
             </c:forEach>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>${balance}</td>
+                <td>${overdraft}</td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
 

@@ -29,14 +29,14 @@ public class AccountDaoImpl implements AccountDao {
         try {
             PreparedStatement preparedStatement = null;
             if (account.getAccountType() == AccountType.CHECKING) {
-                String sql = "INSERT INTO PUBLIC.ACCOUNTS (client_id,account_type,balance,overdraft) values (?,?,?,?)";
+                String sql = "INSERT INTO PUBLIC.ACCOUNTS (client_id,Type,balance,overdraft) values (?,?,?,?)";
                 preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(2, account.getAccountType().name());
                 preparedStatement.setDouble(3, account.getBalance());
                 preparedStatement.setDouble(4, ((CheckingAccount) account).getOverdraft());
                 preparedStatement.setLong(1, clientId);
             } else {
-                String sql = "INSERT INTO PUBLIC.ACCOUNTS (client_id,account_type,balance) values (?,?,?)";
+                String sql = "INSERT INTO PUBLIC.ACCOUNTS (client_id,Type,balance) values (?,?,?)";
                 preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(2, account.getAccountType().name());
                 preparedStatement.setDouble(3, account.getBalance());
@@ -58,7 +58,7 @@ public class AccountDaoImpl implements AccountDao {
     public Account update(long clientId, Account account) {
         try {
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PUBLIC.ACCOUNTS SET  ACCOUNT_TYPE=?,BALANCE=?,OVERDRAFT=?,CLIENT_ID=? WHERE id=?");
+                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PUBLIC.ACCOUNTS SET  Type=?,BALANCE=?,OVERDRAFT=?,CLIENT_ID=? WHERE id=?");
                 preparedStatement.setDouble(3, ((CheckingAccount) account).getOverdraft());
 
                 preparedStatement.setString(1, account.getAccountType().name());
@@ -74,7 +74,7 @@ public class AccountDaoImpl implements AccountDao {
                 preparedStatement.close();
                 return account;
             } catch (ClassCastException e) {
-                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PUBLIC.ACCOUNTS SET  ACCOUNT_TYPE=?,BALANCE=?,CLIENT_ID=? WHERE id=?");
+                PreparedStatement preparedStatement = connection.prepareStatement("UPDATE PUBLIC.ACCOUNTS SET  Type=?,BALANCE=?,CLIENT_ID=? WHERE id=?");
 
                 preparedStatement.setString(1, account.getAccountType().name());
                 preparedStatement.setDouble(2, account.getBalance());

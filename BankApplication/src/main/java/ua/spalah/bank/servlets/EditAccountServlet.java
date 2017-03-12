@@ -31,6 +31,7 @@ public class EditAccountServlet extends HttpServlet {
             req.setAttribute("clientName",client.getName());
             req.setAttribute("clientId",clientIdParam);
             req.setAttribute("account",account);
+            req.setAttribute("clients",clientService.findAllClients());
             req.getRequestDispatcher("/WEB-INF/jsp/account.jsp").forward(req,resp);
         }
     }

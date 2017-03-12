@@ -1,20 +1,71 @@
 package ua.spalah.bank.models.accounts;
 
+import org.hibernate.annotations.GenericGenerator;
 import ua.spalah.bank.models.type.AccountType;
 
+import javax.persistence.*;
+
 /**
- * Created by Man on 07.01.2017.
+ * Created by Man on 12.03.2017.
  */
-public interface Account {
-    AccountType getAccountType();
+@Entity
+@Table (name="ACCOUNTS")
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name= "ACCOUNT_TYPE")
+public abstract class Account {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name="increment", strategy="increment")
+    @Column(name="id")
+    private long id;
+    @Enumerated(EnumType.STRING)
+    private AccountType type;
+    @Column(name="balance")
+    private double balance;
 
-    double getBalance();
 
-    void setBalance(double balance);
 
-    long getId();
+    protected Account(double balance,AccountType accountType){
+        this.balance=balance;
+        this.type = accountType;
+    }
 
-    void setId(long id);
+    protected Account(AccountType accountType) {
+        this.type = accountType;
+    }
 
-    boolean equals(Account account);
+    protected Account() {
+    }
+
+
+
+    public AccountType getAccountType() {
+        return type;
+    }
+
+
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+
+
+
+    public long getId() {
+        return id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.type = accountType;
+    }
 }

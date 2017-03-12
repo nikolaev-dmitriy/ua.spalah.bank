@@ -1,8 +1,10 @@
 package ua.spalah.bank.models;
 
+import org.hibernate.annotations.GenericGenerator;
 import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.models.type.Gender;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,14 +12,28 @@ import java.util.Objects;
 /**
  * Created by Man on 07.01.2017.
  */
+@Entity
+@Table(name="CLIENTS")
 public class Client {
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment",strategy = "increment")
     private long id;
+    @Column (name="name")
     private String name;
+    @Enumerated (EnumType.STRING)
     private Gender gender;
+    @Column (name="email")
     private String email;
+    @Column (name="telephone")
     private String telephone;
+    @Column (name="city")
     private String city;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="active_account_id",foreignKey = @ForeignKey(name="FK_ACTIVE_ACCOUNT"))
     private Account activeAccount;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id",foreignKey = @ForeignKey(name="FK_CLIENT_ACCOUNTS"))
     private List<Account> accounts = new ArrayList<Account>();
 
     public Client() {
@@ -40,6 +56,9 @@ public class Client {
         this.city = city;
     }
 
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     public List<Account> getAccounts() {
         return accounts;

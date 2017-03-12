@@ -34,6 +34,28 @@
             <input type="hidden" name="id" value="${account.id}">
             <input formaction="/client/account/deposit" type="submit" class="btn btn-success" value="Deposit">
             <input formaction="/client/account/withdraw" type="submit" class="btn btn-warning" value="Withdraw">
+            <button type="button" name="transferButton" class="btn btn-info">Transfer</button>
+        </form>
+        <script>
+
+        </script>
+        <form hidden="hidden" name="transferForm">
+            <h4>Choose client and account to transfer:</h4>
+            <c:forEach items="${clients}" var="client" varStatus="count">
+                <tr>
+                    <th scope="row">${count.index+1}</th>
+                    <td>${client.name}</td>
+                    <td>${client.gender}</td>
+                    <td>${client.city}</td>
+                    <td>
+                        <select class="form-control">
+                            <c:forEach items="${client.accounts}" var="account">
+                                <option>${account}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+            </c:forEach>
         </form>
         <c:url value="/client?id=${clientId}" var="backToClientUrl"/>
         <a href="${backToClientUrl}" class="btn btn-primary" role="button">Back to client info</a>

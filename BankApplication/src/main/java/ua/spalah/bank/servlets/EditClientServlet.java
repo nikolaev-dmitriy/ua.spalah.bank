@@ -27,11 +27,17 @@ public class EditClientServlet extends HttpServlet {
         Client client = null;
         if (idParam != null) {
             client = clientService.findClientById(Long.parseLong(idParam));
+
+            try {
+                req.setAttribute("activeAccountId", clientService.findClientActiveAccount(client).getId());
+            } catch (NullPointerException e) {
+                req.setAttribute("activeAccountId", 0);
+            }
+            req.setAttribute("accounts", clientService.getClientAccounts(client));
         } else {
             client = new Client();
         }
         req.setAttribute("client", client);
-        req.setAttribute("accounts", clientService.getClientAccounts(client));
         req.getRequestDispatcher("/WEB-INF/jsp/edit-client.jsp").forward(req, resp);
     }
 
@@ -48,7 +54,12 @@ public class EditClientServlet extends HttpServlet {
             if (idParam != null && !idParam.equals("0")) {
                 client.setId(Long.parseLong(idParam));
                 Account activeAccount = accountService.findAccountById(Long.parseLong(req.getParameter("activeAccountId")));
-                client.setActiveAccount(activeAccount);
+                try {
+                    accountService.setActiveAccount(client, activeAccount);
+                    accountService.updateAccount(client.getId(), activeAccount);
+                } catch (IllegalArgumentException e){
+
+                }
                 client = clientService.updateClient(client);
                 resp.sendRedirect("/client?id=" + client.getId());
 

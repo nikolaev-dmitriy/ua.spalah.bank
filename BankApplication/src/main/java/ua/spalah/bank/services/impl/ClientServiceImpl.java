@@ -62,8 +62,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client findClientById(long id){
         Client client = clientDao.find(id);
-        client.getAccounts().addAll(accountDao.findByClientId(client.getId()));
-        client.setActiveAccount(accountDao.findActiveAccountByClientName(client.getName()));
         return client;
     }
 

@@ -29,17 +29,19 @@ public class Client {
     private String telephone;
     @Column (name="city")
     private String city;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="active_account_id",foreignKey = @ForeignKey(name="FK_ACTIVE_ACCOUNT"))
     private Account activeAccount;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id",foreignKey = @ForeignKey(name="FK_CLIENT_ACCOUNTS"))
-    private List<Account> accounts = new ArrayList<Account>();
+    private List<Account> accounts;
 
     public Client() {
+        accounts = new ArrayList<Account>();
     }
 
     public Client(long id, String name, Gender gender, String email, String telephone, String city) {
+        accounts = new ArrayList<Account>();
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -49,6 +51,7 @@ public class Client {
     }
 
     public Client(String name, Gender gender, String email, String telephone, String city) {
+        accounts = new ArrayList<Account>();
         this.name = name;
         this.gender = gender;
         this.email = email;

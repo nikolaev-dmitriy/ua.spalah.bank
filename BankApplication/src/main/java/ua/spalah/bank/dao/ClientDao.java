@@ -1,6 +1,5 @@
 package ua.spalah.bank.dao;
 
-import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
 
 import java.util.List;
@@ -28,5 +27,5 @@ public interface ClientDao {
     List<Client> findAll();
 
     // Находит клиента по имени
-    Client findByName(String name) throws ClientNotFoundException;
+    Client findByName(String name);
 }

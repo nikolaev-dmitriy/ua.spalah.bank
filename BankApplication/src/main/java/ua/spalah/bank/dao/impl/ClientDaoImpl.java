@@ -2,7 +2,6 @@ package ua.spalah.bank.dao.impl;
 
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.dao.ClientDao;
-import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.exceptions.DataBaseException;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
@@ -138,7 +137,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client findByName(String name) throws ClientNotFoundException {
+    public Client findByName(String name){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PUBLIC.CLIENTS WHERE NAME=?", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, name);
@@ -148,7 +147,7 @@ public class ClientDaoImpl implements ClientDao {
                 Client client = new Client(resultSet.getLong("id"), resultSet.getString("name"), Gender.valueOf(resultSet.getString("gender")), resultSet.getString("email"), resultSet.getString("telephone"), resultSet.getString("city"));
                 return client;
             } else {
-                throw new ClientNotFoundException(name);
+                return null;
             }
         } catch (SQLException e) {
             throw new DataBaseException(e);

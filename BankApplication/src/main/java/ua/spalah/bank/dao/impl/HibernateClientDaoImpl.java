@@ -4,6 +4,7 @@ import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
@@ -19,36 +20,68 @@ public class HibernateClientDaoImpl implements ClientDao {
 
     @Override
     public Client save(Client client) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(client);
+        entityManager.getTransaction().commit();
+        client = entityManager.find(Client.class,client.getId());
+        entityManager.close();
+        return client;
     }
 
     @Override
     public Client update(Client client) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        client = entityManager.merge(client);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return client;
     }
 
     @Override
     public Client saveOrUpdate(Client client) {
-        return null;
+        if (client.getId()==0) {
+            client = save(client);
+        } else {
+            client = update(client);
+        }
+        return client;
     }
 
     @Override
     public void delete(long clientId) {
-
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Client client = entityManager.find(Client.class, clientId);
+        entityManager.remove(client);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override
     public Client find(long id) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Client client = entityManager.createQuery("from Client cl where cl.id="+id,Client.class).getSingleResult();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return client;
     }
 
     @Override
     public List<Client> findAll() {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<Client> clients = entityManager.createQuery("from Client", Client.class).getResultList();
+        entityManager.close();
+        return clients;
     }
 
     @Override
-    public Client findByName(String name) throws ClientNotFoundException {
-        return null;
+    public Client findByName(String name){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Client client = entityManager.createQuery("select cl from Client cl where cl.name=" + name, Client.class).getSingleResult();
+        entityManager.close();
+        return client;
     }
 }

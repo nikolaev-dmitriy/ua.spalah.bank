@@ -65,7 +65,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account setActiveAccount(Client client, Account account) {
-        return accountDao.setActiveAccount(client.getId(),account.getId());
+        try {
+            return accountDao.setActiveAccount(client.getId(),account.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
@@ -80,7 +84,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account addAccount(Client client, Account account) {
-        account = accountDao.saveOrUpdate(client.getId(),account);
+        account = accountDao.save(client.getId(),account);
         client.setActiveAccount(account);
         clientDao.update(client);
         return account;

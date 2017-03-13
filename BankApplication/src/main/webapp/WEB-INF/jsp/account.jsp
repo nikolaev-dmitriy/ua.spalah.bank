@@ -49,7 +49,7 @@
                     <td>${client.city}</td>
                     <td>
                         <select class="form-control">
-                            <c:forEach items="${client.accounts}" var="account">
+                            <c:forEach items="${Hibernate.initialize(client.accounts)}" var="account">
                                 <option>${account}</option>
                             </c:forEach>
                         </select>

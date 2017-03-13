@@ -26,7 +26,7 @@
             <th>Status</th>
             </thead>
             <tbody>
-            <c:forEach items="${client.accounts}" var="account" varStatus="count">
+            <c:forEach items="${accounts}" var="account" varStatus="count">
                 <tr>
                     <th scope="row">${count.index + 1}</th>
                     <td><c:url value="/client/account?id=${account.id}&clientId=${client.id}" var="accountUrl"/>

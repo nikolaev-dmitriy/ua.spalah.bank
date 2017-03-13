@@ -1,3 +1,4 @@
+<%@ page import="org.hibernate.Hibernate" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -15,7 +16,7 @@
         <form action="${editUrl}" method="post">
 
             <input type="hidden" name="id" value="${client.id}">
-            <input type="hidden" name="activeAccountId" value="${client.activeAccount.id}">
+            <input type="hidden" name="activeAccountId" value="${activeAccountId}">
 
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -68,7 +69,7 @@
                         </c:otherwise>
                         </c:choose>
                         <c:choose>
-                            <c:when test="${account.id==client.activeAccount.id}">
+                            <c:when test="${account.id==(activeAccountId)}">
                                 <td>ACTIVE</td>
                             </c:when>
                             <c:otherwise>

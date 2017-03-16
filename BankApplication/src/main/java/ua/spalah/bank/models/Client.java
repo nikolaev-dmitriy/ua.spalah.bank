@@ -29,10 +29,10 @@ public class Client {
     private String telephone;
     @Column (name="city")
     private String city;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="active_account_id",foreignKey = @ForeignKey(name="FK_ACTIVE_ACCOUNT"))
     private Account activeAccount;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id",foreignKey = @ForeignKey(name="FK_CLIENT_ACCOUNTS"))
     private List<Account> accounts;
 

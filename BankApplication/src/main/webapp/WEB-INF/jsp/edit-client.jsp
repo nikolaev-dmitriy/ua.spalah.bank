@@ -17,7 +17,7 @@
 
             <input type="hidden" name="id" value="${client.id}">
             <input type="hidden" name="activeAccountId" value="${activeAccountId}">
-
+            <input type="hidden" name="accounts" value="${accounts}">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input id="name" type="text" class="form-control" name="name" value="${client.name}">
@@ -43,46 +43,6 @@
                 <label for="telephone">Telephone:</label>
                 <input id="telephone" type="text" class="form-control" name="telephone" value="${client.telephone}">
             </div>
-
-
-            <table class="table">
-                <thead>
-                <th>#</th>
-                <th>Type</th>
-                <th>Balance</th>
-                <th>Overdraft</th>
-                <th>Status</th>
-                <th></th>
-                </thead>
-                <tbody>
-                <c:forEach items="${accounts}" var="account" varStatus="count">
-                    <tr>
-                        <th scope="row">${count.index+1}</th>
-                        <td>${account.accountType}</td>
-                        <td>${account.balance}</td>
-                        <c:choose>
-                        <c:when test="${account.accountType=='CHECKING'}">
-                        <td>${account.overdraft}</td>
-                        </c:when>
-                        <c:otherwise>
-                            <td>not available</td>>
-                        </c:otherwise>
-                        </c:choose>
-                        <c:choose>
-                            <c:when test="${account.id==(activeAccountId)}">
-                                <td>ACTIVE</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td>NOT - Active</td>
-                            </c:otherwise>
-                        </c:choose>
-                        <td>
-                        <a href="/client/edit/set_active_account?id=${account.id}&clientId=${client.id}" type="button" class="btn btn-primary">Set active</a>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
             <input type="submit" class="btn btn-success" value="Submit">
         </form>
     </div>

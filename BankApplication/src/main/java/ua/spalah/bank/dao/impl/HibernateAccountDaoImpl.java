@@ -24,7 +24,6 @@ public class HibernateAccountDaoImpl implements AccountDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(account);
-        account = entityManager.find(Account.class, account.getId());
         Query query = entityManager.createNativeQuery("UPDATE PUBLIC.ACCOUNTS set CLIENT_ID=:clientId where id=:accountId");
         query.setParameter("clientId", clientId);
         query.setParameter("accountId", account.getId());
@@ -39,6 +38,11 @@ public class HibernateAccountDaoImpl implements AccountDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         account = entityManager.merge(account);
+        Query query = entityManager.createNativeQuery("UPDATE PUBLIC .ACCOUNTS SET CLIENT_ID=:clientId WHERE ID=:id");
+        query.setParameter("clientId",clientId);
+        query.setParameter("id",account.getId());
+        query.executeUpdate();
+        account = entityManager.find(Account.class, account.getId());
         entityManager.getTransaction().commit();
         entityManager.close();
         return account;
@@ -69,6 +73,7 @@ public class HibernateAccountDaoImpl implements AccountDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Account account = entityManager.find(Account.class, id);
+        entityManager.getTransaction().commit();
         entityManager.close();
         return account;
     }
@@ -93,34 +98,28 @@ public class HibernateAccountDaoImpl implements AccountDao {
 
     @Override
     public Account findActiveAccountByClientName(String clientName) {
-        Account account = null;
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery("select cl from Client cl where cl.name=:name");
         query.setParameter("name", clientName);
         Client client = (Client) query.getSingleResult();
-        Query query1 = entityManager.createNativeQuery("SELECT active_account_id from PUBLIC .CLIENTS WHERE ID=" + client.getId());
-        Object result = query1.getSingleResult();
-        if (result != null) {
-            long accountId = Long.parseLong(result.toString());
-            account = entityManager.find(Account.class, accountId);
-        }
         entityManager.getTransaction().commit();
         entityManager.close();
-        return account;
+        return client.getActiveAccount();
     }
 
     @Override
     public Account setActiveAccount(long clientId, long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Client client = entityManager.createQuery("from Client cl where cl.id=" + clientId, Client.class).getSingleResult();
+        Query query = entityManager.createQuery("update Client cl set cl.activeAccount.id=:activeAccountId where cl.id=:clientId");
+        query.setParameter("activeAccountId",id);
+        query.setParameter("clientId",clientId);
+        query.executeUpdate();
         Account account = entityManager.find(Account.class, id);
-        client.setActiveAccount(account);
-        entityManager.merge(client);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return null;
+        return account;
     }
 
     @Override
@@ -129,18 +128,11 @@ public class HibernateAccountDaoImpl implements AccountDao {
 
     @Override
     public Account findActiveAccountByClientId(long clientId) {
-        Account account = null;
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         Client client = entityManager.find(Client.class, clientId);
-        Query query = entityManager.createNativeQuery("SELECT active_account_id from PUBLIC .CLIENTS WHERE ID=" + client.getId());
-        Object result = query.getSingleResult();
-        if (result != null) {
-            long accountId = Long.parseLong(result.toString());
-            account = entityManager.find(Account.class, accountId);
-        }
         entityManager.getTransaction().commit();
         entityManager.close();
-        return account;
+        return client.getActiveAccount();
     }
 }

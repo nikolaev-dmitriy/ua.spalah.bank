@@ -22,10 +22,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deposit(long clientId,Account account, double amount) {
+    public void deposit(long clientId, Account account, double amount) {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
         account.setBalance(account.getBalance() + amount);
-        accountDao.update(clientId,account);
+        accountDao.update(clientId, account);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
                 double balance = account.getBalance();
                 if (balance >= amount) {
                     account.setBalance(balance - amount);
-                    accountDao.update(clientId,account);
+                    accountDao.update(clientId, account);
                 } else {
                     throw new NotEnoughFundsException(balance);
                 }
@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
                 double available = account.getBalance() + ((CheckingAccount) account).getOverdraft();
                 if (available >= amount) {
                     account.setBalance(account.getBalance() - amount);
-                    accountDao.update(clientId,account);
+                    accountDao.update(clientId, account);
                 } else {
                     throw new OverdraftLimitExceededException(available);
                 }
@@ -65,11 +65,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account setActiveAccount(Client client, Account account) {
-        try {
-            return accountDao.setActiveAccount(client.getId(),account.getId());
-        } catch (NullPointerException e) {
-            return null;
-        }
+        account = accountDao.setActiveAccount(client.getId(), account.getId());
+        client.setActiveAccount(account);
+        return client.getActiveAccount();
     }
 
     @Override
@@ -79,14 +77,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account updateAccount(long clientId, Account account) {
-        return accountDao.update(clientId,account);
+        return accountDao.update(clientId, account);
     }
 
     @Override
     public Account addAccount(Client client, Account account) {
-        account = accountDao.save(client.getId(),account);
-        client.setActiveAccount(account);
-        clientDao.update(client);
+        account = accountDao.save(client.getId(), account);
+        account = setActiveAccount(client, account);
         return account;
     }
 

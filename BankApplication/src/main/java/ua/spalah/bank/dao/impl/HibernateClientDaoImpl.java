@@ -3,9 +3,11 @@ package ua.spalah.bank.dao.impl;
 import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -24,7 +26,6 @@ public class HibernateClientDaoImpl implements ClientDao {
         entityManager.getTransaction().begin();
         entityManager.persist(client);
         entityManager.getTransaction().commit();
-        client = entityManager.find(Client.class,client.getId());
         entityManager.close();
         return client;
     }
@@ -63,7 +64,7 @@ public class HibernateClientDaoImpl implements ClientDao {
     public Client find(long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Client client = entityManager.createQuery("from Client cl where cl.id="+id,Client.class).getSingleResult();
+        Client client = entityManager.find(Client.class,id);
         entityManager.getTransaction().commit();
         entityManager.close();
         return client;

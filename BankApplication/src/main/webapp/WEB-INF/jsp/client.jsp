@@ -24,9 +24,10 @@
             <th>Balance</th>
             <th>Overdraft</th>
             <th>Status</th>
+            <th></th>>
             </thead>
             <tbody>
-            <c:forEach items="${accounts}" var="account" varStatus="count">
+            <c:forEach items="${clientService.getClientAccounts(client)}" var="account" varStatus="count">
                 <tr>
                     <th scope="row">${count.index + 1}</th>
                     <td><c:url value="/client/account?id=${account.id}&clientId=${client.id}" var="accountUrl"/>
@@ -41,13 +42,17 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${account.id==client.activeAccount.id}">
+                        <c:when test="${account.id==activeAccount.id}">
                             <td>ACTIVE</td>
                         </c:when>
                         <c:otherwise>
                             <td>NOT - Active</td>
                         </c:otherwise>
                     </c:choose>
+                    <td>
+                        <a href="/client/edit/set_active_account?id=${account.id}&clientId=${client.id}" type="button" class="btn btn-primary">Set active</a>
+                    </td>
+
                 </tr>
             </c:forEach>
             <tr>

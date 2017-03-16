@@ -27,8 +27,6 @@ public class ClientServiceImpl implements ClientService {
         if (client == null) {
             throw new ClientNotFoundException(name);
         }
-        client.getAccounts().addAll(accountDao.findByClientId(client.getId()));
-        client.setActiveAccount(accountDao.findActiveAccountByClientName(name));
         return client;
     }
 
@@ -55,12 +53,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Account findClientActiveAccount(Client client){
+    public Account findClientActiveAccount(Client client) {
         return accountDao.findActiveAccountByClientId(client.getId());
     }
 
     @Override
-    public Client findClientById(long id){
+    public Client findClientById(long id) {
         Client client = clientDao.find(id);
         return client;
     }
@@ -68,7 +66,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client updateClient(Client client) {
         client = clientDao.update(client);
-        client.setActiveAccount(accountDao.findActiveAccountByClientName(client.getName()));
         return client;
     }
 

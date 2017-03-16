@@ -1,6 +1,7 @@
 package ua.spalah.bank.servlets;
 
 import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
 import ua.spalah.bank.services.AccountService;
 import ua.spalah.bank.services.ClientService;
 
@@ -25,8 +26,9 @@ public class SetActiveAccountServlet extends HttpServlet {
             long id=Long.parseLong(idParam);
             long clientId = Long.parseLong(req.getParameter("clientId"));
             Client client = clientService.findClientById(clientId);
-            accountService.setActiveAccount(client, accountService.findAccountById(id));
+            Account account = accountService.findAccountById(id);
+            accountService.setActiveAccount(client, account);
         }
-        resp.sendRedirect("/client/edit?id="+req.getParameter("clientId"));
+        resp.sendRedirect("/client?id="+req.getParameter("clientId"));
     }
 }

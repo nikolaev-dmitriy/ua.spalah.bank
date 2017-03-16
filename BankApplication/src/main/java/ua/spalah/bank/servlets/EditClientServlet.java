@@ -56,12 +56,10 @@ public class EditClientServlet extends HttpServlet {
                 Account activeAccount = accountService.findAccountById(Long.parseLong(req.getParameter("activeAccountId")));
                 try {
                     accountService.setActiveAccount(client, activeAccount);
-                    accountService.updateAccount(client.getId(), activeAccount);
                 } catch (IllegalArgumentException e){
-
                 }
-                client = clientService.updateClient(client);
-                resp.sendRedirect("/client?id=" + client.getId());
+                accountService.updateAccount(client.getId(),activeAccount);
+                resp.sendRedirect("/client?id="+client.getId());
 
             } else {
                 client = clientService.saveClient(client);

@@ -1,5 +1,8 @@
 package ua.spalah.bank.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.exceptions.NotEnoughFundsException;
@@ -12,22 +15,22 @@ import ua.spalah.bank.services.AccountService;
 /**
  * Created by Man on 07.01.2017.
  */
+@Service
+@Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
+    @Autowired
     private AccountDao accountDao;
+    @Autowired
     private ClientDao clientDao;
 
-    public AccountServiceImpl(ClientDao clientDao, AccountDao accountDao) {
-        this.accountDao = accountDao;
-        this.clientDao = clientDao;
-    }
-
+    @Transactional
     @Override
     public void deposit(long clientId, Account account, double amount) {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
         account.setBalance(account.getBalance() + amount);
         accountDao.update(clientId, account);
     }
-
+    @Transactional
     @Override
     public void withdraw(long clientId, Account account, double amount) throws NotEnoughFundsException {
         if (amount <= 0) throw new IllegalArgumentException("Amount can't be negative");
@@ -57,12 +60,12 @@ public class AccountServiceImpl implements AccountService {
                 throw new IllegalArgumentException("Unknown account type");
         }
     }
-
+    @Transactional
     @Override
     public void transfer(Account fromAccount, Account toAccount, double amount) throws NotEnoughFundsException {
 
     }
-
+    @Transactional
     @Override
     public Account setActiveAccount(Client client, Account account) {
         account = accountDao.setActiveAccount(client.getId(), account.getId());
@@ -74,12 +77,12 @@ public class AccountServiceImpl implements AccountService {
     public Account findAccountById(long id) {
         return accountDao.find(id);
     }
-
+    @Transactional
     @Override
     public Account updateAccount(long clientId, Account account) {
         return accountDao.update(clientId, account);
     }
-
+    @Transactional
     @Override
     public Account addAccount(Client client, Account account) {
         account = accountDao.save(client.getId(), account);

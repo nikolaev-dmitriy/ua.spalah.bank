@@ -1,5 +1,8 @@
 package ua.spalah.bank.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.models.Client;
@@ -13,13 +16,13 @@ import java.util.*;
 /**
  * Created by Man on 07.01.2017.
  */
+@Service
+@Transactional(readOnly = true)
 public class BankReportServiceImpl implements BankReportService {
+   @Autowired
     private ClientDao clientDao;
-    private AccountDao accountDao;
-    public BankReportServiceImpl(ClientDao clientDao, AccountDao accountDao) {
-    this.clientDao=clientDao;
-    this.accountDao = accountDao;
-    }
+   @Autowired
+   private AccountDao accountDao;
 
     @Override
     public int getNumberOfClients() {

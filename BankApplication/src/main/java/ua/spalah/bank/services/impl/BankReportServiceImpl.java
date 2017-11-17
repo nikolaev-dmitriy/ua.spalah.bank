@@ -1,25 +1,28 @@
-package main.java.ua.spalah.bank.services.impl;
+package ua.spalah.bank.services.impl;
 
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.models.accounts.CheckingAccount;
-import main.java.ua.spalah.bank.models.type.AccountType;
-import main.java.ua.spalah.bank.services.BankReportService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.accounts.CheckingAccount;
+import ua.spalah.bank.models.type.AccountType;
+import ua.spalah.bank.services.BankReportService;
 
 import java.util.*;
 
 /**
  * Created by Man on 07.01.2017.
  */
+@Service
+@Transactional(readOnly = true)
 public class BankReportServiceImpl implements BankReportService {
+   @Autowired
     private ClientDao clientDao;
-    private AccountDao accountDao;
-    public BankReportServiceImpl(ClientDao clientDao, AccountDao accountDao) {
-    this.clientDao=clientDao;
-    this.accountDao = accountDao;
-    }
+   @Autowired
+   private AccountDao accountDao;
 
     @Override
     public int getNumberOfClients() {
@@ -47,7 +50,7 @@ public class BankReportServiceImpl implements BankReportService {
         double totalCredit = 0;
         for (Client client : clientDao.findAll()) {
             for (Account account : accountDao.findByClientId(client.getId())) {
-                if (account.getType().equals(AccountType.CHECKING)) {
+                if (account.getAccountType().equals(AccountType.CHECKING)) {
                     CheckingAccount checkingAccount = (CheckingAccount) account;
                     totalCredit += checkingAccount.getOverdraft();
                 }

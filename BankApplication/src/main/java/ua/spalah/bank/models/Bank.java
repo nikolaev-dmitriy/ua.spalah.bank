@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.models;
+package ua.spalah.bank.models;
 
 import java.util.HashMap;
 import java.util.Map;

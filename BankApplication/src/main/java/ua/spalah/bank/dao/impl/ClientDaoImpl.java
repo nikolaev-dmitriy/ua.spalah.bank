@@ -1,12 +1,11 @@
-package main.java.ua.spalah.bank.dao.impl;
+package ua.spalah.bank.dao.impl;
 
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.exceptions.DataBaseException;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.models.type.Gender;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.exceptions.DataBaseException;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.type.Gender;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -88,7 +87,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void delete(long clientId) throws ClientNotFoundException {
+    public void delete(long clientId){
         try {
             Client client = find(clientId);
             client.setActiveAccount(null);
@@ -108,7 +107,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client find(long id) throws ClientNotFoundException {
+    public Client find(long id){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PUBLIC.CLIENTS WHERE id=?");
             preparedStatement.setLong(1, id);
@@ -138,7 +137,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client findByName(String name) throws ClientNotFoundException {
+    public Client findByName(String name){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM PUBLIC.CLIENTS WHERE NAME=?", PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, name);
@@ -148,7 +147,7 @@ public class ClientDaoImpl implements ClientDao {
                 Client client = new Client(resultSet.getLong("id"), resultSet.getString("name"), Gender.valueOf(resultSet.getString("gender")), resultSet.getString("email"), resultSet.getString("telephone"), resultSet.getString("city"));
                 return client;
             } else {
-                throw new ClientNotFoundException(name);
+                return null;
             }
         } catch (SQLException e) {
             throw new DataBaseException(e);

@@ -1,13 +1,12 @@
-package main.java.ua.spalah.bank.commands;
+package ua.spalah.bank.commands;
 
-import main.java.ua.spalah.bank.IO.IO;
-import main.java.ua.spalah.bank.IO.ConsoleIO;
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.services.AccountService;
-import main.java.ua.spalah.bank.services.BankReportService;
-import main.java.ua.spalah.bank.services.ClientService;
+import ua.spalah.bank.IO.ConsoleIO;
+import ua.spalah.bank.IO.IO;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.services.AccountService;
+import ua.spalah.bank.services.BankReportService;
+import ua.spalah.bank.services.ClientService;
 
 /**
  * Created by Man on 12.01.2017.
@@ -35,11 +34,7 @@ public class GetBankInfoCommand extends AbstractCommand implements Command {
         write("Bank Info:\n");
         for (Client client : bankReportService.getClientsSortedByName()) {
             write("Client: " + client.getName() + "\t" + client.getGender().name() + "\t" + client.getCity() + "\t" + client.getTelephone() + "\t" + client.getEmail() + "\n");
-            try {
-                write("Active account: " + clientService.findClientActiveAccount(client) + "\n");
-            } catch (ClientNotFoundException e) {
-                e.printStackTrace();
-            }
+            write("Active account: " + clientService.findClientActiveAccount(client) + "\n");
             write("Accounts: ");
             for (Account account : clientService.getClientAccounts(client)) {
                 write(account + "\n");

@@ -1,4 +1,4 @@
-package main.java.ua.spalah.bank.client;
+package ua.spalah.bank.client;
 
 import java.io.*;
 import java.net.Socket;

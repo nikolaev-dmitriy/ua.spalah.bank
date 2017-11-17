@@ -1,8 +1,10 @@
-package main.java.ua.spalah.bank.models;
+package ua.spalah.bank.models;
 
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.models.type.Gender;
+import org.hibernate.annotations.GenericGenerator;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.type.Gender;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,18 +12,36 @@ import java.util.Objects;
 /**
  * Created by Man on 07.01.2017.
  */
+@Entity
+@Table(name="CLIENTS")
 public class Client {
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment",strategy = "increment")
     private long id;
+    @Column (name="name")
     private String name;
+    @Enumerated (EnumType.STRING)
     private Gender gender;
+    @Column (name="email")
     private String email;
+    @Column (name="telephone")
     private String telephone;
+    @Column (name="city")
     private String city;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="active_account_id",foreignKey = @ForeignKey(name="FK_ACTIVE_ACCOUNT"))
     private Account activeAccount;
-    private List<Account> accounts = new ArrayList<Account>();
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id",foreignKey = @ForeignKey(name="FK_CLIENT_ACCOUNTS"))
+    private List<Account> accounts;
 
+    public Client() {
+        accounts = new ArrayList<Account>();
+    }
 
     public Client(long id, String name, Gender gender, String email, String telephone, String city) {
+        accounts = new ArrayList<Account>();
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -31,6 +51,7 @@ public class Client {
     }
 
     public Client(String name, Gender gender, String email, String telephone, String city) {
+        accounts = new ArrayList<Account>();
         this.name = name;
         this.gender = gender;
         this.email = email;
@@ -38,6 +59,9 @@ public class Client {
         this.city = city;
     }
 
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     public List<Account> getAccounts() {
         return accounts;

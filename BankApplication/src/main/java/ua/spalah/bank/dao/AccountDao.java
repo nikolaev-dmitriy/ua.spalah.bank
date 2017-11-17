@@ -1,7 +1,6 @@
-package main.java.ua.spalah.bank.dao;
+package ua.spalah.bank.dao;
 
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.accounts.Account;
 
 import java.util.List;
 
@@ -24,10 +23,10 @@ public interface AccountDao {
 
     List<Account> findByClientId(long clientId);
 
-    Account findActiveAccountByClientName(String clientName) throws ClientNotFoundException;
+    Account findActiveAccountByClientName(String clientName);
 
     Account setActiveAccount(long clientId, long id);
     void deleteByClientId(long clientId);
-    Account findActiveAccountByClientId(long clientId) throws ClientNotFoundException;
+    Account findActiveAccountByClientId(long clientId);
 
 }

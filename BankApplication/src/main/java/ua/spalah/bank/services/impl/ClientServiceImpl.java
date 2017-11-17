@@ -1,26 +1,27 @@
-package main.java.ua.spalah.bank.services.impl;
+package ua.spalah.bank.services.impl;
 
-import main.java.ua.spalah.bank.dao.AccountDao;
-import main.java.ua.spalah.bank.dao.ClientDao;
-import main.java.ua.spalah.bank.exceptions.ClientAlreadyExistsException;
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.models.Client;
-import main.java.ua.spalah.bank.models.accounts.Account;
-import main.java.ua.spalah.bank.services.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ua.spalah.bank.dao.AccountDao;
+import ua.spalah.bank.dao.ClientDao;
+import ua.spalah.bank.exceptions.ClientNotFoundException;
+import ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.services.ClientService;
 
 import java.util.List;
 
 /**
  * Created by Man on 07.01.2017.
  */
+@Service
+@Transactional(readOnly = true)
 public class ClientServiceImpl implements ClientService {
+   @Autowired
     private ClientDao clientDao;
-    private AccountDao accountDao;
-
-    public ClientServiceImpl(ClientDao clientDao, AccountDao accountDao) {
-        this.accountDao = accountDao;
-        this.clientDao = clientDao;
-    }
+   @Autowired
+   private AccountDao accountDao;
 
     @Override
     public Client findClientByName(String name) throws ClientNotFoundException {
@@ -28,14 +29,12 @@ public class ClientServiceImpl implements ClientService {
         if (client == null) {
             throw new ClientNotFoundException(name);
         }
-        client.getAccounts().addAll(accountDao.findByClientId(client.getId()));
-        client.setActiveAccount(accountDao.findActiveAccountByClientName(name));
         return client;
     }
-
+    @Transactional
     @Override
-    public Client saveClient(Client client) throws ClientAlreadyExistsException {
-        return clientDao.saveOrUpdate(client);
+    public Client saveClient(Client client) {
+        return clientDao.save(client);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.findAll();
     }
 
-
+    @Transactional
     @Override
     public void deleteClient(String name) throws ClientNotFoundException {
         Client client = findClientByName(name);
@@ -56,8 +55,25 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Account findClientActiveAccount(Client client) throws ClientNotFoundException {
-        return accountDao.findActiveAccountByClientName(client.getName());
+    public Account findClientActiveAccount(Client client) {
+        return accountDao.findActiveAccountByClientId(client.getId());
+    }
+
+    @Override
+    public Client findClientById(long id) {
+        Client client = clientDao.find(id);
+        return client;
+    }
+    @Transactional
+    @Override
+    public Client updateClient(Client client) {
+        client = clientDao.update(client);
+        return client;
+    }
+    @Transactional
+    @Override
+    public void deleteClientById(long id) {
+        clientDao.delete(id);
     }
 
 

@@ -1,7 +1,6 @@
-package main.java.ua.spalah.bank.dao;
+package ua.spalah.bank.dao;
 
-import main.java.ua.spalah.bank.exceptions.ClientNotFoundException;
-import main.java.ua.spalah.bank.models.Client;
+import ua.spalah.bank.models.Client;
 
 import java.util.List;
 
@@ -19,14 +18,14 @@ public interface ClientDao {
     Client saveOrUpdate(Client client);
 
     // Удаляет клиента по его id
-    void delete(long clientId) throws ClientNotFoundException;
+    void delete(long clientId);
 
     // Находит клиента по его id
-    Client find(long id) throws ClientNotFoundException;
+    Client find(long id);
 
     // Достает из базы всех клиентов
     List<Client> findAll();
 
     // Находит клиента по имени
-    Client findByName(String name) throws ClientNotFoundException;
+    Client findByName(String name);
 }

@@ -27,7 +27,7 @@
             <th></th>>
             </thead>
             <tbody>
-            <c:forEach items="${clientService.getClientAccounts(client)}" var="account" varStatus="count">
+            <c:forEach items="${accounts}" var="account" varStatus="count">
                 <tr>
                     <th scope="row">${count.index + 1}</th>
                     <td><c:url value="/client/account?id=${account.id}&clientId=${client.id}" var="accountUrl"/>
@@ -50,7 +50,7 @@
                         </c:otherwise>
                     </c:choose>
                     <td>
-                        <a href="/client/edit/set_active_account?id=${account.id}&clientId=${client.id}" type="button" class="btn btn-primary">Set active</a>
+                        <a href="/client/edit/set-active-account?id=${account.id}&clientId=${client.id}" type="button" class="btn btn-primary">Set active</a>
                     </td>
 
                 </tr>
@@ -71,7 +71,7 @@
         <c:url value="/client/account/add?clientId=${client.id}" var="addAccountUrl"/>
         <a href="${addAccountUrl}" class="btn btn-success" role="button">Add account</a>
 
-        <c:url value="/client" var="allClientsUrl"/>
+        <c:url value="/client-list" var="allClientsUrl"/>
         <a href="${allClientsUrl}" class="btn btn-default" role="button">Back to table</a>
     </div>
 </div>

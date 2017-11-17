@@ -29,4 +29,6 @@ public interface ClientService {
     Client updateClient(Client client);
 
     void deleteClientById(long id);
+
+    double getTotalOverdraft(Client client);
 }

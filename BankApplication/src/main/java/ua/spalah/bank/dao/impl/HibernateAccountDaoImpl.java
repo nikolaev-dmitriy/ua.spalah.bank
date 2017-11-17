@@ -1,6 +1,7 @@
 package ua.spalah.bank.dao.impl;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.spalah.bank.dao.AccountDao;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
@@ -29,20 +30,6 @@ public class HibernateAccountDaoImpl implements AccountDao {
         query.executeUpdate();
         return account;
     }
-
-    @Override
-    public Account update(long clientId, Account account) {
-
-        account = entityManager.merge(account);
-        Query query = entityManager.createNativeQuery("UPDATE PUBLIC .ACCOUNTS SET CLIENT_ID=:clientId WHERE ID=:id");
-        query.setParameter("clientId",clientId);
-        query.setParameter("id",account.getId());
-        query.executeUpdate();
-        account = entityManager.find(Account.class, account.getId());
-
-        return account;
-    }
-
     @Override
     public Account saveOrUpdate(long clientId, Account account) {
         if (account.getId() != 0) {
@@ -53,6 +40,18 @@ public class HibernateAccountDaoImpl implements AccountDao {
         return account;
     }
 
+    @Override
+    public Account update(long clientId, Account account) {
+
+            account = entityManager.merge(account);
+            Query query = entityManager.createNativeQuery("UPDATE PUBLIC .ACCOUNTS SET CLIENT_ID=:clientId WHERE ID=:id");
+            query.setParameter("clientId", clientId);
+            query.setParameter("id", account.getId());
+            query.executeUpdate();
+            account = entityManager.find(Account.class, account.getId());
+{}
+        return account;
+    }
     @Override
     public void delete(long id) {
 

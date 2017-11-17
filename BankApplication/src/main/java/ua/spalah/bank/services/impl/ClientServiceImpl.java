@@ -8,6 +8,8 @@ import ua.spalah.bank.dao.ClientDao;
 import ua.spalah.bank.exceptions.ClientNotFoundException;
 import ua.spalah.bank.models.Client;
 import ua.spalah.bank.models.accounts.Account;
+import ua.spalah.bank.models.accounts.CheckingAccount;
+import ua.spalah.bank.models.type.AccountType;
 import ua.spalah.bank.services.ClientService;
 
 import java.util.List;
@@ -76,6 +78,17 @@ public class ClientServiceImpl implements ClientService {
         clientDao.delete(id);
     }
 
+    @Override
+    public double getTotalOverdraft(Client client) {
+        double totalSum=0;
+        for (Account account: accountDao.findByClientId(client.getId())){
+          if (account.getAccountType().equals(AccountType.CHECKING)){
+              totalSum+=((CheckingAccount) account).getOverdraft();
+          }
+        }
+        return totalSum;
+    }
+
 
     @Override
     public double getTotalBalance(Client client) {
@@ -85,6 +98,5 @@ public class ClientServiceImpl implements ClientService {
         }
         return totalSum;
     }
-
 
 }
